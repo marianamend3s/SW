@@ -10,6 +10,7 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     var window: UIWindow?
+    var coordinator: CategoriesCoordinator?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
@@ -19,11 +20,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         window = UIWindow(windowScene: windowScene)
         
-        let mainViewController = MainViewController()
+        let viewController = CategoriesViewController()
         
-        let navigationController = UINavigationController(rootViewController: mainViewController)
+        let navigationController = UINavigationController(rootViewController: viewController)
+        coordinator = CategoriesCoordinator(navigationController: navigationController)
+        coordinator?.start()
+        
         window?.rootViewController = navigationController
-        
         window?.makeKeyAndVisible()
     }
 

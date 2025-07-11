@@ -1,5 +1,5 @@
 //
-//  MainViewController.swift
+//  CategoriesViewController.swift
 //  StarWars
 //
 //  Created by Mariana Mendes on 11/07/2025.
@@ -7,9 +7,10 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class CategoriesViewController: UIViewController {
 
     private var collectionView: UICollectionView!
+    var viewModel: CategoriesViewModel?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +66,7 @@ class MainViewController: UIViewController {
 
 // MARK: - UICollectionViewDataSource
 
-extension MainViewController: UICollectionViewDataSource {
+extension CategoriesViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return Categories.allCases.count
     }
@@ -81,22 +82,9 @@ extension MainViewController: UICollectionViewDataSource {
 
 // MARK: - UICollectionViewDelegate
 
-extension MainViewController: UICollectionViewDelegate {
+extension CategoriesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let selectedItem = Categories.allCases[indexPath.item].rawValue
-
-        let destinationVC: UIViewController
-        
-        switch selectedItem {
-        case Categories.films.rawValue:
-            destinationVC = FilmsViewController()
-        
-        // TODO: - remove when all cases are done
-        default:
-            destinationVC = UIViewController()
-        }
-        
-        destinationVC.title = selectedItem
-        navigationController?.pushViewController(destinationVC, animated: true)
+        viewModel?.didSelectCategory(at: indexPath, with: selectedItem)
     }
 }

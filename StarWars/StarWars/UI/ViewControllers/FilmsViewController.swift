@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  FilmsViewController.swift
 //  StarWars
 //
 //  Created by Mariana Mendes on 11/07/2025.
@@ -7,15 +7,18 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
-    
+class FilmsViewController: UIViewController {
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // MARK: For debug purposes - delete later
+        view.backgroundColor = .systemBackground
+        
+        // TODO: - delete later
         printToDebug()
     }
     
+    // TODO: - delete later
     func printToDebug() {
         let networkService = NetworkServiceImpl()
         
@@ -35,4 +38,3 @@ class MainViewController: UIViewController {
         }
     }
 }
-

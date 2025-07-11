@@ -16,6 +16,9 @@
 		BC7731162E21323E00F99A54 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731152E21323E00F99A54 /* NetworkService.swift */; };
 		BC7731182E21324F00F99A54 /* NetworkServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731172E21324F00F99A54 /* NetworkServiceImpl.swift */; };
 		BC77311A2E21325600F99A54 /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731192E21325600F99A54 /* Film.swift */; };
+		BC77311C2E217ADE00F99A54 /* FilmsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77311B2E217ADE00F99A54 /* FilmsViewController.swift */; };
+		BC77311E2E217AFC00F99A54 /* CategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77311D2E217AFC00F99A54 /* CategoryCell.swift */; };
+		BC7731202E217BAD00F99A54 /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77311F2E217BAD00F99A54 /* Categories.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +33,9 @@
 		BC7731152E21323E00F99A54 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
 		BC7731172E21324F00F99A54 /* NetworkServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceImpl.swift; sourceTree = "<group>"; };
 		BC7731192E21325600F99A54 /* Film.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
+		BC77311B2E217ADE00F99A54 /* FilmsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmsViewController.swift; sourceTree = "<group>"; };
+		BC77311D2E217AFC00F99A54 /* CategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryCell.swift; sourceTree = "<group>"; };
+		BC77311F2E217BAD00F99A54 /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,11 +68,11 @@
 		BC7730FC2E2130D300F99A54 /* StarWars */ = {
 			isa = PBXGroup;
 			children = (
+				BC7731232E217E5F00F99A54 /* UI */,
 				BC7731122E21322700F99A54 /* Network */,
 				BC7731112E21321E00F99A54 /* Domain */,
 				BC7730FD2E2130D300F99A54 /* AppDelegate.swift */,
 				BC7730FF2E2130D300F99A54 /* SceneDelegate.swift */,
-				BC7731012E2130D300F99A54 /* MainViewController.swift */,
 				BC7731062E2130D500F99A54 /* Assets.xcassets */,
 				BC7731082E2130D500F99A54 /* LaunchScreen.storyboard */,
 				BC77310B2E2130D500F99A54 /* Info.plist */,
@@ -78,6 +84,7 @@
 			isa = PBXGroup;
 			children = (
 				BC7731192E21325600F99A54 /* Film.swift */,
+				BC77311F2E217BAD00F99A54 /* Categories.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -90,6 +97,32 @@
 				BC7731172E21324F00F99A54 /* NetworkServiceImpl.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		BC7731212E217E3100F99A54 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BC7731012E2130D300F99A54 /* MainViewController.swift */,
+				BC77311B2E217ADE00F99A54 /* FilmsViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		BC7731222E217E4600F99A54 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				BC77311D2E217AFC00F99A54 /* CategoryCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		BC7731232E217E5F00F99A54 /* UI */ = {
+			isa = PBXGroup;
+			children = (
+				BC7731222E217E4600F99A54 /* Cells */,
+				BC7731212E217E3100F99A54 /* ViewControllers */,
+			);
+			path = UI;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -163,11 +196,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				BC7731162E21323E00F99A54 /* NetworkService.swift in Sources */,
+				BC77311E2E217AFC00F99A54 /* CategoryCell.swift in Sources */,
 				BC7731022E2130D300F99A54 /* MainViewController.swift in Sources */,
+				BC7731202E217BAD00F99A54 /* Categories.swift in Sources */,
 				BC7731142E21323400F99A54 /* NetworkError.swift in Sources */,
 				BC77311A2E21325600F99A54 /* Film.swift in Sources */,
 				BC7730FE2E2130D300F99A54 /* AppDelegate.swift in Sources */,
 				BC7731182E21324F00F99A54 /* NetworkServiceImpl.swift in Sources */,
+				BC77311C2E217ADE00F99A54 /* FilmsViewController.swift in Sources */,
 				BC7731002E2130D300F99A54 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

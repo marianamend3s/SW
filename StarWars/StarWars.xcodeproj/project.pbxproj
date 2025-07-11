@@ -12,6 +12,10 @@
 		BC7731022E2130D300F99A54 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731012E2130D300F99A54 /* MainViewController.swift */; };
 		BC7731072E2130D500F99A54 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC7731062E2130D500F99A54 /* Assets.xcassets */; };
 		BC77310A2E2130D500F99A54 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC7731082E2130D500F99A54 /* LaunchScreen.storyboard */; };
+		BC7731142E21323400F99A54 /* NetworkError.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731132E21323400F99A54 /* NetworkError.swift */; };
+		BC7731162E21323E00F99A54 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731152E21323E00F99A54 /* NetworkService.swift */; };
+		BC7731182E21324F00F99A54 /* NetworkServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731172E21324F00F99A54 /* NetworkServiceImpl.swift */; };
+		BC77311A2E21325600F99A54 /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731192E21325600F99A54 /* Film.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +26,10 @@
 		BC7731062E2130D500F99A54 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		BC7731092E2130D500F99A54 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC77310B2E2130D500F99A54 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BC7731132E21323400F99A54 /* NetworkError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkError.swift; sourceTree = "<group>"; };
+		BC7731152E21323E00F99A54 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
+		BC7731172E21324F00F99A54 /* NetworkServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceImpl.swift; sourceTree = "<group>"; };
+		BC7731192E21325600F99A54 /* Film.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +62,8 @@
 		BC7730FC2E2130D300F99A54 /* StarWars */ = {
 			isa = PBXGroup;
 			children = (
+				BC7731122E21322700F99A54 /* Network */,
+				BC7731112E21321E00F99A54 /* Domain */,
 				BC7730FD2E2130D300F99A54 /* AppDelegate.swift */,
 				BC7730FF2E2130D300F99A54 /* SceneDelegate.swift */,
 				BC7731012E2130D300F99A54 /* MainViewController.swift */,
@@ -62,6 +72,24 @@
 				BC77310B2E2130D500F99A54 /* Info.plist */,
 			);
 			path = StarWars;
+			sourceTree = "<group>";
+		};
+		BC7731112E21321E00F99A54 /* Domain */ = {
+			isa = PBXGroup;
+			children = (
+				BC7731192E21325600F99A54 /* Film.swift */,
+			);
+			path = Domain;
+			sourceTree = "<group>";
+		};
+		BC7731122E21322700F99A54 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				BC7731132E21323400F99A54 /* NetworkError.swift */,
+				BC7731152E21323E00F99A54 /* NetworkService.swift */,
+				BC7731172E21324F00F99A54 /* NetworkServiceImpl.swift */,
+			);
+			path = Network;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -134,8 +162,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC7731162E21323E00F99A54 /* NetworkService.swift in Sources */,
 				BC7731022E2130D300F99A54 /* MainViewController.swift in Sources */,
+				BC7731142E21323400F99A54 /* NetworkError.swift in Sources */,
+				BC77311A2E21325600F99A54 /* Film.swift in Sources */,
 				BC7730FE2E2130D300F99A54 /* AppDelegate.swift in Sources */,
+				BC7731182E21324F00F99A54 /* NetworkServiceImpl.swift in Sources */,
 				BC7731002E2130D300F99A54 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

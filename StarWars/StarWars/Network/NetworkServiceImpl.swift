@@ -8,24 +8,31 @@
 import Foundation
 
 class NetworkServiceImpl: NetworkService {
+    private let urlSession: URLSession
+    private let filmsURLString: String
     
-    // TODO: - Put this elsewhere
-    let filmsUrlString = "https://swapi.info/api/films/"
+    init(urlSession: URLSession = .shared, filmsURLString: String = "https://swapi.info/api/films/") {
+        self.urlSession = urlSession
+        self.filmsURLString = filmsURLString
+    }
     
     func getFilms() async throws -> [Film] {
-        guard let url = URL(string: filmsUrlString) else {
-            throw NetworkError.invalidURL
-        }
-        
-        let (data, response) = try await URLSession.shared.data(from: url)
-        
-        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-            throw NetworkError.invalidResponse
-        }
-        
         do {
+            guard let url = URL(string: filmsURLString) else {
+                throw NetworkError.invalidURL
+            }
+            
+            let (data, response) = try await self.urlSession.data(from: url)
+            
+            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+                throw NetworkError.invalidResponse
+            }
+            
             let decoder = JSONDecoder()
             return try decoder.decode([Film].self, from: data)
+            
+        } catch let networkError as NetworkError {
+            throw networkError
         } catch {
             throw NetworkError.decodingError(error)
         }

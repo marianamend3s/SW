@@ -23,7 +23,8 @@
 		BC7731282E2180D900F99A54 /* CategoriesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731272E2180D900F99A54 /* CategoriesCoordinator.swift */; };
 		BC77312A2E21816C00F99A54 /* FilmsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731292E21816C00F99A54 /* FilmsCoordinator.swift */; };
 		BC77312C2E2181FD00F99A54 /* CategoriesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77312B2E2181FD00F99A54 /* CategoriesViewModel.swift */; };
-		BC7731372E21870E00F99A54 /* StarWarsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731362E21870E00F99A54 /* StarWarsTests.swift */; };
+		BC7731372E21870E00F99A54 /* NetworkServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731362E21870E00F99A54 /* NetworkServiceTests.swift */; };
+		BC77313E2E2187E900F99A54 /* MockUrlSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77313D2E2187E900F99A54 /* MockUrlSession.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +57,8 @@
 		BC7731292E21816C00F99A54 /* FilmsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmsCoordinator.swift; sourceTree = "<group>"; };
 		BC77312B2E2181FD00F99A54 /* CategoriesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesViewModel.swift; sourceTree = "<group>"; };
 		BC7731342E21870E00F99A54 /* StarWarsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StarWarsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		BC7731362E21870E00F99A54 /* StarWarsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarWarsTests.swift; sourceTree = "<group>"; };
+		BC7731362E21870E00F99A54 /* NetworkServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkServiceTests.swift; sourceTree = "<group>"; };
+		BC77313D2E2187E900F99A54 /* MockUrlSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUrlSession.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -178,7 +180,8 @@
 		BC7731352E21870E00F99A54 /* StarWarsTests */ = {
 			isa = PBXGroup;
 			children = (
-				BC7731362E21870E00F99A54 /* StarWarsTests.swift */,
+				BC7731362E21870E00F99A54 /* NetworkServiceTests.swift */,
+				BC77313D2E2187E900F99A54 /* MockUrlSession.swift */,
 			);
 			path = StarWarsTests;
 			sourceTree = "<group>";
@@ -304,7 +307,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC7731372E21870E00F99A54 /* StarWarsTests.swift in Sources */,
+				BC77313E2E2187E900F99A54 /* MockUrlSession.swift in Sources */,
+				BC7731372E21870E00F99A54 /* NetworkServiceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

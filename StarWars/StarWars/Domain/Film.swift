@@ -7,8 +7,7 @@
 
 import Foundation
 
-struct Film: Codable, Identifiable {
-    let id = UUID()
+struct Film: Codable {
     let title: String
     let episodeId: Int
     let openingCrawl: String

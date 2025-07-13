@@ -1,5 +1,5 @@
 //
-//  NetworkServiceImpl.swift
+//  FilmService.swift
 //  StarWars
 //
 //  Created by Mariana Mendes on 11/07/2025.
@@ -7,18 +7,28 @@
 
 import Foundation
 
-class NetworkServiceImpl: NetworkService {
-    private let urlSession: URLSession
-    private let filmsURLString: String
-    
-    init(urlSession: URLSession = .shared, filmsURLString: String = "https://swapi.info/api/films/") {
+protocol FilmService {
+    func getFilms() async throws -> [Film]
+}
+
+class FilmServiceImpl: NetworkService, FilmService {
+    let urlSession: URLSession
+    let urlString: String
+    let decoder: JSONDecoder
+
+    init(
+        urlSession: URLSession = .shared,
+        urlString: String = "https://swapi.info/api/films/",
+        decoder: JSONDecoder = JSONDecoder()
+    ) {
         self.urlSession = urlSession
-        self.filmsURLString = filmsURLString
+        self.urlString = urlString
+        self.decoder = decoder
     }
     
     func getFilms() async throws -> [Film] {
         do {
-            guard let url = URL(string: filmsURLString) else {
+            guard let url = URL(string: urlString) else {
                 throw NetworkError.invalidURL
             }
             
@@ -28,7 +38,6 @@ class NetworkServiceImpl: NetworkService {
                 throw NetworkError.invalidResponse
             }
             
-            let decoder = JSONDecoder()
             return try decoder.decode([Film].self, from: data)
             
         } catch let networkError as NetworkError {

@@ -8,8 +8,7 @@
 import UIKit
 
 class CategoryCell: UICollectionViewCell {
-    
-    static let reuseIdentifier = "CategoryCell"
+    static let reuseIdentifier = Constants.CategoryCell.reuseIdentifier
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -17,7 +16,7 @@ class CategoryCell: UICollectionViewCell {
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.textColor = .label
         label.textAlignment = .center
-        label.numberOfLines = 0
+        label.numberOfLines = .zero
         return label
     }()
     
@@ -33,13 +32,13 @@ class CategoryCell: UICollectionViewCell {
     
     private func setupCell() {
         contentView.backgroundColor = .systemGray5
-        contentView.layer.cornerRadius = 10
+        contentView.layer.cornerRadius = Constants.cornerRadius
         contentView.layer.masksToBounds = true
         
         layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowRadius = 4
-        layer.shadowOpacity = 0.2
+        layer.shadowOffset = Constants.shadowOffset
+        layer.shadowRadius = Constants.shadowRadius
+        layer.shadowOpacity = Constants.shadowOpacity
         layer.masksToBounds = false
         
         contentView.addSubview(titleLabel)
@@ -47,8 +46,14 @@ class CategoryCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            titleLabel.leadingAnchor.constraint(greaterThanOrEqualTo: contentView.leadingAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(lessThanOrEqualTo: contentView.trailingAnchor, constant: -8)
+            titleLabel.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: Constants.padding
+            ),
+            titleLabel.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -Constants.padding
+            )
         ])
     }
     
@@ -58,9 +63,16 @@ class CategoryCell: UICollectionViewCell {
     
     override var isHighlighted: Bool {
         didSet {
-            UIView.animate(withDuration: 0.1) {
-                self.contentView.alpha = self.isHighlighted ? 0.7 : 1.0
-                self.transform = self.isHighlighted ? CGAffineTransform(scaleX: 0.98, y: 0.98) : .identity
+            UIView.animate(withDuration: Constants.animationDuration) {
+                self.contentView.alpha = self.isHighlighted
+                    ? Constants.isHighlightedAlpha
+                    : Constants.isNotHighlightedAlpha
+                self.transform = self.isHighlighted
+                    ? CGAffineTransform(
+                        scaleX: Constants.highlightScaleX,
+                        y: Constants.highlightScaleY
+                    )
+                    : .identity
             }
         }
     }

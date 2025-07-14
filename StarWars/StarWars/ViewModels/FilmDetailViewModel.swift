@@ -8,7 +8,7 @@
 import Foundation
 
 class FilmDetailViewModel {
-    let film: Film
+    private let film: Film
 
     init(film: Film) {
         self.film = film

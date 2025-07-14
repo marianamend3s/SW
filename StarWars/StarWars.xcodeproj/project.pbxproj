@@ -38,6 +38,8 @@
 		BC77315E2E23EA3F00F99A54 /* CoordinatorImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77315D2E23EA3F00F99A54 /* CoordinatorImpl.swift */; };
 		BC7731602E23EEDF00F99A54 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77315F2E23EEDF00F99A54 /* Constants.swift */; };
 		BC7731622E23FFAF00F99A54 /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731612E23FFAF00F99A54 /* CategoryService.swift */; };
+		BC7731702E2527C400F99A54 /* CharacterDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77316F2E2527C400F99A54 /* CharacterDetailViewModel.swift */; };
+		BC7731722E25284D00F99A54 /* CharacterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731712E25284D00F99A54 /* CharacterDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +87,8 @@
 		BC77315D2E23EA3F00F99A54 /* CoordinatorImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorImpl.swift; sourceTree = "<group>"; };
 		BC77315F2E23EEDF00F99A54 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BC7731612E23FFAF00F99A54 /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
+		BC77316F2E2527C400F99A54 /* CharacterDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewModel.swift; sourceTree = "<group>"; };
+		BC7731712E25284D00F99A54 /* CharacterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +192,7 @@
 				BC7731432E22C27A00F99A54 /* FilmsViewModel.swift */,
 				BC7731492E22DC9700F99A54 /* FilmDetailViewModel.swift */,
 				BC7731552E23E0A700F99A54 /* CharacterViewModel.swift */,
+				BC77316F2E2527C400F99A54 /* CharacterDetailViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -199,6 +204,7 @@
 				BC77311B2E217ADE00F99A54 /* FilmsViewController.swift */,
 				BC7731472E22DC7B00F99A54 /* FilmDetailViewController.swift */,
 				BC7731572E23E14F00F99A54 /* CharactersViewController.swift */,
+				BC7731712E25284D00F99A54 /* CharacterDetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -327,6 +333,7 @@
 			files = (
 				BC7731582E23E14F00F99A54 /* CharactersViewController.swift in Sources */,
 				BC7731522E23DEBF00F99A54 /* NetworkService.swift in Sources */,
+				BC7731722E25284D00F99A54 /* CharacterDetailViewController.swift in Sources */,
 				BC7731562E23E0A700F99A54 /* CharacterViewModel.swift in Sources */,
 				BC7731622E23FFAF00F99A54 /* CategoryService.swift in Sources */,
 				BC7731442E22C27A00F99A54 /* FilmsViewModel.swift in Sources */,
@@ -346,6 +353,7 @@
 				BC7731502E23DD9300F99A54 /* Character.swift in Sources */,
 				BC77315C2E23E6F300F99A54 /* CategoriesCoordinator.swift in Sources */,
 				BC77315E2E23EA3F00F99A54 /* CoordinatorImpl.swift in Sources */,
+				BC7731702E2527C400F99A54 /* CharacterDetailViewModel.swift in Sources */,
 				BC77312A2E21816C00F99A54 /* FilmsCoordinator.swift in Sources */,
 				BC7730FE2E2130D300F99A54 /* AppDelegate.swift in Sources */,
 				BC77311C2E217ADE00F99A54 /* FilmsViewController.swift in Sources */,

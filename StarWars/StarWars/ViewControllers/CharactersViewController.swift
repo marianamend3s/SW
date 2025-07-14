@@ -9,6 +9,7 @@ import UIKit
 
 class CharactersViewController: UIViewController {
     var viewModel: CharacterViewModel?
+    var onCharacterSelected: ((Character) -> Void)?
     private var collectionView: UICollectionView!
 
     private let activityIndicator = UIActivityIndicatorView(style: .large)
@@ -207,10 +208,8 @@ extension CharactersViewController: UICollectionViewDataSource {
 
 extension CharactersViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        // TODO: -
-        // guard let viewModel else { return }
-        // let selectedCharacter = viewModel.characters[indexPath.item]
-        // onCharacterSelected?(character)
+         guard let viewModel else { return }
+         let selectedCharacter = viewModel.characters[indexPath.item]
+         onCharacterSelected?(selectedCharacter)
     }
 }

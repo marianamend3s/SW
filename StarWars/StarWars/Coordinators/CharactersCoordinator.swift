@@ -19,12 +19,22 @@ class CharactersCoordinator: Coordinator {
         let charactersViewModel = CharacterViewModel(characterService: CharacterServiceImpl())
         let charactersViewController = CharactersViewController()
         charactersViewController.viewModel = charactersViewModel
+        
+        charactersViewController.onCharacterSelected = { [weak self] character in
+            self?.navigateToCharacterDetail(character: character)
+        }
+        
         navigationController.pushViewController(charactersViewController, animated: true)
     }
     
-    // TODO: Navigate to character details
-//    func navigateToCharacterDetail(character: Character) {
-//    }
+    func navigateToCharacterDetail(character: Character) {
+        let characterDetailViewModel = CharacterDetailViewModel(character: character)
+        
+        let characterDetailViewController = CharacterDetailViewController()
+        characterDetailViewController.viewModel = characterDetailViewModel
+        
+        navigationController.pushViewController(characterDetailViewController, animated: true)
+    }
     
     func coordinatorDidFinish(_ coordinator: Coordinator) {
         children.removeAll { $0 === coordinator }

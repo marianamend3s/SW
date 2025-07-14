@@ -25,28 +25,4 @@ enum Constants {
     static let groupFractionalHeight: CGFloat = 0.5
     static let errorMargin: CGFloat = 20
     static let separatorHeight: CGFloat = 0.5
-
-    
-    enum CategoryCell {
-        static let reuseIdentifier: String = "CategoryCell"
-    }
-    
-    enum FilmCell {
-        static let reuseIdentifier: String = "FilmCell"
-        static let stackSpacing: CGFloat = 4
-        static let episode: String = "Episode"
-
-    }
-    
-    enum FilmDetail {
-        static let stackViewMargin: CGFloat = 20
-        static let stackViewWidth: CGFloat = 40
-        static let textViewHeight: CGFloat = 150
-    }
-    
-    enum Categories {
-        static let title = "Star Wars"
-        static let films = "Films"
-        static let characters = "Characters"
-    }
 }

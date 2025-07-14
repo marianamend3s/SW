@@ -8,7 +8,7 @@
 import UIKit
 
 class FilmCell: UICollectionViewCell {
-    static let reuseIdentifier = Constants.FilmCell.reuseIdentifier
+    static let reuseIdentifier = "FilmCell"
     
     private let titleLabel: UILabel = {
         let label = UILabel()
@@ -55,7 +55,7 @@ class FilmCell: UICollectionViewCell {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         stackView.axis = .vertical
         stackView.alignment = .center
-        stackView.spacing = Constants.FilmCell.stackSpacing
+        stackView.spacing = 4
         
         contentView.addSubview(stackView)
         
@@ -75,7 +75,7 @@ class FilmCell: UICollectionViewCell {
     
     func configure(with film: Film) {
         titleLabel.text = film.title
-        episodeLabel.text = "\(Constants.FilmCell.episode) \(film.episodeId)"
+        episodeLabel.text = "Episode \(film.episodeId)"
     }
     
     override var isHighlighted: Bool {

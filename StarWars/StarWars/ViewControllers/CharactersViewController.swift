@@ -34,7 +34,7 @@ class CharactersViewController: UIViewController {
         setupErrorLabel()
         
         bindViewModel()
-        viewModel?.fetchCharacters()
+        viewModel?.getCharacters()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -178,7 +178,7 @@ class CharactersViewController: UIViewController {
 extension CharactersViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let viewModel else { return .zero }
-        return viewModel.characters.count
+        return viewModel.pageCharacters.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -188,7 +188,7 @@ extension CharactersViewController: UICollectionViewDataSource {
         
         guard let viewModel else { return UICollectionViewCell() }
         
-        let character = viewModel.characters[indexPath.item]
+        let character = viewModel.pageCharacters[indexPath.item]
         cell.configure(with: character)
         return cell
     }
@@ -199,7 +199,7 @@ extension CharactersViewController: UICollectionViewDataSource {
 extension CharactersViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
          guard let viewModel else { return }
-         let selectedCharacter = viewModel.characters[indexPath.item]
+         let selectedCharacter = viewModel.pageCharacters[indexPath.item]
          onCharacterSelected?(selectedCharacter)
     }
     

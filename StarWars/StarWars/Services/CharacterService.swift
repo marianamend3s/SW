@@ -8,7 +8,8 @@
 import Foundation
 
 protocol CharacterService {
-    func getCharacters() async throws -> [Character]
+    func fetchCharacters() async throws -> [Character]
+    func fetchCharacterFromURL(_ url: URL) async throws -> Character
 }
 
 class CharacterServiceImpl: NetworkService, CharacterService {
@@ -26,7 +27,7 @@ class CharacterServiceImpl: NetworkService, CharacterService {
         self.decoder = decoder
     }
     
-    func getCharacters() async throws -> [Character] {
+    func fetchCharacters() async throws -> [Character] {
         do {
             guard let url = URL(string: urlString) else {
                 throw NetworkError.invalidURL
@@ -40,6 +41,22 @@ class CharacterServiceImpl: NetworkService, CharacterService {
             
             return try decoder.decode([Character].self, from: data)
             
+        } catch let networkError as NetworkError {
+            throw networkError
+        } catch {
+            throw NetworkError.decodingError(error)
+        }
+    }
+    
+    func fetchCharacterFromURL(_ url: URL) async throws -> Character {
+        do {
+            let (data, response) = try await self.urlSession.data(from: url)
+            
+            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+                throw NetworkError.invalidResponse
+            }
+            
+            return try decoder.decode(Character.self, from: data)
         } catch let networkError as NetworkError {
             throw networkError
         } catch {

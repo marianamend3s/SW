@@ -9,6 +9,8 @@ import UIKit
 
 class FilmDetailViewController: UIViewController {
     var viewModel: FilmDetailViewModel?
+    var onCharacterSelected: ((Character) -> Void)?
+    private var characters: [Character] = []
     
     private let activityIndicator = UIActivityIndicatorView(style: .large)
     
@@ -85,6 +87,32 @@ class FilmDetailViewController: UIViewController {
         return textView
     }()
     
+    private let charactersLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Characters:"
+        label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.textColor = .white
+        label.adjustsFontForContentSizeCategory = true
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var charactersCollectionView: UICollectionView = {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .horizontal
+        layout.itemSize = CGSize(width: 120, height: 160)
+        layout.minimumLineSpacing = 10
+
+        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.translatesAutoresizingMaskIntoConstraints = false
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.backgroundColor = .clear
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.register(CharacterCell.self, forCellWithReuseIdentifier: CharacterCell.reuseIdentifier)
+        return collectionView
+    }()
+    
     private lazy var contentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             episodeLabel,
@@ -94,12 +122,17 @@ class FilmDetailViewController: UIViewController {
             releaseDateLabel,
             createSeparator(),
             synopsisLabel,
-            openingCrawlTextView
+            openingCrawlTextView,
+            createSeparator(),
+            charactersLabel,
+            charactersCollectionView,
+            createSeparator()
         ])
         stackView.axis = .vertical
         stackView.spacing = 15
         stackView.alignment = .fill
         stackView.translatesAutoresizingMaskIntoConstraints = false
+    
         return stackView
     }()
     
@@ -127,28 +160,38 @@ class FilmDetailViewController: UIViewController {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
-        
         scrollView.addSubview(contentStackView)
-        
+
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
-            
-            contentStackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: Constants.FilmDetail.stackViewMargin),
-            contentStackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: Constants.FilmDetail.stackViewMargin),
-            contentStackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -Constants.FilmDetail.stackViewMargin),
-            contentStackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -Constants.FilmDetail.stackViewMargin),
-            
-            contentStackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor, constant: -Constants.FilmDetail.stackViewWidth),
-            
-            openingCrawlTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: Constants.FilmDetail.textViewHeight)
+
+            contentStackView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor, constant: 20),
+            contentStackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 20),
+            contentStackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -20),
+            contentStackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -20),
+            contentStackView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
+
+            openingCrawlTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: 150),
+            charactersCollectionView.heightAnchor.constraint(equalToConstant: 160)
         ])
     }
+
     
     private func configureWithViewModel() {
         guard let viewModel else { return }
+        
+        viewModel.onCharactersLoaded = { [weak self] characters in
+            self?.characters = characters
+            DispatchQueue.main.async {
+                self?.charactersCollectionView.reloadData()
+            }
+        }
+
+        viewModel.getCharactersFromURL()
+
         episodeLabel.text = viewModel.episodeId
         directorLabel.text = viewModel.director
         producerLabel.text = viewModel.producer
@@ -167,3 +210,28 @@ class FilmDetailViewController: UIViewController {
         return separator
     }
 }
+
+// MARK: - UICollectionViewDataSource
+
+extension FilmDetailViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        characters.count
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let character = characters[indexPath.item]
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCell.reuseIdentifier, for: indexPath) as! CharacterCell
+        cell.configure(with: character)
+        return cell
+    }
+}
+
+// MARK: - UICollectionViewDelegate
+
+extension FilmDetailViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let selectedCharacter = characters[indexPath.item]
+        onCharacterSelected?(selectedCharacter)
+    }
+}
+

@@ -34,7 +34,7 @@ class CategoriesViewModel {
         self.categoryService = categoryService
     }
 
-    func fetchCategories() {
+    func getCategories() {
         guard !isLoading else { return }
         
         isLoading = true
@@ -42,7 +42,7 @@ class CategoriesViewModel {
 
         Task {
             do {
-                let fetchedCategories = try await categoryService.getCategoryNames()
+                let fetchedCategories = try await categoryService.fetchCategoryNames()
 
                 DispatchQueue.main.async {
                     self.categoryNames = fetchedCategories

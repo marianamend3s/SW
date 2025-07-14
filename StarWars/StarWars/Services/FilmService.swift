@@ -8,7 +8,7 @@
 import Foundation
 
 protocol FilmService {
-    func getFilms() async throws -> [Film]
+    func fetchFilms() async throws -> [Film]
 }
 
 class FilmServiceImpl: NetworkService, FilmService {
@@ -26,7 +26,7 @@ class FilmServiceImpl: NetworkService, FilmService {
         self.decoder = decoder
     }
     
-    func getFilms() async throws -> [Film] {
+    func fetchFilms() async throws -> [Film] {
         do {
             guard let url = URL(string: urlString) else {
                 throw NetworkError.invalidURL

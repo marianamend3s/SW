@@ -35,7 +35,7 @@ class FilmsViewModel {
         self.filmsService = filmsService
     }
 
-    func fetchFilms() {
+    func getFilms() {
         guard !isLoading else { return }
         
         isLoading = true
@@ -43,7 +43,7 @@ class FilmsViewModel {
 
         Task {
             do {
-                let fetchedFilms = try await filmsService.getFilms()
+                let fetchedFilms = try await filmsService.fetchFilms()
                 let orderedFilms = fetchedFilms.sorted { $0.episodeId < $1.episodeId }
 
                 DispatchQueue.main.async {

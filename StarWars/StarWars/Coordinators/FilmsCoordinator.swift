@@ -10,9 +10,11 @@ import UIKit
 class FilmsCoordinator: Coordinator {
     var navigationController: UINavigationController
     var children: [Coordinator] = []
+    var characterService: CharacterService
 
-    init(navigationController: UINavigationController) {
+    init(navigationController: UINavigationController, characterService: CharacterService = CharacterServiceImpl()) {
         self.navigationController = navigationController
+        self.characterService = characterService
     }
 
     func start() {
@@ -28,15 +30,26 @@ class FilmsCoordinator: Coordinator {
     }
     
     func navigateToFilmDetails(film: Film) {
-        let filmDetailViewModel = FilmDetailViewModel(film: film)
+        let filmDetailViewModel = FilmDetailViewModel(film: film, characterService: characterService)
         
         let filmDetailViewController = FilmDetailViewController()
         filmDetailViewController.viewModel = filmDetailViewModel
+        
+        onFilmCharacterSelected(filmDetailViewController: filmDetailViewController)
         
         navigationController.pushViewController(filmDetailViewController, animated: true)
     }
     
     func coordinatorDidFinish(_ coordinator: Coordinator) {
         children.removeAll { $0 === coordinator }
+    }
+    
+    private func onFilmCharacterSelected(filmDetailViewController: FilmDetailViewController) {
+        filmDetailViewController.onCharacterSelected = { [weak self] character in
+            let characterDetailViewModel = CharacterDetailViewModel(character: character)
+            let characterDetailViewController = CharacterDetailViewController()
+            characterDetailViewController.viewModel = characterDetailViewModel
+            self?.navigationController.pushViewController(characterDetailViewController, animated: true)
+        }
     }
 }

@@ -1,5 +1,5 @@
 //
-//  CoordinatorImpl.swift
+//  CategoriesCoordinator.swift
 //  StarWars
 //
 //  Created by Mariana Mendes on 13/07/2025.
@@ -24,28 +24,28 @@ class CategoriesCoordinator: Coordinator {
         categoriesViewController.onCategorySelected = { [weak self] category in
             
             switch category {
-            case "films": self?.navigateToFilms()
-            case "people": self?.navigateToCharacters()
+            case "films": self?.onFilmsSelected()
+            case "people": self?.onCharactersSelected()
             default: break
             }
         }
         
         navigationController.pushViewController(categoriesViewController, animated: true)
     }
-
-    func navigateToFilms() {
+    
+    func coordinatorDidFinish(_ coordinator: Coordinator) {
+        children.removeAll { $0 === coordinator }
+    }
+    
+    private func onFilmsSelected() {
         let filmsCoordinator = FilmsCoordinator(navigationController: navigationController)
         children.append(filmsCoordinator)
         filmsCoordinator.start()
     }
     
-    func navigateToCharacters() {
+    private func onCharactersSelected() {
         let charactersCoordinator = CharactersCoordinator(navigationController: navigationController)
         children.append(charactersCoordinator)
         charactersCoordinator.start()
-    }
-    
-    func coordinatorDidFinish(_ coordinator: Coordinator) {
-        children.removeAll { $0 === coordinator }
     }
 }

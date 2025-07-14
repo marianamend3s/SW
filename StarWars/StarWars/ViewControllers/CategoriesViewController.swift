@@ -33,7 +33,7 @@ class CategoriesViewController: UIViewController {
         setupCollectionView()
         setupErrorLabel()
         bindViewModel()
-        viewModel?.fetchCategories()
+        viewModel?.getCategories()
     }
     
     override func viewWillAppear(_ animated: Bool) {

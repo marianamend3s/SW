@@ -11,16 +11,20 @@ class CharacterViewModel {
     private let characterService: CharacterService
 
     private var allCharacters: [Character] = []
-    private(set) var characters: [Character] = []
+    private(set) var pageCharacters: [Character] = []
 
     private let pageSize = 20
     private var currentPage = 0
 
     var isLoading: Bool = false {
-        didSet { onLoadingStateChanged?(isLoading) }
+        didSet {
+            onLoadingStateChanged?(isLoading)
+        }
     }
     var errorMessage: String? {
-        didSet { onError?(errorMessage) }
+        didSet {
+            onError?(errorMessage)
+        }
     }
 
     var onCharactersUpdated: (() -> Void)?
@@ -31,18 +35,19 @@ class CharacterViewModel {
         self.characterService = characterService
     }
 
-    func fetchCharacters(reset: Bool = false) {
+    func getCharacters(reset: Bool = false) {
         guard !isLoading else { return }
+        
         isLoading = true
         errorMessage = nil
 
         Task {
             do {
-                let fetchedCharacters = try await characterService.getCharacters()
+                let fetchedCharacters = try await characterService.fetchCharacters()
                 DispatchQueue.main.async {
                     self.allCharacters = fetchedCharacters
                     self.currentPage = 0
-                    self.characters = []
+                    self.pageCharacters = []
                     self.isLoading = false
                     self.loadNextPage()
                 }
@@ -64,7 +69,7 @@ class CharacterViewModel {
         guard start < end else { return }
 
         let nextPageItems = allCharacters[start..<end]
-        characters += nextPageItems
+        pageCharacters += nextPageItems
         currentPage += 1
         onCharactersUpdated?()
     }

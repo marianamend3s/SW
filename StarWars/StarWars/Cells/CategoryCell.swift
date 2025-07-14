@@ -8,7 +8,7 @@
 import UIKit
 
 class CategoryCell: UICollectionViewCell {
-    static let reuseIdentifier = Constants.CategoryCell.reuseIdentifier
+    static let reuseIdentifier = "CategoryCell"
     
     private let titleLabel: UILabel = {
         let label = UILabel()

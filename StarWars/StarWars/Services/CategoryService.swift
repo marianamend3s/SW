@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CategoryService {
-    func getCategoryNames() async throws -> [String]
+    func fetchCategoryNames() async throws -> [String]
 }
 
 class CategoryServiceImpl: NetworkService, CategoryService {
@@ -26,7 +26,7 @@ class CategoryServiceImpl: NetworkService, CategoryService {
         self.decoder = decoder
     }
     
-    func getCategoryNames() async throws -> [String] {
+    func fetchCategoryNames() async throws -> [String] {
         do {
             guard let url = URL(string: urlString) else {
                 throw NetworkError.invalidURL

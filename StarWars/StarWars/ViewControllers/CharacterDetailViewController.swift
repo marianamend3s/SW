@@ -9,9 +9,9 @@ import UIKit
 
 class CharacterDetailViewController: UIViewController {
     var viewModel: CharacterDetailViewModel?
-    
+
     private let activityIndicator = UIActivityIndicatorView(style: .large)
-    
+
     private let errorLabel: UILabel = {
         let label = UILabel()
         label.textColor = .red
@@ -22,90 +22,82 @@ class CharacterDetailViewController: UIViewController {
         return label
     }()
     
-    private let nameLabel: UILabel = {
+    private let infoLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.textColor = .label
+        label.text = "Character details"
+        label.font = UIFont.preferredFont(forTextStyle: .title2)
+        label.textColor = .white
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
-    private let infoLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Info:"
-        label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.adjustsFontForContentSizeCategory = true
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
+
     private let heightLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.textColor = .label
-        label.textAlignment = .center
+        label.textColor = .white
+        label.textAlignment = .left
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let massLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.textColor = .label
-        label.textAlignment = .center
+        label.textColor = .white
+        label.textAlignment = .left
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let hairLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.textColor = .label
-        label.textAlignment = .center
+        label.textColor = .white
+        label.textAlignment = .left
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let skinLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.textColor = .label
-        label.textAlignment = .center
+        label.textColor = .white
+        label.textAlignment = .left
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let eyesLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.textColor = .label
-        label.textAlignment = .center
+        label.textColor = .white
+        label.textAlignment = .left
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let birthLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.textColor = .label
-        label.textAlignment = .center
+        label.textColor = .white
+        label.textAlignment = .left
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
     private let genderLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
-        label.textColor = .label
-        label.textAlignment = .center
+        label.textColor = .white
+        label.textAlignment = .left
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -114,13 +106,15 @@ class CharacterDetailViewController: UIViewController {
     private lazy var contentStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [
             infoLabel,
+            createSeparator(),
             heightLabel,
             massLabel,
             hairLabel,
             skinLabel,
             eyesLabel,
             birthLabel,
-            genderLabel
+            genderLabel,
+            createSeparator()
         ])
         stackView.axis = .vertical
         stackView.spacing = 15
@@ -128,10 +122,10 @@ class CharacterDetailViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .black
         
         setupUI()
         configureWithViewModel()
@@ -173,13 +167,13 @@ class CharacterDetailViewController: UIViewController {
     
     private func configureWithViewModel() {
         guard let viewModel else { return }
-        heightLabel.text = viewModel.height
-        massLabel.text = viewModel.mass
-        hairLabel.text = viewModel.hairColor
-        skinLabel.text = viewModel.skinColor
-        eyesLabel.text = viewModel.eyeColor
-        birthLabel.text = viewModel.birthYear
-        genderLabel.text = viewModel.gender
+        heightLabel.text = "Height: \(viewModel.height) cm"
+        massLabel.text =  "Mass: \(viewModel.mass) kg"
+        hairLabel.text =  "Hair color: \(viewModel.hairColor)"
+        skinLabel.text =  "Skin color: \(viewModel.skinColor)"
+        eyesLabel.text =  "Eye color: \(viewModel.eyeColor)"
+        birthLabel.text =  "Birthday: \(viewModel.birthYear)"
+        genderLabel.text =  "Gender: \(viewModel.gender)"
     }
     
     private func createSeparator() -> UIView {

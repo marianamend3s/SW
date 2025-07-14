@@ -192,10 +192,10 @@ class FilmDetailViewController: UIViewController {
 
         viewModel.getCharactersFromURL()
 
-        episodeLabel.text = viewModel.episodeId
-        directorLabel.text = viewModel.director
-        producerLabel.text = viewModel.producer
-        releaseDateLabel.text = viewModel.releaseDate
+        episodeLabel.text = "Episode: \(viewModel.episodeId)"
+        directorLabel.text = "Director: \(viewModel.director)"
+        producerLabel.text = "Producer: \(viewModel.producer)"
+        releaseDateLabel.text = "Release date: \(viewModel.releaseDate)"
         openingCrawlTextView.text = viewModel.openingCrawl
     }
 

@@ -15,8 +15,8 @@ class CharacterDetailViewModel {
     }
 
     var name: String { character.name }
-    var height: String { "\(character.height) cm" }
-    var mass: String { "\(character.mass) kg" }
+    var height: String { character.height }
+    var mass: String { character.mass }
     var hairColor: String { character.hairColor.capitalized }
     var skinColor: String { character.skinColor.capitalized }
     var eyeColor: String { character.eyeColor.capitalized }

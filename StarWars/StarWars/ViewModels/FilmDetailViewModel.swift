@@ -15,10 +15,10 @@ class FilmDetailViewModel {
     }
 
     var title: String { film.title }
-    var episodeId: String { "Episode \(film.episodeId)" }
-    var director: String { "Director: \(film.director)" }
-    var producer: String { "Producer: \(film.producer)" }
-    var releaseDate: String { "Release Date: \(film.releaseDate)" }
+    var episodeId: String { "\(film.episodeId)" }
+    var director: String { film.director }
+    var producer: String { film.producer }
+    var releaseDate: String { "\(film.releaseDate)" }
     var openingCrawl: String { film.openingCrawl }
 
     var onCharactersLoaded: (([Character]) -> Void)?

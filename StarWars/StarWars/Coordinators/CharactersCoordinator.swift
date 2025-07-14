@@ -16,7 +16,8 @@ class CharactersCoordinator: Coordinator {
     }
     
     func start() {
-        let charactersViewModel = CharacterViewModel(characterService: CharacterServiceImpl())
+        let charactersService = CharacterServiceImpl()
+        let charactersViewModel = CharacterViewModel(characterService: charactersService)
         let charactersViewController = CharactersViewController()
         charactersViewController.viewModel = charactersViewModel
         

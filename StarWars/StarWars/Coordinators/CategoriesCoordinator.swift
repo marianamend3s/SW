@@ -16,7 +16,8 @@ class CategoriesCoordinator: Coordinator {
     }
 
     func start() {
-        let categoriesViewModel = CategoriesViewModel(categoryService: CategoryServiceImpl())
+        let categoriesService = CategoryServiceImpl()
+        let categoriesViewModel = CategoriesViewModel(categoryService: categoriesService)
         let categoriesViewController = CategoriesViewController()
         categoriesViewController.viewModel = categoriesViewModel
         

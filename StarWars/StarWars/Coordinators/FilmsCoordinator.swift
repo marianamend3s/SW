@@ -16,7 +16,8 @@ class FilmsCoordinator: Coordinator {
     }
 
     func start() {
-        let filmsViewModel = FilmsViewModel(filmsService: FilmServiceImpl())
+        let filmsService = FilmServiceImpl()
+        let filmsViewModel = FilmsViewModel(filmsService: filmsService)
         let filmsViewController = FilmsViewController()
         filmsViewController.viewModel = filmsViewModel
         

@@ -24,6 +24,11 @@ class FilmServiceImpl: NetworkService, FilmService {
         self.urlSession = urlSession
         self.urlString = urlString
         self.decoder = decoder
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd"
+        decoder.dateDecodingStrategy = .formatted(dateFormatter)
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
     }
     
     func fetchFilms() async throws -> [Film] {

@@ -25,6 +25,8 @@ class CharacterServiceImpl: NetworkService, CharacterService {
         self.urlSession = urlSession
         self.urlString = urlString
         self.decoder = decoder
+        
+        decoder.keyDecodingStrategy = .convertFromSnakeCase
     }
     
     func fetchCharacters() async throws -> [Character] {

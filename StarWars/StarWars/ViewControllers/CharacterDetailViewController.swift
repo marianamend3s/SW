@@ -172,7 +172,7 @@ class CharacterDetailViewController: UIViewController {
         hairLabel.text =  "Hair color: \(viewModel.hairColor)"
         skinLabel.text =  "Skin color: \(viewModel.skinColor)"
         eyesLabel.text =  "Eye color: \(viewModel.eyeColor)"
-        birthLabel.text =  "Birthday: \(viewModel.birthYear)"
+        birthLabel.text =  "Birth year: \(viewModel.birthYear)"
         genderLabel.text =  "Gender: \(viewModel.gender)"
     }
     

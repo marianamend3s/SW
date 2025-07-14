@@ -50,7 +50,7 @@ class CategoriesViewController: UIViewController {
     
     private func setupNavigationBar() {
         navigationItem.title = Constants.Categories.title
-        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
     
     private func cleanUpNavigationBar() {

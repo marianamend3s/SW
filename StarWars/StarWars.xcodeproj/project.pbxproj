@@ -126,39 +126,28 @@
 		BC7730FC2E2130D300F99A54 /* StarWars */ = {
 			isa = PBXGroup;
 			children = (
-				BC77315F2E23EEDF00F99A54 /* Constants.swift */,
-				BC7731632E240A5600F99A54 /* Categories */,
-				BC7731642E240A6300F99A54 /* Films */,
-				BC7731652E240A6C00F99A54 /* People */,
+				BC7731672E2521B900F99A54 /* Models */,
+				BC7731682E2521BF00F99A54 /* ViewModels */,
+				BC7731692E2521D300F99A54 /* ViewControllers */,
+				BC77316C2E2521F400F99A54 /* Cells */,
 				BC7731242E21806F00F99A54 /* Coordinators */,
-				BC7731112E21321E00F99A54 /* Domain */,
-				BC7731122E21322700F99A54 /* Network */,
-				BC7730FD2E2130D300F99A54 /* AppDelegate.swift */,
-				BC7730FF2E2130D300F99A54 /* SceneDelegate.swift */,
-				BC7731062E2130D500F99A54 /* Assets.xcassets */,
-				BC7731082E2130D500F99A54 /* LaunchScreen.storyboard */,
+				BC7731122E21322700F99A54 /* Services */,
+				BC77316E2E25237200F99A54 /* SupportingFiles */,
 				BC77310B2E2130D500F99A54 /* Info.plist */,
 			);
 			path = StarWars;
 			sourceTree = "<group>";
 		};
-		BC7731112E21321E00F99A54 /* Domain */ = {
-			isa = PBXGroup;
-			children = (
-				BC77311F2E217BAD00F99A54 /* Category.swift */,
-				BC7731192E21325600F99A54 /* Film.swift */,
-				BC77314F2E23DD9300F99A54 /* People.swift */,
-			);
-			path = Domain;
-			sourceTree = "<group>";
-		};
-		BC7731122E21322700F99A54 /* Network */ = {
+		BC7731122E21322700F99A54 /* Services */ = {
 			isa = PBXGroup;
 			children = (
 				BC7731132E21323400F99A54 /* NetworkError.swift */,
 				BC7731512E23DEBF00F99A54 /* NetworkService.swift */,
+				BC7731612E23FFAF00F99A54 /* CategoryService.swift */,
+				BC7731152E21323E00F99A54 /* FilmService.swift */,
+				BC77314D2E23DD3600F99A54 /* PeopleService.swift */,
 			);
-			path = Network;
+			path = Services;
 			sourceTree = "<group>";
 		};
 		BC7731242E21806F00F99A54 /* Coordinators */ = {
@@ -166,6 +155,9 @@
 			children = (
 				BC7731252E21809200F99A54 /* Coordinator.swift */,
 				BC77315D2E23EA3F00F99A54 /* CoordinatorImpl.swift */,
+				BC77315B2E23E6F300F99A54 /* CategoriesCoordinator.swift */,
+				BC7731292E21816C00F99A54 /* FilmsCoordinator.swift */,
+				BC7731532E23E01600F99A54 /* PeopleCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -179,50 +171,58 @@
 			path = StarWarsTests;
 			sourceTree = "<group>";
 		};
-		BC7731632E240A5600F99A54 /* Categories */ = {
+		BC7731672E2521B900F99A54 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				BC77311F2E217BAD00F99A54 /* Category.swift */,
+				BC7731192E21325600F99A54 /* Film.swift */,
+				BC77314F2E23DD9300F99A54 /* People.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		BC7731682E2521BF00F99A54 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				BC77312B2E2181FD00F99A54 /* CategoriesViewModel.swift */,
+				BC7731432E22C27A00F99A54 /* FilmsViewModel.swift */,
+				BC7731492E22DC9700F99A54 /* FilmDetailViewModel.swift */,
+				BC7731552E23E0A700F99A54 /* PeopleViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		BC7731692E2521D300F99A54 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				BC7731012E2130D300F99A54 /* CategoriesViewController.swift */,
+				BC77311B2E217ADE00F99A54 /* FilmsViewController.swift */,
+				BC7731472E22DC7B00F99A54 /* FilmDetailViewController.swift */,
+				BC7731572E23E14F00F99A54 /* PeopleViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		BC77316C2E2521F400F99A54 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
 				BC77311D2E217AFC00F99A54 /* CategoryCell.swift */,
-				BC7731012E2130D300F99A54 /* CategoriesViewController.swift */,
-				BC77312B2E2181FD00F99A54 /* CategoriesViewModel.swift */,
-				BC77315B2E23E6F300F99A54 /* CategoriesCoordinator.swift */,
-				BC7731612E23FFAF00F99A54 /* CategoryService.swift */,
-			);
-			path = Categories;
-			sourceTree = "<group>";
-		};
-		BC7731642E240A6300F99A54 /* Films */ = {
-			isa = PBXGroup;
-			children = (
 				BC7731452E22C54C00F99A54 /* FilmCell.swift */,
-				BC77311B2E217ADE00F99A54 /* FilmsViewController.swift */,
-				BC7731432E22C27A00F99A54 /* FilmsViewModel.swift */,
-				BC7731292E21816C00F99A54 /* FilmsCoordinator.swift */,
-				BC7731152E21323E00F99A54 /* FilmService.swift */,
-				BC7731662E240A9700F99A54 /* FilmDetails */,
-			);
-			path = Films;
-			sourceTree = "<group>";
-		};
-		BC7731652E240A6C00F99A54 /* People */ = {
-			isa = PBXGroup;
-			children = (
 				BC7731592E23E17400F99A54 /* PeopleCell.swift */,
-				BC7731572E23E14F00F99A54 /* PeopleViewController.swift */,
-				BC7731552E23E0A700F99A54 /* PeopleViewModel.swift */,
-				BC7731532E23E01600F99A54 /* PeopleCoordinator.swift */,
-				BC77314D2E23DD3600F99A54 /* PeopleService.swift */,
 			);
-			path = People;
+			path = Cells;
 			sourceTree = "<group>";
 		};
-		BC7731662E240A9700F99A54 /* FilmDetails */ = {
+		BC77316E2E25237200F99A54 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
-				BC7731472E22DC7B00F99A54 /* FilmDetailViewController.swift */,
-				BC7731492E22DC9700F99A54 /* FilmDetailViewModel.swift */,
+				BC7730FD2E2130D300F99A54 /* AppDelegate.swift */,
+				BC7730FF2E2130D300F99A54 /* SceneDelegate.swift */,
+				BC77315F2E23EEDF00F99A54 /* Constants.swift */,
+				BC7731062E2130D500F99A54 /* Assets.xcassets */,
+				BC7731082E2130D500F99A54 /* LaunchScreen.storyboard */,
 			);
-			path = FilmDetails;
+			path = SupportingFiles;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -10,7 +10,9 @@ import UIKit
 class FilmsViewController: UIViewController {
     var viewModel: FilmsViewModel?
     var onFilmSelected: ((Film) -> Void)?
+
     private var collectionView: UICollectionView!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Film>!
     
     private let activityIndicator = UIActivityIndicatorView(style: .large)
     
@@ -23,7 +25,11 @@ class FilmsViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    
+
+    private enum Section {
+        case main
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -64,7 +70,6 @@ class FilmsViewController: UIViewController {
             forCellWithReuseIdentifier: FilmCell.reuseIdentifier
         )
         
-        collectionView.dataSource = self
         collectionView.delegate = self
         
         view.addSubview(collectionView)
@@ -75,6 +80,8 @@ class FilmsViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+
+        configureDataSource()
     }
 
     private func createCollectionViewLayout() -> UICollectionViewLayout {
@@ -139,7 +146,7 @@ class FilmsViewController: UIViewController {
     private func bindViewModel() {
         viewModel?.onFilmsUpdated = { [weak self] in
             DispatchQueue.main.async {
-                self?.collectionView.reloadData()
+                self?.applySnapshot()
                 self?.collectionView.isHidden = false
                 self?.errorLabel.isHidden = true
             }
@@ -170,26 +177,29 @@ class FilmsViewController: UIViewController {
             }
         }
     }
-}
 
-// MARK: - UICollectionViewDataSource
-
-extension FilmsViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let viewModel else { return .zero }
-        return viewModel.films.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FilmCell.reuseIdentifier, for: indexPath) as? FilmCell else {
-            fatalError("Could not dequeue FilmCell")
+    private func configureDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Section, Film>(
+            collectionView: collectionView
+        ) { (collectionView, indexPath, film) -> UICollectionViewCell? in
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: FilmCell.reuseIdentifier,
+                for: indexPath
+            ) as? FilmCell else {
+                return nil
+            }
+            cell.configure(with: film)
+            return cell
         }
-        
-        guard let viewModel else { return UICollectionViewCell() }
-        
-        let film = viewModel.films[indexPath.item]
-        cell.configure(with: film)
-        return cell
+    }
+
+    private func applySnapshot() {
+        guard let films = viewModel?.films else { return }
+
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Film>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(films, toSection: .main)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 
@@ -197,8 +207,7 @@ extension FilmsViewController: UICollectionViewDataSource {
 
 extension FilmsViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        guard let viewModel else { return }
-        let selectedFilm = viewModel.films[indexPath.item]
-        onFilmSelected?(selectedFilm)
+        guard let film = dataSource.itemIdentifier(for: indexPath) else { return }
+        onFilmSelected?(film)
     }
 }

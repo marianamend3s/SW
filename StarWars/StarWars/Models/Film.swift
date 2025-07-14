@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Film: Codable {
+struct Film: Codable, Hashable {
     let title: String
     let episodeId: Int
     let openingCrawl: String

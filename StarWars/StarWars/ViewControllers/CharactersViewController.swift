@@ -10,7 +10,9 @@ import UIKit
 class CharactersViewController: UIViewController {
     var viewModel: CharacterViewModel?
     var onCharacterSelected: ((Character) -> Void)?
+    
     private var collectionView: UICollectionView!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, Character>!
 
     private let activityIndicator = UIActivityIndicatorView(style: .large)
     
@@ -23,6 +25,10 @@ class CharactersViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    private enum Section {
+        case main
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,7 +71,6 @@ class CharactersViewController: UIViewController {
             forCellWithReuseIdentifier: CharacterCell.reuseIdentifier
         )
         
-        collectionView.dataSource = self
         collectionView.delegate = self
         
         view.addSubview(collectionView)
@@ -76,6 +81,8 @@ class CharactersViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+        
+        configureDataSource()
     }
 
     private func createCollectionViewLayout() -> UICollectionViewLayout {
@@ -140,7 +147,7 @@ class CharactersViewController: UIViewController {
     private func bindViewModel() {
         viewModel?.onCharactersUpdated = { [weak self] in
             DispatchQueue.main.async {
-                self?.collectionView.reloadData()
+                self?.applySnapshot()
                 self?.collectionView.isHidden = false
                 self?.errorLabel.isHidden = true
             }
@@ -171,26 +178,29 @@ class CharactersViewController: UIViewController {
             }
         }
     }
-}
-
-// MARK: - UICollectionViewDataSource
-
-extension CharactersViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let viewModel else { return .zero }
-        return viewModel.pageCharacters.count
+    
+    private func configureDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Section, Character>(
+            collectionView: collectionView
+        ) { (collectionView, indexPath, character) -> UICollectionViewCell? in
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: CharacterCell.reuseIdentifier,
+                for: indexPath
+            ) as? CharacterCell else {
+                return nil
+            }
+            cell.configure(with: character)
+            return cell
+        }
     }
 
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCell.reuseIdentifier, for: indexPath) as? CharacterCell else {
-            fatalError("Could not dequeue CharacterCell")
-        }
-        
-        guard let viewModel else { return UICollectionViewCell() }
-        
-        let character = viewModel.pageCharacters[indexPath.item]
-        cell.configure(with: character)
-        return cell
+    private func applySnapshot() {
+        guard let characters = viewModel?.pageCharacters else { return }
+
+        var snapshot = NSDiffableDataSourceSnapshot<Section, Character>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(characters, toSection: .main)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 

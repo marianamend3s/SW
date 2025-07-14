@@ -10,7 +10,9 @@ import UIKit
 class CategoriesViewController: UIViewController {
     var viewModel: CategoriesViewModel?
     var onCategorySelected: ((String?) -> Void)?
+    
     private var collectionView: UICollectionView!
+    private var dataSource: UICollectionViewDiffableDataSource<Section, String>!
     
     private let activityIndicator = UIActivityIndicatorView(style: .large)
     
@@ -23,6 +25,10 @@ class CategoriesViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
+    private enum Section {
+        case main
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,7 +89,6 @@ class CategoriesViewController: UIViewController {
             forCellWithReuseIdentifier: CategoryCell.reuseIdentifier
         )
         
-        collectionView.dataSource = self
         collectionView.delegate = self
         
         view.addSubview(collectionView)
@@ -94,6 +99,8 @@ class CategoriesViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
+        
+        configureDataSource()
     }
     
     private func createCollectionViewLayout() -> UICollectionViewLayout {
@@ -158,7 +165,7 @@ class CategoriesViewController: UIViewController {
     private func bindViewModel() {
         viewModel?.onCategoriesUpdated = { [weak self] in
             DispatchQueue.main.async {
-                self?.collectionView.reloadData()
+                self?.applySnapshot()
                 self?.collectionView.isHidden = false
                 self?.errorLabel.isHidden = true
             }
@@ -189,24 +196,39 @@ class CategoriesViewController: UIViewController {
             }
         }
     }
-}
-
-// MARK: - UICollectionViewDataSource
-
-extension CategoriesViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        guard let viewModel else { return .zero }
-        return viewModel.categoryNames.count
-    }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CategoryCell.reuseIdentifier, for: indexPath) as? CategoryCell else {
-            fatalError("Unable to dequeue cell")
+    private func configureDataSource() {
+        dataSource = UICollectionViewDiffableDataSource<Section, String>(
+            collectionView: collectionView
+        ) { (collectionView, indexPath, categoryName) -> UICollectionViewCell? in
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: CategoryCell.reuseIdentifier,
+                for: indexPath
+            ) as? CategoryCell else {
+                return nil
+            }
+            cell.configure(with: categoryName)
+            return cell
         }
-        guard let viewModel else { return UICollectionViewCell() }
-        let categoryName = viewModel.categoryNames[indexPath.item]
-        cell.configure(with: categoryName.capitalized)
-        return cell
+    }
+
+    private func applySnapshot() {
+        guard let categoryNames = viewModel?.categoryNames else { return }
+        
+        let processedCategoryNames = categoryNames.map { name -> String in
+            var modifiedName = name
+            if name == "people" {
+                modifiedName = "characters"
+            }
+            return modifiedName.capitalized
+        }
+        
+        let capitalizedCategoryNames = processedCategoryNames.map { $0.capitalized }
+        
+        var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
+        snapshot.appendSections([.main])
+        snapshot.appendItems(capitalizedCategoryNames, toSection: .main)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
 }
 

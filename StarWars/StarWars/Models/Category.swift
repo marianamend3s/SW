@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Category: Codable {
+struct Category: Codable, Hashable {
     let films: URL
     let people: URL
     let planets: URL

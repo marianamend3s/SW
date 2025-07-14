@@ -27,13 +27,13 @@
 		BC7731462E22C54C00F99A54 /* FilmCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731452E22C54C00F99A54 /* FilmCell.swift */; };
 		BC7731482E22DC7B00F99A54 /* FilmDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731472E22DC7B00F99A54 /* FilmDetailViewController.swift */; };
 		BC77314A2E22DC9700F99A54 /* FilmDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731492E22DC9700F99A54 /* FilmDetailViewModel.swift */; };
-		BC77314E2E23DD3600F99A54 /* PeopleService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77314D2E23DD3600F99A54 /* PeopleService.swift */; };
-		BC7731502E23DD9300F99A54 /* People.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77314F2E23DD9300F99A54 /* People.swift */; };
+		BC77314E2E23DD3600F99A54 /* CharacterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77314D2E23DD3600F99A54 /* CharacterService.swift */; };
+		BC7731502E23DD9300F99A54 /* Character.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77314F2E23DD9300F99A54 /* Character.swift */; };
 		BC7731522E23DEBF00F99A54 /* NetworkService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731512E23DEBF00F99A54 /* NetworkService.swift */; };
-		BC7731542E23E01600F99A54 /* PeopleCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731532E23E01600F99A54 /* PeopleCoordinator.swift */; };
-		BC7731562E23E0A700F99A54 /* PeopleViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731552E23E0A700F99A54 /* PeopleViewModel.swift */; };
-		BC7731582E23E14F00F99A54 /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731572E23E14F00F99A54 /* PeopleViewController.swift */; };
-		BC77315A2E23E17400F99A54 /* PeopleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731592E23E17400F99A54 /* PeopleCell.swift */; };
+		BC7731542E23E01600F99A54 /* CharactersCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731532E23E01600F99A54 /* CharactersCoordinator.swift */; };
+		BC7731562E23E0A700F99A54 /* CharacterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731552E23E0A700F99A54 /* CharacterViewModel.swift */; };
+		BC7731582E23E14F00F99A54 /* CharactersViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731572E23E14F00F99A54 /* CharactersViewController.swift */; };
+		BC77315A2E23E17400F99A54 /* CharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731592E23E17400F99A54 /* CharacterCell.swift */; };
 		BC77315C2E23E6F300F99A54 /* CategoriesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77315B2E23E6F300F99A54 /* CategoriesCoordinator.swift */; };
 		BC77315E2E23EA3F00F99A54 /* CoordinatorImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77315D2E23EA3F00F99A54 /* CoordinatorImpl.swift */; };
 		BC7731602E23EEDF00F99A54 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77315F2E23EEDF00F99A54 /* Constants.swift */; };
@@ -74,13 +74,13 @@
 		BC7731452E22C54C00F99A54 /* FilmCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmCell.swift; sourceTree = "<group>"; };
 		BC7731472E22DC7B00F99A54 /* FilmDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmDetailViewController.swift; sourceTree = "<group>"; };
 		BC7731492E22DC9700F99A54 /* FilmDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmDetailViewModel.swift; sourceTree = "<group>"; };
-		BC77314D2E23DD3600F99A54 /* PeopleService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleService.swift; sourceTree = "<group>"; };
-		BC77314F2E23DD9300F99A54 /* People.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = People.swift; sourceTree = "<group>"; };
+		BC77314D2E23DD3600F99A54 /* CharacterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterService.swift; sourceTree = "<group>"; };
+		BC77314F2E23DD9300F99A54 /* Character.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Character.swift; sourceTree = "<group>"; };
 		BC7731512E23DEBF00F99A54 /* NetworkService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkService.swift; sourceTree = "<group>"; };
-		BC7731532E23E01600F99A54 /* PeopleCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleCoordinator.swift; sourceTree = "<group>"; };
-		BC7731552E23E0A700F99A54 /* PeopleViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewModel.swift; sourceTree = "<group>"; };
-		BC7731572E23E14F00F99A54 /* PeopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
-		BC7731592E23E17400F99A54 /* PeopleCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleCell.swift; sourceTree = "<group>"; };
+		BC7731532E23E01600F99A54 /* CharactersCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersCoordinator.swift; sourceTree = "<group>"; };
+		BC7731552E23E0A700F99A54 /* CharacterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewModel.swift; sourceTree = "<group>"; };
+		BC7731572E23E14F00F99A54 /* CharactersViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharactersViewController.swift; sourceTree = "<group>"; };
+		BC7731592E23E17400F99A54 /* CharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCell.swift; sourceTree = "<group>"; };
 		BC77315B2E23E6F300F99A54 /* CategoriesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCoordinator.swift; sourceTree = "<group>"; };
 		BC77315D2E23EA3F00F99A54 /* CoordinatorImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorImpl.swift; sourceTree = "<group>"; };
 		BC77315F2E23EEDF00F99A54 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -145,7 +145,7 @@
 				BC7731512E23DEBF00F99A54 /* NetworkService.swift */,
 				BC7731612E23FFAF00F99A54 /* CategoryService.swift */,
 				BC7731152E21323E00F99A54 /* FilmService.swift */,
-				BC77314D2E23DD3600F99A54 /* PeopleService.swift */,
+				BC77314D2E23DD3600F99A54 /* CharacterService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -157,7 +157,7 @@
 				BC77315D2E23EA3F00F99A54 /* CoordinatorImpl.swift */,
 				BC77315B2E23E6F300F99A54 /* CategoriesCoordinator.swift */,
 				BC7731292E21816C00F99A54 /* FilmsCoordinator.swift */,
-				BC7731532E23E01600F99A54 /* PeopleCoordinator.swift */,
+				BC7731532E23E01600F99A54 /* CharactersCoordinator.swift */,
 			);
 			path = Coordinators;
 			sourceTree = "<group>";
@@ -176,7 +176,7 @@
 			children = (
 				BC77311F2E217BAD00F99A54 /* Category.swift */,
 				BC7731192E21325600F99A54 /* Film.swift */,
-				BC77314F2E23DD9300F99A54 /* People.swift */,
+				BC77314F2E23DD9300F99A54 /* Character.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -187,7 +187,7 @@
 				BC77312B2E2181FD00F99A54 /* CategoriesViewModel.swift */,
 				BC7731432E22C27A00F99A54 /* FilmsViewModel.swift */,
 				BC7731492E22DC9700F99A54 /* FilmDetailViewModel.swift */,
-				BC7731552E23E0A700F99A54 /* PeopleViewModel.swift */,
+				BC7731552E23E0A700F99A54 /* CharacterViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -198,7 +198,7 @@
 				BC7731012E2130D300F99A54 /* CategoriesViewController.swift */,
 				BC77311B2E217ADE00F99A54 /* FilmsViewController.swift */,
 				BC7731472E22DC7B00F99A54 /* FilmDetailViewController.swift */,
-				BC7731572E23E14F00F99A54 /* PeopleViewController.swift */,
+				BC7731572E23E14F00F99A54 /* CharactersViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -208,7 +208,7 @@
 			children = (
 				BC77311D2E217AFC00F99A54 /* CategoryCell.swift */,
 				BC7731452E22C54C00F99A54 /* FilmCell.swift */,
-				BC7731592E23E17400F99A54 /* PeopleCell.swift */,
+				BC7731592E23E17400F99A54 /* CharacterCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -325,25 +325,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC7731582E23E14F00F99A54 /* PeopleViewController.swift in Sources */,
+				BC7731582E23E14F00F99A54 /* CharactersViewController.swift in Sources */,
 				BC7731522E23DEBF00F99A54 /* NetworkService.swift in Sources */,
-				BC7731562E23E0A700F99A54 /* PeopleViewModel.swift in Sources */,
+				BC7731562E23E0A700F99A54 /* CharacterViewModel.swift in Sources */,
 				BC7731622E23FFAF00F99A54 /* CategoryService.swift in Sources */,
 				BC7731442E22C27A00F99A54 /* FilmsViewModel.swift in Sources */,
 				BC7731462E22C54C00F99A54 /* FilmCell.swift in Sources */,
 				BC7731482E22DC7B00F99A54 /* FilmDetailViewController.swift in Sources */,
 				BC7731162E21323E00F99A54 /* FilmService.swift in Sources */,
 				BC7731602E23EEDF00F99A54 /* Constants.swift in Sources */,
-				BC77314E2E23DD3600F99A54 /* PeopleService.swift in Sources */,
+				BC77314E2E23DD3600F99A54 /* CharacterService.swift in Sources */,
 				BC77311E2E217AFC00F99A54 /* CategoryCell.swift in Sources */,
 				BC7731022E2130D300F99A54 /* CategoriesViewController.swift in Sources */,
 				BC7731202E217BAD00F99A54 /* Category.swift in Sources */,
 				BC7731142E21323400F99A54 /* NetworkError.swift in Sources */,
-				BC77315A2E23E17400F99A54 /* PeopleCell.swift in Sources */,
+				BC77315A2E23E17400F99A54 /* CharacterCell.swift in Sources */,
 				BC77311A2E21325600F99A54 /* Film.swift in Sources */,
 				BC77312C2E2181FD00F99A54 /* CategoriesViewModel.swift in Sources */,
 				BC7731262E21809200F99A54 /* Coordinator.swift in Sources */,
-				BC7731502E23DD9300F99A54 /* People.swift in Sources */,
+				BC7731502E23DD9300F99A54 /* Character.swift in Sources */,
 				BC77315C2E23E6F300F99A54 /* CategoriesCoordinator.swift in Sources */,
 				BC77315E2E23EA3F00F99A54 /* CoordinatorImpl.swift in Sources */,
 				BC77312A2E21816C00F99A54 /* FilmsCoordinator.swift in Sources */,
@@ -351,7 +351,7 @@
 				BC77311C2E217ADE00F99A54 /* FilmsViewController.swift in Sources */,
 				BC7731002E2130D300F99A54 /* SceneDelegate.swift in Sources */,
 				BC77314A2E22DC9700F99A54 /* FilmDetailViewModel.swift in Sources */,
-				BC7731542E23E01600F99A54 /* PeopleCoordinator.swift in Sources */,
+				BC7731542E23E01600F99A54 /* CharactersCoordinator.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

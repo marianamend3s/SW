@@ -47,6 +47,6 @@ enum Constants {
     enum Categories {
         static let title = "Star Wars"
         static let films = "Films"
-        static let people = "People"
+        static let characters = "Characters"
     }
 }

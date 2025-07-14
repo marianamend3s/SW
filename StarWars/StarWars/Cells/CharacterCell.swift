@@ -1,5 +1,5 @@
 //
-//  PeopleCell.swift
+//  CharacterCell.swift
 //  StarWars
 //
 //  Created by Mariana Mendes on 13/07/2025.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class PeopleCell: UICollectionViewCell {
-    static let reuseIdentifier = "PeopleCell"
+class CharacterCell: UICollectionViewCell {
+    static let reuseIdentifier = "CharacterCell"
     
     private let nameLabel: UILabel = {
         let label = UILabel()
@@ -57,8 +57,8 @@ class PeopleCell: UICollectionViewCell {
         ])
     }
     
-    func configure(with people: People) {
-        nameLabel.text = people.name
+    func configure(with character: Character) {
+        nameLabel.text = character.name
     }
     
     override var isHighlighted: Bool {

@@ -1,5 +1,5 @@
 //
-//  PeopleService.swift
+//  CharacterService.swift
 //  StarWars
 //
 //  Created by Mariana Mendes on 13/07/2025.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol PeopleService {
-    func getPeople() async throws -> [People]
+protocol CharacterService {
+    func getCharacters() async throws -> [Character]
 }
 
-class PeopleServiceImpl: NetworkService, PeopleService {
+class CharacterServiceImpl: NetworkService, CharacterService {
     let urlSession: URLSession
     let urlString: String
     let decoder: JSONDecoder
@@ -26,7 +26,7 @@ class PeopleServiceImpl: NetworkService, PeopleService {
         self.decoder = decoder
     }
     
-    func getPeople() async throws -> [People] {
+    func getCharacters() async throws -> [Character] {
         do {
             guard let url = URL(string: urlString) else {
                 throw NetworkError.invalidURL
@@ -38,7 +38,7 @@ class PeopleServiceImpl: NetworkService, PeopleService {
                 throw NetworkError.invalidResponse
             }
             
-            return try decoder.decode([People].self, from: data)
+            return try decoder.decode([Character].self, from: data)
             
         } catch let networkError as NetworkError {
             throw networkError

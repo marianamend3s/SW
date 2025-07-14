@@ -1,5 +1,5 @@
 //
-//  PeopleViewController.swift
+//  CharactersViewController.swift
 //  StarWars
 //
 //  Created by Mariana Mendes on 13/07/2025.
@@ -7,8 +7,8 @@
 
 import UIKit
 
-class PeopleViewController: UIViewController {
-    var viewModel: PeopleViewModel?
+class CharactersViewController: UIViewController {
+    var viewModel: CharacterViewModel?
     private var collectionView: UICollectionView!
 
     private let activityIndicator = UIActivityIndicatorView(style: .large)
@@ -33,7 +33,7 @@ class PeopleViewController: UIViewController {
         setupErrorLabel()
         
         bindViewModel()
-        viewModel?.fetchPeople()
+        viewModel?.fetchCharacters()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,7 +49,7 @@ class PeopleViewController: UIViewController {
     }
 
     private func setupNavigationBar() {
-        navigationItem.title = Constants.Categories.people
+        navigationItem.title = Constants.Categories.characters
         navigationController?.navigationBar.prefersLargeTitles = false
     }
     
@@ -70,8 +70,8 @@ class PeopleViewController: UIViewController {
         collectionView.backgroundColor = .clear
         
         collectionView.register(
-            PeopleCell.self,
-            forCellWithReuseIdentifier: PeopleCell.reuseIdentifier
+            CharacterCell.self,
+            forCellWithReuseIdentifier: CharacterCell.reuseIdentifier
         )
         
         collectionView.dataSource = self
@@ -147,7 +147,7 @@ class PeopleViewController: UIViewController {
     }
     
     private func bindViewModel() {
-        viewModel?.onPeopleUpdated = { [weak self] in
+        viewModel?.onCharactersUpdated = { [weak self] in
             DispatchQueue.main.async {
                 self?.collectionView.reloadData()
                 self?.collectionView.isHidden = false
@@ -184,33 +184,33 @@ class PeopleViewController: UIViewController {
 
 // MARK: - UICollectionViewDataSource
 
-extension PeopleViewController: UICollectionViewDataSource {
+extension CharactersViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         guard let viewModel else { return .zero }
-        return viewModel.people.count
+        return viewModel.characters.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: PeopleCell.reuseIdentifier, for: indexPath) as? PeopleCell else {
-            fatalError("Could not dequeue PeopleCell")
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CharacterCell.reuseIdentifier, for: indexPath) as? CharacterCell else {
+            fatalError("Could not dequeue CharacterCell")
         }
         
         guard let viewModel else { return UICollectionViewCell() }
         
-        let people = viewModel.people[indexPath.item]
-        cell.configure(with: people)
+        let character = viewModel.characters[indexPath.item]
+        cell.configure(with: character)
         return cell
     }
 }
 
 // MARK: - UICollectionViewDelegate
 
-extension PeopleViewController: UICollectionViewDelegate {
+extension CharactersViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         // TODO: -
         // guard let viewModel else { return }
-        // let selectedPeople = viewModel.people[indexPath.item]
-        // onPeopleSelected?(people)
+        // let selectedCharacter = viewModel.characters[indexPath.item]
+        // onCharacterSelected?(character)
     }
 }

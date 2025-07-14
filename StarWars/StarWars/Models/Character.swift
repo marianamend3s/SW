@@ -1,5 +1,5 @@
 //
-//  People.swift
+//  Character.swift
 //  StarWars
 //
 //  Created by Mariana Mendes on 13/07/2025.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct People: Codable {
+struct Character: Codable {
     let name: String
     let height: String
     let mass: String

@@ -24,7 +24,7 @@ class CategoriesCoordinator: Coordinator {
             
             switch category {
             case "films": self?.navigateToFilms()
-            case "people": self?.navigateToPeople()
+            case "people": self?.navigateToCharacters()
             default: break
             }
         }
@@ -32,16 +32,16 @@ class CategoriesCoordinator: Coordinator {
         navigationController.pushViewController(categoriesViewController, animated: true)
     }
 
-    func navigateToPeople() {
-        let peopleCoordinator = PeopleCoordinator(navigationController: navigationController)
-        children.append(peopleCoordinator)
-        peopleCoordinator.start()
-    }
-
     func navigateToFilms() {
         let filmsCoordinator = FilmsCoordinator(navigationController: navigationController)
         children.append(filmsCoordinator)
         filmsCoordinator.start()
+    }
+    
+    func navigateToCharacters() {
+        let charactersCoordinator = CharactersCoordinator(navigationController: navigationController)
+        children.append(charactersCoordinator)
+        charactersCoordinator.start()
     }
     
     func coordinatorDidFinish(_ coordinator: Coordinator) {

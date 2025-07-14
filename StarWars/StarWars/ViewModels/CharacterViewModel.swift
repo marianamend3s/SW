@@ -1,5 +1,5 @@
 //
-//  PeopleViewModel.swift
+//  CharacterViewModel.swift
 //  StarWars
 //
 //  Created by Mariana Mendes on 13/07/2025.
@@ -7,12 +7,12 @@
 
 import Foundation
 
-class PeopleViewModel {
-    private let peopleService: PeopleService
+class CharacterViewModel {
+    private let characterService: CharacterService
 
-    var people: [People] = [] {
+    var characters: [Character] = [] {
         didSet {
-            onPeopleUpdated?()
+            onCharactersUpdated?()
         }
     }
     
@@ -27,15 +27,15 @@ class PeopleViewModel {
         }
     }
 
-    var onPeopleUpdated: (() -> Void)?
+    var onCharactersUpdated: (() -> Void)?
     var onLoadingStateChanged: ((Bool) -> Void)?
     var onError: ((String?) -> Void)?
 
-    init(peopleService: PeopleService) {
-        self.peopleService = peopleService
+    init(characterService: CharacterService) {
+        self.characterService = characterService
     }
 
-    func fetchPeople() {
+    func fetchCharacters() {
         guard !isLoading else { return }
         
         isLoading = true
@@ -43,10 +43,10 @@ class PeopleViewModel {
 
         Task {
             do {
-                let fetchedPeople = try await peopleService.getPeople()
+                let fetchedCharacters = try await characterService.getCharacters()
 
                 DispatchQueue.main.async {
-                    self.people = fetchedPeople
+                    self.characters = fetchedCharacters
                     self.isLoading = false
                 }
             } catch {

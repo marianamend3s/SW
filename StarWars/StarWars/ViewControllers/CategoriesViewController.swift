@@ -27,7 +27,7 @@ class CategoriesViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .black
         
         setupActivityIndicator()
         setupCollectionView()
@@ -45,17 +45,26 @@ class CategoriesViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         
-        cleanUpNavigationBar()
+        self.title = ""
     }
+
     
     private func setupNavigationBar() {
-        navigationItem.title = Constants.Categories.title
+        self.title = "Star Wars"
+        
+        let titleColor = UIColor(red: 255/255, green: 232/255, blue: 31/255, alpha: 1.0)
+        
         navigationController?.navigationBar.prefersLargeTitles = true
-    }
-    
-    private func cleanUpNavigationBar() {
-        navigationItem.title = nil
-        navigationController?.navigationBar.prefersLargeTitles = false
+        
+        navigationController?.navigationBar.largeTitleTextAttributes = [
+            .foregroundColor: titleColor,
+            .font: UIFont.boldSystemFont(ofSize: 40)
+        ]
+        
+        navigationController?.navigationBar.titleTextAttributes = [
+            .foregroundColor: titleColor,
+            .font: UIFont.boldSystemFont(ofSize: 20)
+        ]
     }
     
     private func setupCollectionView() {

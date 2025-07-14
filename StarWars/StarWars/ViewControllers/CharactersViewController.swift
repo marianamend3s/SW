@@ -27,7 +27,7 @@ class CharactersViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .black
         
         setupActivityIndicator()
         setupCollectionView()
@@ -42,21 +42,11 @@ class CharactersViewController: UIViewController {
         
         setupNavigationBar()
     }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        cleanUpNavigationBar()
-    }
 
     private func setupNavigationBar() {
-        navigationItem.title = Constants.Categories.characters
+        navigationItem.title = "Characters"
         navigationController?.navigationBar.prefersLargeTitles = false
-    }
-    
-    private func cleanUpNavigationBar() {
-        navigationItem.title = nil
-        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
     }
 
     private func setupCollectionView() {

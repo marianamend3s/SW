@@ -143,20 +143,9 @@ class CharacterDetailViewController: UIViewController {
         setupNavigationBar()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        cleanUpNavigationBar()
-    }
-    
     private func setupNavigationBar() {
         guard let viewModel else { return }
         title = viewModel.name
-        navigationController?.navigationBar.prefersLargeTitles = false
-    }
-    
-    private func cleanUpNavigationBar() {
-        title = nil
         navigationController?.navigationBar.prefersLargeTitles = false
     }
     

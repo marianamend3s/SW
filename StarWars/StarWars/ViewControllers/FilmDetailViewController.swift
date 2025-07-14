@@ -25,7 +25,7 @@ class FilmDetailViewController: UIViewController {
     private let episodeLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .title2)
-        label.textColor = .secondaryLabel
+        label.textColor = .white
         label.textAlignment = .center
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -35,6 +35,7 @@ class FilmDetailViewController: UIViewController {
     private let directorLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.textColor = .white
         label.numberOfLines = 0
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -44,6 +45,7 @@ class FilmDetailViewController: UIViewController {
     private let producerLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.textColor = .white
         label.numberOfLines = 0
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -53,6 +55,7 @@ class FilmDetailViewController: UIViewController {
     private let releaseDateLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.textColor = .white
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -62,6 +65,7 @@ class FilmDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "Synopsis:"
         label.font = UIFont.preferredFont(forTextStyle: .body)
+        label.textColor = .white
         label.adjustsFontForContentSizeCategory = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -101,7 +105,7 @@ class FilmDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .black
         
         setupUI()
         configureWithViewModel()
@@ -113,23 +117,12 @@ class FilmDetailViewController: UIViewController {
         setupNavigationBar()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        cleanUpNavigationBar()
-    }
-    
     private func setupNavigationBar() {
         guard let viewModel else { return }
         title = viewModel.title
         navigationController?.navigationBar.prefersLargeTitles = false
     }
     
-    private func cleanUpNavigationBar() {
-        title = nil
-        navigationController?.navigationBar.prefersLargeTitles = false
-    }
-
     private func setupUI() {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false

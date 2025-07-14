@@ -27,8 +27,8 @@ class FilmsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .systemBackground
-        
+        view.backgroundColor = .black
+
         setupActivityIndicator()
         setupCollectionView()
         setupErrorLabel()
@@ -42,20 +42,10 @@ class FilmsViewController: UIViewController {
         setupNavigationBar()
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        cleanUpNavigationBar()
-    }
-    
     private func setupNavigationBar() {
-        navigationItem.title = Constants.Categories.films
+        navigationItem.title = "Films"
         navigationController?.navigationBar.prefersLargeTitles = false
-    }
-    
-    private func cleanUpNavigationBar() {
-        navigationItem.title = nil
-        navigationController?.navigationBar.prefersLargeTitles = false
+        navigationItem.largeTitleDisplayMode = .never
     }
     
     private func setupCollectionView() {

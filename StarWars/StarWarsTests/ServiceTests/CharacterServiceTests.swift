@@ -19,6 +19,13 @@ class CharacterServiceTests: XCTestCase {
         mockSession = MockNetworkSession()
         characterService = CharacterServiceImpl(urlSession: mockSession, urlString: baseURL)
     }
+    
+    override func tearDown() {
+        super.tearDown()
+        
+        mockSession = nil
+        characterService = nil
+    }
 
     func test_GivenValidResponse_WhenFetchCharacters_ThenCharactersAreSuccessfullyFetched() async throws {
         // GIVEN

@@ -12,6 +12,8 @@
 		BC189CCA2E26BF7C00DBC565 /* NetworkFetchingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC189CC92E26BF7C00DBC565 /* NetworkFetchingService.swift */; };
 		BC189CCC2E26C14F00DBC565 /* CharacterServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC189CCB2E26C14F00DBC565 /* CharacterServiceTests.swift */; };
 		BC189CCE2E26C24300DBC565 /* MockJSON.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC189CCD2E26C24300DBC565 /* MockJSON.swift */; };
+		BC189CD42E26D01700DBC565 /* NetworkFetchingServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC189CD32E26D01700DBC565 /* NetworkFetchingServiceTests.swift */; };
+		BC189CD92E26D16B00DBC565 /* NetworkFetchingHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC189CD82E26D16B00DBC565 /* NetworkFetchingHelper.swift */; };
 		BC7730FE2E2130D300F99A54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7730FD2E2130D300F99A54 /* AppDelegate.swift */; };
 		BC7731002E2130D300F99A54 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7730FF2E2130D300F99A54 /* SceneDelegate.swift */; };
 		BC7731022E2130D300F99A54 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731012E2130D300F99A54 /* CategoriesViewController.swift */; };
@@ -62,6 +64,8 @@
 		BC189CC92E26BF7C00DBC565 /* NetworkFetchingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetchingService.swift; sourceTree = "<group>"; };
 		BC189CCB2E26C14F00DBC565 /* CharacterServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterServiceTests.swift; sourceTree = "<group>"; };
 		BC189CCD2E26C24300DBC565 /* MockJSON.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockJSON.swift; sourceTree = "<group>"; };
+		BC189CD32E26D01700DBC565 /* NetworkFetchingServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetchingServiceTests.swift; sourceTree = "<group>"; };
+		BC189CD82E26D16B00DBC565 /* NetworkFetchingHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkFetchingHelper.swift; sourceTree = "<group>"; };
 		BC7730FA2E2130D300F99A54 /* StarWars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarWars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC7730FD2E2130D300F99A54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC7730FF2E2130D300F99A54 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -122,6 +126,7 @@
 			children = (
 				BC77313D2E2187E900F99A54 /* MockNetworkSession.swift */,
 				BC189CCD2E26C24300DBC565 /* MockJSON.swift */,
+				BC189CD82E26D16B00DBC565 /* NetworkFetchingHelper.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -132,6 +137,7 @@
 				BC189CC42E26BC3300DBC565 /* CategoryServiceTests.swift */,
 				BC189CC72E26BF2000DBC565 /* FilmServiceTests.swift */,
 				BC189CCB2E26C14F00DBC565 /* CharacterServiceTests.swift */,
+				BC189CD32E26D01700DBC565 /* NetworkFetchingServiceTests.swift */,
 			);
 			path = ServiceTests;
 			sourceTree = "<group>";
@@ -396,7 +402,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC189CD92E26D16B00DBC565 /* NetworkFetchingHelper.swift in Sources */,
 				BC189CC52E26BC3300DBC565 /* CategoryServiceTests.swift in Sources */,
+				BC189CD42E26D01700DBC565 /* NetworkFetchingServiceTests.swift in Sources */,
 				BC189CC82E26BF2000DBC565 /* FilmServiceTests.swift in Sources */,
 				BC189CCE2E26C24300DBC565 /* MockJSON.swift in Sources */,
 				BC77313E2E2187E900F99A54 /* MockNetworkSession.swift in Sources */,

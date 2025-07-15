@@ -28,7 +28,6 @@ class CategoryServiceImpl: NetworkFetchingService, CategoryService {
     
     func fetchCategoryNames() async throws -> [String] {
         let categoryEndpoints = try await fetchData(from: urlString, decodingType: [String: URL].self)
-        
         return categoryEndpoints.keys.sorted()
     }
 }

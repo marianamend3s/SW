@@ -27,6 +27,12 @@ class FilmServiceTests: XCTestCase {
         filmService = FilmServiceImpl(urlSession: mockSession, urlString: baseURL, decoder: decoder)
     }
 
+    override func tearDown() {
+        super.tearDown()
+        
+        mockSession = nil
+        filmService = nil
+    }
     
     func test_GivenValidResponse_WhenFetchFilms_ThenFilmsAreSuccessfullyFetched() async throws {
         // GIVEN
@@ -44,7 +50,7 @@ class FilmServiceTests: XCTestCase {
     }
 
     
-    func test_GivenInvalidURL_WhenFetchFilms_ThenInvalidURLErrorisThrown() async {
+    func test_GivenInvalidURL_WhenFetchFilms_ThenInvalidURLErrorIsThrown() async {
         // GIVEN
         filmService = FilmServiceImpl(urlSession: mockSession, urlString: "invalid url")
         

@@ -22,6 +22,13 @@ class CategoryServiceTests: XCTestCase {
         categoryService = CategoryServiceImpl(urlSession: mockSession, urlString: baseURL)
     }
     
+    override func tearDown() {
+        super.tearDown()
+        
+        mockSession = nil
+        categoryService = nil
+    }
+    
     func test_GivenValidResponse_WhenFetchCategoryNames_ThenCategoryNamesAreSuccessfullyFetched() async throws {
         // GIVEN
         let mockJSON = MockJSON.mockCategories

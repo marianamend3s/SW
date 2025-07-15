@@ -28,10 +28,10 @@ class FilmServiceTests: XCTestCase {
     }
 
     override func tearDown() {
-        super.tearDown()
-        
         mockSession = nil
         filmService = nil
+        
+        super.tearDown()
     }
     
     func test_GivenValidResponse_WhenFetchFilms_ThenFilmsAreSuccessfullyFetched() async throws {

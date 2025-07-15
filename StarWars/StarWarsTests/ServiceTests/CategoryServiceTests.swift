@@ -5,8 +5,6 @@
 //  Created by Mariana Mendes on 15/07/2025.
 //
 
-import Foundation
-
 import XCTest
 @testable import StarWars
 
@@ -23,10 +21,10 @@ class CategoryServiceTests: XCTestCase {
     }
     
     override func tearDown() {
-        super.tearDown()
-        
         mockSession = nil
         categoryService = nil
+        
+        super.tearDown()
     }
     
     func test_GivenValidResponse_WhenFetchCategoryNames_ThenCategoryNamesAreSuccessfullyFetched() async throws {

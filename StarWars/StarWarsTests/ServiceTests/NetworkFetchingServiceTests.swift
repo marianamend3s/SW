@@ -5,8 +5,6 @@
 //  Created by Mariana Mendes on 15/07/2025.
 //
 
-import Foundation
-
 import XCTest
 @testable import StarWars
 
@@ -22,10 +20,10 @@ class NetworkFetchingServiceTests: XCTestCase {
     }
     
     override func tearDown() {
-        super.tearDown()
-        
         mockSession = nil
         mockURLString = nil
+        
+        super.tearDown()
     }
     
     func test_GivenValidResponse_WhenFetchDataFromURL_ThenDataSuccessfullyFetched() async throws {

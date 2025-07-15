@@ -21,10 +21,10 @@ class CharacterServiceTests: XCTestCase {
     }
     
     override func tearDown() {
-        super.tearDown()
-        
         mockSession = nil
         characterService = nil
+        
+        super.tearDown()
     }
 
     func test_GivenValidResponse_WhenFetchCharacters_ThenCharactersAreSuccessfullyFetched() async throws {

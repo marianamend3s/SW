@@ -11,13 +11,13 @@ protocol FilmService {
     func fetchFilms() async throws -> [Film]
 }
 
-class FilmServiceImpl: NetworkService, FilmService {
-    let urlSession: URLSession
+class FilmServiceImpl: NetworkFetchingService, FilmService {
+    let urlSession: NetworkSession
     let urlString: String
     let decoder: JSONDecoder
-
+    
     init(
-        urlSession: URLSession = .shared,
+        urlSession: NetworkSession = URLSession.shared,
         urlString: String = "https://swapi.info/api/films/",
         decoder: JSONDecoder = JSONDecoder()
     ) {
@@ -32,23 +32,6 @@ class FilmServiceImpl: NetworkService, FilmService {
     }
     
     func fetchFilms() async throws -> [Film] {
-        do {
-            guard let url = URL(string: urlString) else {
-                throw NetworkError.invalidURL
-            }
-            
-            let (data, response) = try await self.urlSession.data(from: url)
-            
-            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-                throw NetworkError.invalidResponse
-            }
-            
-            return try decoder.decode([Film].self, from: data)
-            
-        } catch let networkError as NetworkError {
-            throw networkError
-        } catch {
-            throw NetworkError.decodingError(error)
-        }
+        return try await fetchData(from: urlString, decodingType: [Film].self)
     }
 }

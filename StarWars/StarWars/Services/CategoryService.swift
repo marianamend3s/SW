@@ -11,13 +11,13 @@ protocol CategoryService {
     func fetchCategoryNames() async throws -> [String]
 }
 
-class CategoryServiceImpl: NetworkService, CategoryService {
-    let urlSession: URLSession
+class CategoryServiceImpl: NetworkFetchingService, CategoryService {
+    let urlSession: NetworkSession
     let urlString: String
     let decoder: JSONDecoder
     
     init(
-        urlSession: URLSession = .shared,
+        urlSession: NetworkSession = URLSession.shared,
         urlString: String = "https://swapi.info/api/",
         decoder: JSONDecoder = JSONDecoder()
     ) {
@@ -27,25 +27,8 @@ class CategoryServiceImpl: NetworkService, CategoryService {
     }
     
     func fetchCategoryNames() async throws -> [String] {
-        do {
-            guard let url = URL(string: urlString) else {
-                throw NetworkError.invalidURL
-            }
-            
-            let (data, response) = try await self.urlSession.data(from: url)
-            
-            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-                throw NetworkError.invalidResponse
-            }
-            
-            let categoryEndpoints = try decoder.decode([String: URL].self, from: data)
-            
-            return categoryEndpoints.keys.sorted()
-            
-        } catch let networkError as NetworkError {
-            throw networkError
-        } catch {
-            throw NetworkError.decodingError(error)
-        }
+        let categoryEndpoints = try await fetchData(from: urlString, decodingType: [String: URL].self)
+        
+        return categoryEndpoints.keys.sorted()
     }
 }

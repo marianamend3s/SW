@@ -12,13 +12,13 @@ protocol CharacterService {
     func fetchCharacterFromURL(_ url: URL) async throws -> Character
 }
 
-class CharacterServiceImpl: NetworkService, CharacterService {
-    let urlSession: URLSession
+class CharacterServiceImpl: NetworkFetchingService, CharacterService {
+    let urlSession: NetworkSession
     let urlString: String
     let decoder: JSONDecoder
-
+    
     init(
-        urlSession: URLSession = .shared,
+        urlSession: NetworkSession = URLSession.shared,
         urlString: String = "https://swapi.info/api/people/",
         decoder: JSONDecoder = JSONDecoder()
     ) {
@@ -28,41 +28,13 @@ class CharacterServiceImpl: NetworkService, CharacterService {
         
         decoder.keyDecodingStrategy = .convertFromSnakeCase
     }
-    
+
     func fetchCharacters() async throws -> [Character] {
-        do {
-            guard let url = URL(string: urlString) else {
-                throw NetworkError.invalidURL
-            }
-            
-            let (data, response) = try await self.urlSession.data(from: url)
-            
-            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-                throw NetworkError.invalidResponse
-            }
-            
-            return try decoder.decode([Character].self, from: data)
-            
-        } catch let networkError as NetworkError {
-            throw networkError
-        } catch {
-            throw NetworkError.decodingError(error)
-        }
+        return try await fetchData(from: urlString, decodingType: [Character].self)
     }
-    
+
     func fetchCharacterFromURL(_ url: URL) async throws -> Character {
-        do {
-            let (data, response) = try await self.urlSession.data(from: url)
-            
-            guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-                throw NetworkError.invalidResponse
-            }
-            
-            return try decoder.decode(Character.self, from: data)
-        } catch let networkError as NetworkError {
-            throw networkError
-        } catch {
-            throw NetworkError.decodingError(error)
-        }
+        return try await fetchData(from: url, decodingType: Character.self)
     }
+
 }

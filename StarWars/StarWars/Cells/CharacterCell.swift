@@ -14,10 +14,21 @@ class CharacterCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .headline)
-        label.textColor = .label
+        label.textColor = .white
         label.textAlignment = .center
         label.numberOfLines = .zero
         return label
+    }()
+    
+    private let backgroundGradient: CAGradientLayer = {
+        let gradient = CAGradientLayer()
+        gradient.colors = [
+            UIColor(red: 240/255, green: 210/255, blue: 80/255, alpha: 1).cgColor,
+            UIColor(red: 190/255, green: 160/255, blue: 60/255, alpha: 1).cgColor
+        ]
+        gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
+        gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
+        return gradient
     }()
     
     override init(frame: CGRect) {
@@ -30,15 +41,49 @@ class CharacterCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        CATransaction.begin()
+        CATransaction.setDisableActions(true)
+        backgroundGradient.frame = contentView.bounds
+        CATransaction.commit()
+    }
+    
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        
+        nameLabel.text = nil
+    }
+    
+    override var isHighlighted: Bool {
+        didSet {
+            UIView.animate(withDuration: 0.1) {
+                self.contentView.alpha = self.isHighlighted ? 0.7 : 1
+                self.transform = self.isHighlighted
+                ? CGAffineTransform(scaleX: 0.98, y: 0.98)
+                : .identity
+            }
+        }
+    }
+    
+    func configure(with character: Character, isPlaceholder: Bool = false) {
+        nameLabel.text = character.name
+    }
+    
     private func setupCell() {
-        contentView.backgroundColor = .systemGray5
-        contentView.layer.cornerRadius = Constants.cornerRadius
+        contentView.layer.insertSublayer(backgroundGradient, at: 0)
+        
+        backgroundGradient.frame = bounds
+        
+        contentView.layer.cornerRadius = 10
         contentView.layer.masksToBounds = true
         
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = Constants.shadowOffset
-        layer.shadowRadius = Constants.shadowRadius
-        layer.shadowOpacity = Constants.shadowOpacity
+        layer.shadowColor = UIColor.systemIndigo.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 2)
+        layer.shadowRadius = 4
+        layer.shadowOpacity = 0.4
         layer.masksToBounds = false
         
         contentView.addSubview(nameLabel)
@@ -46,34 +91,8 @@ class CharacterCell: UICollectionViewCell {
         NSLayoutConstraint.activate([
             nameLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             nameLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            nameLabel.leadingAnchor.constraint(
-                equalTo: contentView.leadingAnchor,
-                constant: Constants.padding
-            ),
-            nameLabel.trailingAnchor.constraint(
-                equalTo: contentView.trailingAnchor,
-                constant: -Constants.padding
-            )
+            nameLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
+            nameLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
         ])
-    }
-    
-    func configure(with character: Character) {
-        nameLabel.text = character.name
-    }
-    
-    override var isHighlighted: Bool {
-        didSet {
-            UIView.animate(withDuration: Constants.animationDuration) {
-                self.contentView.alpha = self.isHighlighted
-                    ? Constants.isHighlightedAlpha
-                    : Constants.isNotHighlightedAlpha
-                self.transform = self.isHighlighted
-                    ? CGAffineTransform(
-                        scaleX: Constants.highlightScaleX,
-                        y: Constants.highlightScaleY
-                    )
-                    : .identity
-            }
-        }
     }
 }

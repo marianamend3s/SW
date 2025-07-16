@@ -9,9 +9,9 @@ import UIKit
 
 class CharacterDetailViewController: UIViewController {
     var viewModel: CharacterDetailViewModel?
-
+    
     private let activityIndicator = UIActivityIndicatorView(style: .large)
-
+    
     private let errorLabel: UILabel = {
         let label = UILabel()
         label.textColor = .red
@@ -32,7 +32,7 @@ class CharacterDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private let heightLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
@@ -42,7 +42,7 @@ class CharacterDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private let massLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
@@ -52,7 +52,7 @@ class CharacterDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private let hairLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
@@ -62,7 +62,7 @@ class CharacterDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private let skinLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
@@ -72,7 +72,7 @@ class CharacterDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private let eyesLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
@@ -82,7 +82,7 @@ class CharacterDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private let birthLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
@@ -92,7 +92,7 @@ class CharacterDetailViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
     private let genderLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.preferredFont(forTextStyle: .body)
@@ -122,12 +122,12 @@ class CharacterDetailViewController: UIViewController {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
         
-        setupUI()
+        setupViews()
         configureWithViewModel()
     }
     
@@ -137,13 +137,15 @@ class CharacterDetailViewController: UIViewController {
         setupNavigationBar()
     }
     
+    // MARK: - UI Configuration
+    
     private func setupNavigationBar() {
         guard let viewModel else { return }
         title = viewModel.name
         navigationController?.navigationBar.prefersLargeTitles = false
     }
     
-    private func setupUI() {
+    private func setupViews() {
         let scrollView = UIScrollView()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(scrollView)
@@ -165,6 +167,19 @@ class CharacterDetailViewController: UIViewController {
         ])
     }
     
+    private func createSeparator() -> UIView {
+        let separator = UIView()
+        separator.backgroundColor = .systemGray4
+        NSLayoutConstraint.activate([
+            separator.heightAnchor.constraint(equalToConstant: 0.5)
+        ])
+        
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        return separator
+    }
+    
+    // MARK: - View Model Configuration
+    
     private func configureWithViewModel() {
         guard let viewModel else { return }
         heightLabel.text = "Height: \(viewModel.height) cm"
@@ -174,16 +189,5 @@ class CharacterDetailViewController: UIViewController {
         eyesLabel.text =  "Eye color: \(viewModel.eyeColor)"
         birthLabel.text =  "Birth year: \(viewModel.birthYear)"
         genderLabel.text =  "Gender: \(viewModel.gender)"
-    }
-    
-    private func createSeparator() -> UIView {
-        let separator = UIView()
-        separator.backgroundColor = .systemGray4
-        NSLayoutConstraint.activate([
-            separator.heightAnchor.constraint(equalToConstant: Constants.separatorHeight)
-        ])
-        
-        separator.translatesAutoresizingMaskIntoConstraints = false
-        return separator
     }
 }

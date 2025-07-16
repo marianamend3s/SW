@@ -20,6 +20,7 @@
 		BC189CE32E26E5CC00DBC565 /* MockFilmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC189CE22E26E5CC00DBC565 /* MockFilmService.swift */; };
 		BC189CE52E26E9C700DBC565 /* CharacterViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC189CE42E26E9C700DBC565 /* CharacterViewModelTests.swift */; };
 		BC189CE72E26EA2200DBC565 /* MockCharacterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC189CE62E26EA2200DBC565 /* MockCharacterService.swift */; };
+		BC189CE92E27909A00DBC565 /* PlaceholderCharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC189CE82E27909A00DBC565 /* PlaceholderCharacterCell.swift */; };
 		BC7730FE2E2130D300F99A54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7730FD2E2130D300F99A54 /* AppDelegate.swift */; };
 		BC7731002E2130D300F99A54 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7730FF2E2130D300F99A54 /* SceneDelegate.swift */; };
 		BC7731022E2130D300F99A54 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731012E2130D300F99A54 /* CategoriesViewController.swift */; };
@@ -48,7 +49,6 @@
 		BC77315A2E23E17400F99A54 /* CharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731592E23E17400F99A54 /* CharacterCell.swift */; };
 		BC77315C2E23E6F300F99A54 /* CategoriesCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77315B2E23E6F300F99A54 /* CategoriesCoordinator.swift */; };
 		BC77315E2E23EA3F00F99A54 /* CoordinatorImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77315D2E23EA3F00F99A54 /* CoordinatorImpl.swift */; };
-		BC7731602E23EEDF00F99A54 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77315F2E23EEDF00F99A54 /* Constants.swift */; };
 		BC7731622E23FFAF00F99A54 /* CategoryService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731612E23FFAF00F99A54 /* CategoryService.swift */; };
 		BC7731702E2527C400F99A54 /* CharacterDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC77316F2E2527C400F99A54 /* CharacterDetailViewModel.swift */; };
 		BC7731722E25284D00F99A54 /* CharacterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731712E25284D00F99A54 /* CharacterDetailViewController.swift */; };
@@ -78,6 +78,7 @@
 		BC189CE22E26E5CC00DBC565 /* MockFilmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFilmService.swift; sourceTree = "<group>"; };
 		BC189CE42E26E9C700DBC565 /* CharacterViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterViewModelTests.swift; sourceTree = "<group>"; };
 		BC189CE62E26EA2200DBC565 /* MockCharacterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCharacterService.swift; sourceTree = "<group>"; };
+		BC189CE82E27909A00DBC565 /* PlaceholderCharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderCharacterCell.swift; sourceTree = "<group>"; };
 		BC7730FA2E2130D300F99A54 /* StarWars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarWars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC7730FD2E2130D300F99A54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC7730FF2E2130D300F99A54 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,7 +110,6 @@
 		BC7731592E23E17400F99A54 /* CharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterCell.swift; sourceTree = "<group>"; };
 		BC77315B2E23E6F300F99A54 /* CategoriesCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesCoordinator.swift; sourceTree = "<group>"; };
 		BC77315D2E23EA3F00F99A54 /* CoordinatorImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorImpl.swift; sourceTree = "<group>"; };
-		BC77315F2E23EEDF00F99A54 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		BC7731612E23FFAF00F99A54 /* CategoryService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoryService.swift; sourceTree = "<group>"; };
 		BC77316F2E2527C400F99A54 /* CharacterDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewModel.swift; sourceTree = "<group>"; };
 		BC7731712E25284D00F99A54 /* CharacterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewController.swift; sourceTree = "<group>"; };
@@ -283,6 +283,7 @@
 				BC77311D2E217AFC00F99A54 /* CategoryCell.swift */,
 				BC7731452E22C54C00F99A54 /* FilmCell.swift */,
 				BC7731592E23E17400F99A54 /* CharacterCell.swift */,
+				BC189CE82E27909A00DBC565 /* PlaceholderCharacterCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -292,7 +293,6 @@
 			children = (
 				BC7730FD2E2130D300F99A54 /* AppDelegate.swift */,
 				BC7730FF2E2130D300F99A54 /* SceneDelegate.swift */,
-				BC77315F2E23EEDF00F99A54 /* Constants.swift */,
 				BC7731062E2130D500F99A54 /* Assets.xcassets */,
 				BC7731082E2130D500F99A54 /* LaunchScreen.storyboard */,
 			);
@@ -408,9 +408,9 @@
 				BC7731462E22C54C00F99A54 /* FilmCell.swift in Sources */,
 				BC7731482E22DC7B00F99A54 /* FilmDetailViewController.swift in Sources */,
 				BC7731162E21323E00F99A54 /* FilmService.swift in Sources */,
-				BC7731602E23EEDF00F99A54 /* Constants.swift in Sources */,
 				BC77314E2E23DD3600F99A54 /* CharacterService.swift in Sources */,
 				BC77311E2E217AFC00F99A54 /* CategoryCell.swift in Sources */,
+				BC189CE92E27909A00DBC565 /* PlaceholderCharacterCell.swift in Sources */,
 				BC7731022E2130D300F99A54 /* CategoriesViewController.swift in Sources */,
 				BC7731202E217BAD00F99A54 /* Category.swift in Sources */,
 				BC7731142E21323400F99A54 /* NetworkError.swift in Sources */,

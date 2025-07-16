@@ -118,7 +118,7 @@ class NetworkFetchingServiceTests: XCTestCase {
         } catch let error as NetworkError {
             switch error {
             case .decodingError:
-                break // expected
+                break
             default:
                 XCTFail("Wrong error case: \(error)")
             }

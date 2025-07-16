@@ -22,9 +22,12 @@ class FilmDetailViewModel {
     var openingCrawl: String { film.openingCrawl }
 
     var onCharactersLoaded: (([Character]) -> Void)?
+    var onCharactersLoading: (() -> Void)?
     var onCharactersError: ((String) -> Void)?
 
     func getCharactersFromURL() {
+        onCharactersLoading?()
+
         Task {
             var characters: [Character] = []
 

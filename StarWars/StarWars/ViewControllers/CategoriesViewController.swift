@@ -11,7 +11,6 @@ class CategoriesViewController: UIViewController {
     var viewModel: CategoriesViewModel?
     var onCategorySelected: ((String?) -> Void)?
     
-    private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<Section, String>!
     
     private let activityIndicator = UIActivityIndicatorView(style: .large)
@@ -26,6 +25,10 @@ class CategoriesViewController: UIViewController {
         return label
     }()
     
+    private lazy var collectionView: UICollectionView = {
+        return UICollectionView()
+    }()
+    
     private enum Section {
         case main
     }
@@ -38,7 +41,7 @@ class CategoriesViewController: UIViewController {
         setupActivityIndicator()
         setupCollectionView()
         setupErrorLabel()
-        bindViewModel()
+        configureWithViewModel()
         viewModel?.getCategories()
     }
     
@@ -53,12 +56,13 @@ class CategoriesViewController: UIViewController {
         
         self.title = ""
     }
-
+    
+    // MARK: - UI Configuration
     
     private func setupNavigationBar() {
         self.title = "Star Wars"
         
-        let titleColor = UIColor(red: 255/255, green: 232/255, blue: 31/255, alpha: 1.0)
+        let titleColor = UIColor(red: 1, green: 232/255, blue: 31/255, alpha: 1.0)
         
         navigationController?.navigationBar.prefersLargeTitles = true
         
@@ -105,22 +109,17 @@ class CategoriesViewController: UIViewController {
     
     private func createCollectionViewLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(Constants.itemFractionalWidth),
-            heightDimension: .fractionalHeight(Constants.itemFractionalHeight)
+            widthDimension: .fractionalWidth(0.5),
+            heightDimension: .fractionalHeight(1)
         )
         
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        item.contentInsets = NSDirectionalEdgeInsets(
-            top: Constants.insets,
-            leading: Constants.insets,
-            bottom: Constants.insets,
-            trailing: Constants.insets
-        )
+        item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
         
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(Constants.groupFractionalWidth),
-            heightDimension: .fractionalWidth(Constants.groupFractionalHeight)
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalWidth(0.5)
         )
         
         let group = NSCollectionLayoutGroup.horizontal(
@@ -129,12 +128,7 @@ class CategoriesViewController: UIViewController {
         )
         
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(
-            top: Constants.insets,
-            leading: Constants.insets,
-            bottom: Constants.insets,
-            trailing: Constants.insets
-        )
+        section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
         
         return UICollectionViewCompositionalLayout(section: section)
     }
@@ -153,16 +147,18 @@ class CategoriesViewController: UIViewController {
         NSLayoutConstraint.activate([
             errorLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: Constants.errorMargin
+                constant: 20
             ),
             errorLabel.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -Constants.errorMargin),
+                constant: -20),
             errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
-    private func bindViewModel() {
+    // MARK: - View Model Configuration
+    
+    private func configureWithViewModel() {
         viewModel?.onCategoriesUpdated = { [weak self] in
             DispatchQueue.main.async {
                 self?.applySnapshot()
@@ -197,6 +193,8 @@ class CategoriesViewController: UIViewController {
         }
     }
     
+    // MARK: - UICollectionViewDiffableDataSource
+    
     private func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, String>(
             collectionView: collectionView
@@ -211,7 +209,7 @@ class CategoriesViewController: UIViewController {
             return cell
         }
     }
-
+    
     private func applySnapshot() {
         guard let categoryNames = viewModel?.categoryNames else { return }
         

@@ -11,9 +11,8 @@ class CharactersViewController: UIViewController {
     var viewModel: CharacterViewModel?
     var onCharacterSelected: ((Character) -> Void)?
     
-    private var collectionView: UICollectionView!
     private var dataSource: UICollectionViewDiffableDataSource<Section, Character>!
-
+    
     private let activityIndicator = UIActivityIndicatorView(style: .large)
     
     private let errorLabel: UILabel = {
@@ -26,10 +25,14 @@ class CharactersViewController: UIViewController {
         return label
     }()
     
+    private lazy var collectionView: UICollectionView = {
+        return UICollectionView()
+    }()
+    
     private enum Section {
         case main
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,7 +42,7 @@ class CharactersViewController: UIViewController {
         setupCollectionView()
         setupErrorLabel()
         
-        bindViewModel()
+        configureWithViewModel()
         viewModel?.getCharacters()
     }
     
@@ -48,13 +51,15 @@ class CharactersViewController: UIViewController {
         
         setupNavigationBar()
     }
-
+    
+    // MARK: - UI Configuration
+    
     private func setupNavigationBar() {
         navigationItem.title = "Characters"
         navigationController?.navigationBar.prefersLargeTitles = false
         navigationItem.largeTitleDisplayMode = .never
     }
-
+    
     private func setupCollectionView() {
         let layout = createCollectionViewLayout()
         
@@ -84,25 +89,20 @@ class CharactersViewController: UIViewController {
         
         configureDataSource()
     }
-
+    
     private func createCollectionViewLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(Constants.itemFractionalWidth),
-            heightDimension: .fractionalHeight(Constants.itemFractionalHeight)
+            widthDimension: .fractionalWidth(0.5),
+            heightDimension: .fractionalHeight(1)
         )
         
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        item.contentInsets = NSDirectionalEdgeInsets(
-            top: Constants.insets,
-            leading: Constants.insets,
-            bottom: Constants.insets,
-            trailing: Constants.insets
-        )
+        item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
         
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(Constants.groupFractionalWidth),
-            heightDimension: .fractionalWidth(Constants.groupFractionalHeight)
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalWidth(0.5)
         )
         
         let group = NSCollectionLayoutGroup.horizontal(
@@ -111,12 +111,7 @@ class CharactersViewController: UIViewController {
         )
         
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(
-            top: Constants.insets,
-            leading: Constants.insets,
-            bottom: Constants.insets,
-            trailing: Constants.insets
-        )
+        section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
         
         return UICollectionViewCompositionalLayout(section: section)
     }
@@ -135,16 +130,19 @@ class CharactersViewController: UIViewController {
         NSLayoutConstraint.activate([
             errorLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: Constants.errorMargin
+                constant: 20
             ),
             errorLabel.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -Constants.errorMargin),
+                constant: -20
+            ),
             errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
-    private func bindViewModel() {
+    // MARK: - View Model Configuration
+    
+    private func configureWithViewModel() {
         viewModel?.onCharactersUpdated = { [weak self] in
             DispatchQueue.main.async {
                 self?.applySnapshot()
@@ -179,6 +177,8 @@ class CharactersViewController: UIViewController {
         }
     }
     
+    // MARK: - UICollectionViewDiffableDataSource
+    
     private func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Character>(
             collectionView: collectionView
@@ -193,10 +193,10 @@ class CharactersViewController: UIViewController {
             return cell
         }
     }
-
+    
     private func applySnapshot() {
         guard let characters = viewModel?.pageCharacters else { return }
-
+        
         var snapshot = NSDiffableDataSourceSnapshot<Section, Character>()
         snapshot.appendSections([.main])
         snapshot.appendItems(characters, toSection: .main)
@@ -208,21 +208,21 @@ class CharactersViewController: UIViewController {
 
 extension CharactersViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-         guard let viewModel else { return }
-         let selectedCharacter = viewModel.pageCharacters[indexPath.item]
-         onCharacterSelected?(selectedCharacter)
+        guard let viewModel else { return }
+        let selectedCharacter = viewModel.pageCharacters[indexPath.item]
+        onCharacterSelected?(selectedCharacter)
     }
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard let viewModel else { return }
-
+        
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         let frameHeight = scrollView.frame.size.height
-
+        
         if offsetY > contentHeight - frameHeight * 1.5 {
             viewModel.loadNextPage()
         }
     }
-
+    
 }

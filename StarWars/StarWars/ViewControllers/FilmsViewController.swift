@@ -10,8 +10,7 @@ import UIKit
 class FilmsViewController: UIViewController {
     var viewModel: FilmsViewModel?
     var onFilmSelected: ((Film) -> Void)?
-
-    private var collectionView: UICollectionView!
+    
     private var dataSource: UICollectionViewDiffableDataSource<Section, Film>!
     
     private let activityIndicator = UIActivityIndicatorView(style: .large)
@@ -25,20 +24,24 @@ class FilmsViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-
+    
+    private lazy var collectionView: UICollectionView = {
+        return UICollectionView()
+    }()
+    
     private enum Section {
         case main
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .black
-
+        
         setupActivityIndicator()
         setupCollectionView()
         setupErrorLabel()
-        bindViewModel()
+        configureWithViewModel()
         viewModel?.getFilms()
     }
     
@@ -47,6 +50,8 @@ class FilmsViewController: UIViewController {
         
         setupNavigationBar()
     }
+    
+    // MARK: - UI Configuration
     
     private func setupNavigationBar() {
         navigationItem.title = "Films"
@@ -80,28 +85,23 @@ class FilmsViewController: UIViewController {
             collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         ])
-
+        
         configureDataSource()
     }
-
+    
     private func createCollectionViewLayout() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(Constants.itemFractionalWidth),
-            heightDimension: .fractionalHeight(Constants.itemFractionalHeight)
+            widthDimension: .fractionalWidth(0.5),
+            heightDimension: .fractionalHeight(1)
         )
         
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         
-        item.contentInsets = NSDirectionalEdgeInsets(
-            top: Constants.insets,
-            leading: Constants.insets,
-            bottom: Constants.insets,
-            trailing: Constants.insets
-        )
+        item.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
         
         let groupSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(Constants.groupFractionalWidth),
-            heightDimension: .fractionalWidth(Constants.groupFractionalHeight)
+            widthDimension: .fractionalWidth(1),
+            heightDimension: .fractionalWidth(0.5)
         )
         
         let group = NSCollectionLayoutGroup.horizontal(
@@ -110,12 +110,7 @@ class FilmsViewController: UIViewController {
         )
         
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(
-            top: Constants.insets,
-            leading: Constants.insets,
-            bottom: Constants.insets,
-            trailing: Constants.insets
-        )
+        section.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
         
         return UICollectionViewCompositionalLayout(section: section)
     }
@@ -134,16 +129,18 @@ class FilmsViewController: UIViewController {
         NSLayoutConstraint.activate([
             errorLabel.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor,
-                constant: Constants.errorMargin
+                constant: 20
             ),
             errorLabel.trailingAnchor.constraint(
                 equalTo: view.trailingAnchor,
-                constant: -Constants.errorMargin),
+                constant: -20),
             errorLabel.centerYAnchor.constraint(equalTo: view.centerYAnchor)
         ])
     }
     
-    private func bindViewModel() {
+    // MARK: - View Model Configuration
+    
+    private func configureWithViewModel() {
         viewModel?.onFilmsUpdated = { [weak self] in
             DispatchQueue.main.async {
                 self?.applySnapshot()
@@ -177,7 +174,9 @@ class FilmsViewController: UIViewController {
             }
         }
     }
-
+    
+    // MARK: - UICollectionViewDiffableDataSource
+    
     private func configureDataSource() {
         dataSource = UICollectionViewDiffableDataSource<Section, Film>(
             collectionView: collectionView
@@ -192,10 +191,10 @@ class FilmsViewController: UIViewController {
             return cell
         }
     }
-
+    
     private func applySnapshot() {
         guard let films = viewModel?.films else { return }
-
+        
         var snapshot = NSDiffableDataSourceSnapshot<Section, Film>()
         snapshot.appendSections([.main])
         snapshot.appendItems(films, toSection: .main)

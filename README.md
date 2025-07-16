@@ -1,10 +1,16 @@
 # Star Wars
 
-## XCode
-Version 14.2 (14C18)
+## How to Run
+- Go to https://github.com/marianamend3s/SW
+- Click on the Code green button and clone or download the project
+- Open the project with XCode
+- Run the project
 
 ## API: https://swapi.info
 That API link on the requirements wasn't available (https://swapi.co), so I used this API instead: https://swapi.info
+
+## XCode
+Version 14.2 (14C18)
 
 ## Architecture:
 This is a simple app, and I started with a MVVM architecture, and then changed it to a MVVM-C architecture.

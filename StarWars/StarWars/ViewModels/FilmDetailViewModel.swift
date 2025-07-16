@@ -5,6 +5,8 @@
 //  Created by Mariana Mendes on 12/07/2025.
 //
 
+import Foundation
+
 class FilmDetailViewModel {
     private let film: Film
     private let characterService: CharacterService
@@ -18,7 +20,11 @@ class FilmDetailViewModel {
     var episodeId: String { "\(film.episodeId)" }
     var director: String { film.director }
     var producer: String { film.producer }
-    var releaseDate: String { "\(film.releaseDate)" }
+    var releaseDate: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        return formatter.string(from: film.releaseDate)
+    }
     var openingCrawl: String { film.openingCrawl }
 
     var onCharactersLoaded: (([Character]) -> Void)?

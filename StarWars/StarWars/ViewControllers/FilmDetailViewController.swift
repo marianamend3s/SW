@@ -91,17 +91,30 @@ class FilmDetailViewController: UIViewController {
     
     private let openingCrawlTextView: UITextView = {
         let textView = UITextView()
-        textView.font = UIFont.preferredFont(forTextStyle: .body)
-        textView.textAlignment = .justified
+        
+        textView.font = UIFont.systemFont(ofSize: 18, weight: .bold)
+        textView.textColor = UIColor(red: 240/255, green: 240/255, blue: 200/255, alpha: 1)
+        textView.textAlignment = .center
         textView.isEditable = false
         textView.isScrollEnabled = true
-        textView.backgroundColor = .secondarySystemBackground
-        textView.layer.cornerRadius = 12
-        textView.textContainerInset = UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         textView.adjustsFontForContentSizeCategory = true
         textView.translatesAutoresizingMaskIntoConstraints = false
+        
+        textView.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
+        textView.layer.cornerRadius = 12
+        textView.layer.borderColor = UIColor.darkGray.cgColor
+        textView.layer.borderWidth = 1
+        
+        textView.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 40, right: 20)
+        
+        textView.layer.shadowColor = UIColor.yellow.cgColor
+        textView.layer.shadowOffset = CGSize(width: 0, height: 0)
+        textView.layer.shadowRadius = 6
+        textView.layer.shadowOpacity = 0.2
+        
         return textView
     }()
+    
     
     private let charactersLabel: UILabel = {
         let label = UILabel()
@@ -208,7 +221,7 @@ class FilmDetailViewController: UIViewController {
             contentStackView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor, constant: 20),
             contentStackView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor, constant: -20),
             contentStackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -20),
-            contentStackView.widthAnchor.constraint(equalTo: scrollView.frameLayoutGuide.widthAnchor),
+            contentStackView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: -40),
             
             openingCrawlTextView.heightAnchor.constraint(greaterThanOrEqualToConstant: 150),
             charactersCollectionView.heightAnchor.constraint(equalToConstant: 160)
@@ -259,7 +272,6 @@ class FilmDetailViewController: UIViewController {
         releaseDateLabel.text = "Release date: \(viewModel.releaseDate)"
         openingCrawlTextView.text = viewModel.openingCrawl
     }
-    
     
     // MARK: - UICollectionViewDiffableDataSource
     

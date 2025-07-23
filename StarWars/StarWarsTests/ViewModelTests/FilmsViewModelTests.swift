@@ -71,7 +71,7 @@ final class FilmsViewModelTests: XCTestCase {
         }
         
         // WHEN
-        filmsViewModel.getFilms()
+        filmsViewModel.fetchFilms()
         wait(for: [expectation], timeout: 1.0)
         
         // THEN
@@ -96,7 +96,7 @@ final class FilmsViewModelTests: XCTestCase {
         }
         
         // WHEN
-        filmsViewModel.getFilms()
+        filmsViewModel.fetchFilms()
         wait(for: [expectation1, expectation2], timeout: 1.0)
         
         // THEN
@@ -119,7 +119,7 @@ final class FilmsViewModelTests: XCTestCase {
         }
         
         // WHEN
-        filmsViewModel.getFilms()
+        filmsViewModel.fetchFilms()
         wait(for: [errorExpectation], timeout: 1.0)
         
         // THEN

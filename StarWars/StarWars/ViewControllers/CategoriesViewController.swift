@@ -42,7 +42,7 @@ class CategoriesViewController: UIViewController {
         setupCollectionView()
         setupErrorLabel()
         configureWithViewModel()
-        viewModel?.getCategories()
+        viewModel?.fetchCategories()
     }
     
     override func viewWillAppear(_ animated: Bool) {

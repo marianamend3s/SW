@@ -38,7 +38,7 @@ final class CategoriesViewModelTests: XCTestCase {
         }
         
         // WHEN
-        categoriesViewModel.getCategories()
+        categoriesViewModel.fetchCategories()
         wait(for: [expectation], timeout: 1.0)
         
         // THEN
@@ -65,7 +65,7 @@ final class CategoriesViewModelTests: XCTestCase {
         }
         
         // WHEN
-        categoriesViewModel.getCategories()
+        categoriesViewModel.fetchCategories()
         
         wait(for: [expectation1, expectation2], timeout: 1.0)
         
@@ -89,7 +89,7 @@ final class CategoriesViewModelTests: XCTestCase {
         }
         
         // WHEN
-        categoriesViewModel.getCategories()
+        categoriesViewModel.fetchCategories()
         wait(for: [errorExpectation], timeout: 1.0)
         
         // THEN

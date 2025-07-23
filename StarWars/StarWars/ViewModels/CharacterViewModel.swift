@@ -35,7 +35,7 @@ class CharacterViewModel {
         self.characterService = characterService
     }
 
-    func getCharacters(reset: Bool = false) {
+    func fetchCharacters(reset: Bool = false) {
         guard !isLoading else { return }
         
         isLoading = true

@@ -31,7 +31,7 @@ class FilmDetailViewModel {
     var onCharactersLoading: (() -> Void)?
     var onCharactersError: ((String) -> Void)?
 
-    func getCharactersFromURL() {
+    func fetchCharactersFromURL() {
         onCharactersLoading?()
 
         Task {

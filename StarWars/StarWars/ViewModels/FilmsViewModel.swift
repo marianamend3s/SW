@@ -35,7 +35,7 @@ class FilmsViewModel {
         self.filmsService = filmsService
     }
 
-    func getFilms() {
+    func fetchFilms() {
         guard !isLoading else { return }
         
         isLoading = true

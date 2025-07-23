@@ -42,7 +42,7 @@ class FilmsViewController: UIViewController {
         setupCollectionView()
         setupErrorLabel()
         configureWithViewModel()
-        viewModel?.getFilms()
+        viewModel?.fetchFilms()
     }
     
     override func viewWillAppear(_ animated: Bool) {

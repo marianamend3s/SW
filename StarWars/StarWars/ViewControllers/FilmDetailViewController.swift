@@ -267,7 +267,7 @@ class FilmDetailViewController: UIViewController {
             }
         }
         
-        viewModel.getCharactersFromURL()
+        viewModel.fetchCharactersFromURL()
         
         episodeLabel.text = "Episode: \(viewModel.episodeId)"
         directorLabel.text = "Director: \(viewModel.director)"

@@ -34,7 +34,7 @@ class CategoriesViewModel {
         self.categoryService = categoryService
     }
 
-    func getCategories() {
+    func fetchCategories() {
         guard !isLoading else { return }
         
         isLoading = true

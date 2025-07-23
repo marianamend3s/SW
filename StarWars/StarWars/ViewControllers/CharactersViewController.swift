@@ -43,7 +43,7 @@ class CharactersViewController: UIViewController {
         setupErrorLabel()
         
         configureWithViewModel()
-        viewModel?.getCharacters()
+        viewModel?.fetchCharacters()
     }
     
     override func viewWillAppear(_ animated: Bool) {

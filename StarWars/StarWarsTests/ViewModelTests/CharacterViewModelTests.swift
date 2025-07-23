@@ -43,7 +43,7 @@ final class CharacterViewModelTests: XCTestCase {
         }
         
         // WHEN
-        characterViewModel.getCharacters()
+        characterViewModel.fetchCharacters()
         wait(for: [expectation], timeout: 1.0)
         
         // THEN
@@ -67,7 +67,7 @@ final class CharacterViewModelTests: XCTestCase {
         }
         
         // WHEN
-        characterViewModel.getCharacters()
+        characterViewModel.fetchCharacters()
         wait(for: [errorExpectation], timeout: 1.0)
         
         // THEN
@@ -94,7 +94,7 @@ final class CharacterViewModelTests: XCTestCase {
         }
         
         // WHEN
-        characterViewModel.getCharacters()
+        characterViewModel.fetchCharacters()
         wait(for: [expectationForTrue, expectationForFalse], timeout: 1.0)
         
         // THEN

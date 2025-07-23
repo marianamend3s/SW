@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 final class FilmsCoordinator: Coordinator {
     var navigationController: UINavigationController
     var children: [Coordinator] = []

@@ -7,23 +7,18 @@
 
 import Foundation
 
+@MainActor
 class BaseViewModel {
     var isLoading: Bool = false {
         didSet {
-            Task {
-                await MainActor.run {
-                    onLoadingStateChanged?(isLoading)
-                }
-            }
+            onLoadingStateChanged?(isLoading)
         }
     }
     
     var errorMessage: String? {
         didSet {
             Task {
-                await MainActor.run {
-                    onError?(errorMessage)
-                }
+                onError?(errorMessage)
             }
         }
     }

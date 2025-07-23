@@ -5,8 +5,9 @@
 //  Created by Mariana Mendes on 23/07/2025.
 //
 
-import UIKit
+import Foundation
 
+@MainActor
 protocol ViewControllerFactory {
     func makeCategoriesViewController() -> CategoriesViewController
     func makeFilmsViewController() -> FilmsViewController

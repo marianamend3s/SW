@@ -7,6 +7,7 @@
 
 import UIKit
 
+@MainActor
 final class MainViewControllerFactory: ViewControllerFactory {
     func makeCategoriesViewController() -> CategoriesViewController {
         let service = CategoryServiceImpl()

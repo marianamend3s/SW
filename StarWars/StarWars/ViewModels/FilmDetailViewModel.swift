@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 class FilmDetailViewModel {
     private let film: Film
     private let characterService: CharacterService
@@ -38,16 +39,12 @@ class FilmDetailViewModel {
         }
         
         Task {
-            await MainActor.run {
-                onCharactersLoading?()
-            }
+            onCharactersLoading?()
         }
         
         Task {
             let characters = await fetchCharactersConcurrently(urls: film.characters)
-            await MainActor.run {
-                self.onCharactersLoaded?(characters)
-            }
+            self.onCharactersLoaded?(characters)
         }
     }
     
@@ -60,7 +57,7 @@ class FilmDetailViewModel {
                     try? await self.characterService.fetchCharacterFromURL(url)
                 }
             }
-
+            
             for await character in group {
                 if let character = character {
                     characters.append(character)

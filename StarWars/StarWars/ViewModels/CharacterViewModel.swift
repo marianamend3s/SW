@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CharacterViewModel {
+class CharacterViewModel: BaseViewModel {
     private let characterService: CharacterService
 
     private var allCharacters: [Character] = []
@@ -16,20 +16,7 @@ class CharacterViewModel {
     private let pageSize = 20
     private var currentPage = 0
 
-    var isLoading: Bool = false {
-        didSet {
-            onLoadingStateChanged?(isLoading)
-        }
-    }
-    var errorMessage: String? {
-        didSet {
-            onError?(errorMessage)
-        }
-    }
-
     var onCharactersUpdated: (() -> Void)?
-    var onLoadingStateChanged: ((Bool) -> Void)?
-    var onError: ((String?) -> Void)?
 
     init(characterService: CharacterService) {
         self.characterService = characterService
@@ -71,6 +58,11 @@ class CharacterViewModel {
         let nextPageItems = allCharacters[start..<end]
         pageCharacters += nextPageItems
         currentPage += 1
-        onCharactersUpdated?()
+        
+        Task {
+            await MainActor.run {
+                onCharactersUpdated?()
+            }
+        }
     }
 }

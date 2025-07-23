@@ -6,29 +6,20 @@
 
 import UIKit
 
-class CategoriesViewModel {
+class CategoriesViewModel: BaseViewModel {
     private let categoryService: CategoryService
 
     var categoryNames: [String] = [] {
         didSet {
-            onCategoriesUpdated?()
-        }
-    }
-    
-    var isLoading: Bool = false {
-        didSet {
-            onLoadingStateChanged?(isLoading)
-        }
-    }
-    var errorMessage: String? {
-        didSet {
-            onError?(errorMessage)
+            Task {
+                await MainActor.run {
+                    onCategoriesUpdated?()
+                }
+            }
         }
     }
     
     var onCategoriesUpdated: (() -> Void)?
-    var onLoadingStateChanged: ((Bool) -> Void)?
-    var onError: ((String?) -> Void)?
 
     init(categoryService: CategoryService) {
         self.categoryService = categoryService

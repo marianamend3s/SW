@@ -54,6 +54,7 @@
 		BC7731722E25284D00F99A54 /* CharacterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731712E25284D00F99A54 /* CharacterDetailViewController.swift */; };
 		BCB177812E316380009E61A0 /* ViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB177802E316380009E61A0 /* ViewControllerFactory.swift */; };
 		BCB177862E3163A0009E61A0 /* MainViewControllerFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB177852E3163A0009E61A0 /* MainViewControllerFactory.swift */; };
+		BCB1778A2E318270009E61A0 /* BaseViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB177892E318270009E61A0 /* BaseViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -117,6 +118,7 @@
 		BC7731712E25284D00F99A54 /* CharacterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterDetailViewController.swift; sourceTree = "<group>"; };
 		BCB177802E316380009E61A0 /* ViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerFactory.swift; sourceTree = "<group>"; };
 		BCB177852E3163A0009E61A0 /* MainViewControllerFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewControllerFactory.swift; sourceTree = "<group>"; };
+		BCB177892E318270009E61A0 /* BaseViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +263,7 @@
 		BC7731682E2521BF00F99A54 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
+				BCB177892E318270009E61A0 /* BaseViewModel.swift */,
 				BC77312B2E2181FD00F99A54 /* CategoriesViewModel.swift */,
 				BC7731432E22C27A00F99A54 /* FilmsViewModel.swift */,
 				BC7731492E22DC9700F99A54 /* FilmDetailViewModel.swift */,
@@ -436,6 +439,7 @@
 				BC7731262E21809200F99A54 /* Coordinator.swift in Sources */,
 				BC7731502E23DD9300F99A54 /* Character.swift in Sources */,
 				BC77315C2E23E6F300F99A54 /* CategoriesCoordinator.swift in Sources */,
+				BCB1778A2E318270009E61A0 /* BaseViewModel.swift in Sources */,
 				BC77315E2E23EA3F00F99A54 /* MainCoordinator.swift in Sources */,
 				BC7731702E2527C400F99A54 /* CharacterDetailViewModel.swift in Sources */,
 				BC77312A2E21816C00F99A54 /* FilmsCoordinator.swift in Sources */,

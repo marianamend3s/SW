@@ -37,7 +37,11 @@ class FilmDetailViewModel {
             return
         }
         
-        onCharactersLoading?()
+        Task {
+            await MainActor.run {
+                onCharactersLoading?()
+            }
+        }
         
         Task {
             let characters = await fetchCharactersConcurrently(urls: film.characters)

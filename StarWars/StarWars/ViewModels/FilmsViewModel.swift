@@ -7,29 +7,20 @@
 
 import Foundation
 
-class FilmsViewModel {
+class FilmsViewModel: BaseViewModel {
     private let filmsService: FilmService
 
     var films: [Film] = [] {
         didSet {
-            onFilmsUpdated?()
-        }
-    }
-    
-    var isLoading: Bool = false {
-        didSet {
-            onLoadingStateChanged?(isLoading)
-        }
-    }
-    var errorMessage: String? {
-        didSet {
-            onError?(errorMessage)
+            Task {
+                await MainActor.run {
+                    onFilmsUpdated?()
+                }
+            }
         }
     }
 
     var onFilmsUpdated: (() -> Void)?
-    var onLoadingStateChanged: ((Bool) -> Void)?
-    var onError: ((String?) -> Void)?
 
     init(filmsService: FilmService) {
         self.filmsService = filmsService

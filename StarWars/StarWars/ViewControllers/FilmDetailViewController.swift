@@ -259,8 +259,11 @@ class FilmDetailViewController: UIViewController {
             guard let self = self else { return }
             self.isLoadingCharacters = false
             let displayItems = characters.map { CharacterDisplayItem(character: $0, isPlaceholder: false) }
-            DispatchQueue.main.async {
-                self.applyCharacterSnapshot(with: displayItems)
+            
+            Task { [weak self] in
+                await MainActor.run {
+                    self?.applyCharacterSnapshot(with: displayItems)
+                }
             }
         }
         

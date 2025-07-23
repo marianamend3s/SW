@@ -160,34 +160,40 @@ class CategoriesViewController: UIViewController {
     
     private func configureWithViewModel() {
         viewModel?.onCategoriesUpdated = { [weak self] in
-            DispatchQueue.main.async {
-                self?.applySnapshot()
-                self?.collectionView.isHidden = false
-                self?.errorLabel.isHidden = true
+            Task { [weak self] in
+                await MainActor.run {
+                    self?.applySnapshot()
+                    self?.collectionView.isHidden = false
+                    self?.errorLabel.isHidden = true
+                }
             }
         }
         
         viewModel?.onLoadingStateChanged = { [weak self] isLoading in
-            DispatchQueue.main.async {
-                if isLoading {
-                    self?.activityIndicator.startAnimating()
-                    self?.collectionView.isHidden = true
-                    self?.errorLabel.isHidden = true
-                } else {
-                    self?.activityIndicator.stopAnimating()
+            Task { [weak self] in
+                await MainActor.run {
+                    if isLoading {
+                        self?.activityIndicator.startAnimating()
+                        self?.collectionView.isHidden = true
+                        self?.errorLabel.isHidden = true
+                    } else {
+                        self?.activityIndicator.stopAnimating()
+                    }
                 }
             }
         }
         
         viewModel?.onError = { [weak self] message in
-            DispatchQueue.main.async {
-                if let errorMessage = message, !errorMessage.isEmpty {
-                    self?.errorLabel.text = errorMessage
-                    self?.errorLabel.isHidden = false
-                    self?.collectionView.isHidden = true
-                } else {
-                    self?.errorLabel.text = nil
-                    self?.errorLabel.isHidden = true
+            Task { [weak self] in
+                await MainActor.run {
+                    if let errorMessage = message, !errorMessage.isEmpty {
+                        self?.errorLabel.text = errorMessage
+                        self?.errorLabel.isHidden = false
+                        self?.collectionView.isHidden = true
+                    } else {
+                        self?.errorLabel.text = nil
+                        self?.errorLabel.isHidden = true
+                    }
                 }
             }
         }

@@ -46,12 +46,12 @@ class FilmsViewModel {
                 let fetchedFilms = try await filmsService.fetchFilms()
                 let orderedFilms = fetchedFilms.sorted { $0.episodeId < $1.episodeId }
 
-                DispatchQueue.main.async {
+                await MainActor.run {
                     self.films = orderedFilms
                     self.isLoading = false
                 }
             } catch {
-                DispatchQueue.main.async {
+                await MainActor.run {
                     self.errorMessage = error.localizedDescription
                     self.isLoading = false
                 }

@@ -44,12 +44,12 @@ class CategoriesViewModel {
             do {
                 let fetchedCategories = try await categoryService.fetchCategoryNames()
 
-                DispatchQueue.main.async {
+                await MainActor.run {
                     self.categoryNames = fetchedCategories
                     self.isLoading = false
                 }
             } catch {
-                DispatchQueue.main.async {
+                await MainActor.run {
                     self.errorMessage = error.localizedDescription
                     self.isLoading = false
                 }

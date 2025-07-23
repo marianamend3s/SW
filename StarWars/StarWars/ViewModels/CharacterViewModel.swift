@@ -44,7 +44,7 @@ class CharacterViewModel {
         Task {
             do {
                 let fetchedCharacters = try await characterService.fetchCharacters()
-                DispatchQueue.main.async {
+                await MainActor.run {
                     self.allCharacters = fetchedCharacters
                     self.currentPage = 0
                     self.pageCharacters = []
@@ -52,7 +52,7 @@ class CharacterViewModel {
                     self.loadNextPage()
                 }
             } catch {
-                DispatchQueue.main.async {
+                await MainActor.run {
                     self.errorMessage = error.localizedDescription
                     self.isLoading = false
                 }

@@ -34,7 +34,7 @@ class FilmDetailViewController: UIViewController {
         let label = UILabel()
         label.textColor = .red
         label.textAlignment = .center
-        label.numberOfLines = .zero
+        label.numberOfLines = 0
         label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label

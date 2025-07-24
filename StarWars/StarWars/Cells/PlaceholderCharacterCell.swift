@@ -7,8 +7,7 @@
 
 import UIKit
 
-class PlaceholderCharacterCell: UICollectionViewCell {
-    static let reuseIdentifier = "PlaceholderCharacterCell"
+class PlaceholderCharacterCell: UICollectionViewCell, ReusableCell {
     private var shimmerLayer: CAGradientLayer?
     
     private let placeholderView: UIView = {

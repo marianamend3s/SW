@@ -7,16 +7,14 @@
 
 import UIKit
 
-class CategoryCell: UICollectionViewCell {
-    static let reuseIdentifier = "CategoryCell"
-    
+class CategoryCell: UICollectionViewCell, ReusableCell {    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
         label.textColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
         label.textAlignment = .center
-        label.numberOfLines = .zero
+        label.numberOfLines = 0
         return label
     }()
     

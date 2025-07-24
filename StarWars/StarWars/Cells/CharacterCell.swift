@@ -7,16 +7,14 @@
 
 import UIKit
 
-class CharacterCell: UICollectionViewCell {
-    static let reuseIdentifier = "CharacterCell"
-    
+class CharacterCell: UICollectionViewCell, ReusableCell {    
     private let nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.preferredFont(forTextStyle: .headline)
         label.textColor = .white
         label.textAlignment = .center
-        label.numberOfLines = .zero
+        label.numberOfLines = 0
         return label
     }()
     

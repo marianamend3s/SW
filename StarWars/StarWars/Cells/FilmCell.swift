@@ -7,16 +7,14 @@
 
 import UIKit
 
-class FilmCell: UICollectionViewCell {
-    static let reuseIdentifier = "FilmCell"
-    
+class FilmCell: UICollectionViewCell, ReusableCell {    
     private let titleLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
         label.textColor = .white
         label.textAlignment = .center
-        label.numberOfLines = .zero
+        label.numberOfLines = 0
         return label
     }()
     
@@ -26,7 +24,7 @@ class FilmCell: UICollectionViewCell {
         label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
         label.textColor = UIColor(red: 1, green: 234/255, blue: 160/255, alpha: 1)
         label.textAlignment = .center
-        label.numberOfLines = .zero
+        label.numberOfLines = 0
         return label
     }()
     

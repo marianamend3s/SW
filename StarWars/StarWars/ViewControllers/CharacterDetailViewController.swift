@@ -104,7 +104,8 @@ class CharacterDetailViewController: UIViewController {
     }()
     
     private lazy var contentStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
+        let stackView = ViewFactory.secondaryVerticalStack()
+        stackView.addArrangedSubviews([
             infoLabel,
             createSeparator(),
             heightLabel,
@@ -116,10 +117,7 @@ class CharacterDetailViewController: UIViewController {
             genderLabel,
             createSeparator()
         ])
-        stackView.axis = .vertical
-        stackView.spacing = 15
-        stackView.alignment = .fill
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
         return stackView
     }()
     

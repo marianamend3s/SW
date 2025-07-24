@@ -7,38 +7,10 @@
 
 import UIKit
 
-class FilmCell: UICollectionViewCell, ReusableCell {    
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
-        label.textColor = .white
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    private let episodeLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 16, weight: .bold)
-        label.textColor = UIColor(red: 1, green: 234/255, blue: 160/255, alpha: 1)
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        return label
-    }()
-    
-    
-    private let backgroundGradient: CAGradientLayer = {
-        let gradient = CAGradientLayer()
-        gradient.colors = [
-            UIColor(red: 240/255, green: 210/255, blue: 80/255, alpha: 1).cgColor,
-            UIColor(red: 190/255, green: 160/255, blue: 60/255, alpha: 1).cgColor
-        ]
-        gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
-        gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
-        return gradient
-    }()
+final class FilmCell: UICollectionViewCell, ReusableCell {    
+    private let titleLabel = LabelFactory.titleLabel()
+    private let episodeLabel = LabelFactory.subtitleLabel()
+    private let backgroundGradient = CellStyle.Helpers.makeGoldenGradientLayer()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -55,7 +27,9 @@ class FilmCell: UICollectionViewCell, ReusableCell {
         
         CATransaction.begin()
         CATransaction.setDisableActions(true)
+        
         backgroundGradient.frame = contentView.bounds
+        
         CATransaction.commit()
     }
     
@@ -63,15 +37,22 @@ class FilmCell: UICollectionViewCell, ReusableCell {
         super.prepareForReuse()
         
         titleLabel.text = nil
+        titleLabel.accessibilityLabel = nil
         episodeLabel.text = nil
+        episodeLabel.accessibilityLabel = nil
     }
     
     override var isHighlighted: Bool {
         didSet {
-            UIView.animate(withDuration: 0.1) {
-                self.contentView.alpha = self.isHighlighted ? 0.7 : 1
+            UIView.animate(withDuration: CellStyle.Constants.highlightDuration) {
+                self.contentView.alpha = self.isHighlighted
+                ? CellStyle.Constants.isHighlightedAlpha
+                : CellStyle.Constants.isNotHighlightedAlpha
+                
                 self.transform = self.isHighlighted
-                ? CGAffineTransform(scaleX: 0.98, y: 0.98)
+                ? CGAffineTransform(
+                    scaleX: CellStyle.Constants.highlightScale,
+                    y: CellStyle.Constants.highlightScale)
                 : .identity
             }
         }
@@ -79,33 +60,38 @@ class FilmCell: UICollectionViewCell, ReusableCell {
     
     func configure(with film: Film) {
         titleLabel.text = film.title
+        titleLabel.accessibilityLabel = titleLabel.text
+        
         episodeLabel.text = "Episode \(film.episodeId)"
+        episodeLabel.accessibilityLabel = episodeLabel.text
     }
-    
+}
+
+// MARK: Private
+
+extension FilmCell {
     private func setupCell() {
         contentView.layer.insertSublayer(backgroundGradient, at: 0)
-        contentView.layer.cornerRadius = 10
-        contentView.layer.masksToBounds = true
         
-        layer.shadowColor = UIColor(red: 255/255, green: 215/255, blue: 100/255, alpha: 0.3).cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowRadius = 4
-        layer.shadowOpacity = 0.4
-        layer.masksToBounds = false
+        CellStyle.Helpers.applyRoundedCorners(to: contentView)
+        CellStyle.Helpers.applyCardShadow(to: layer, color: UIColor.systemIndigo)
         
-        let stackView = UIStackView(arrangedSubviews: [titleLabel, episodeLabel])
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        stackView.axis = .vertical
-        stackView.alignment = .center
-        stackView.spacing = 4
+        let stackView = ViewFactory.verticalStack()
+        stackView.addArrangedSubviews([titleLabel, episodeLabel])
         
         contentView.addSubview(stackView)
         
         NSLayoutConstraint.activate([
             stackView.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            stackView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            stackView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
+            stackView.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: CellStyle.Constants.padding
+            ),
+            stackView.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -CellStyle.Constants.padding
+            )
         ])
     }
 }

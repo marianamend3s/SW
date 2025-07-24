@@ -93,7 +93,7 @@ class FilmDetailViewController: UIViewController {
         let textView = UITextView()
         
         textView.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        textView.textColor = UIColor(red: 240/255, green: 240/255, blue: 200/255, alpha: 1)
+        textView.textColor = CellStyle.Constants.textViewTextColor
         textView.textAlignment = .center
         textView.isEditable = false
         textView.isScrollEnabled = true
@@ -101,16 +101,16 @@ class FilmDetailViewController: UIViewController {
         textView.translatesAutoresizingMaskIntoConstraints = false
         
         textView.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
-        textView.layer.cornerRadius = 12
+        textView.layer.cornerRadius = CellStyle.Constants.cornerRadius
         textView.layer.borderColor = UIColor.darkGray.cgColor
         textView.layer.borderWidth = 1
         
         textView.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 40, right: 20)
         
-        textView.layer.shadowColor = UIColor.yellow.cgColor
+        textView.layer.shadowColor = CellStyle.Constants.textShadowColor
         textView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        textView.layer.shadowRadius = 6
-        textView.layer.shadowOpacity = 0.2
+        textView.layer.shadowRadius = CellStyle.Constants.cornerRadius
+        textView.layer.shadowOpacity = CellStyle.Constants.shimmerShadowOpacity
         
         return textView
     }()
@@ -135,7 +135,8 @@ class FilmDetailViewController: UIViewController {
     }
     
     private lazy var contentStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
+        let stackView = ViewFactory.secondaryVerticalStack()
+        stackView.addArrangedSubviews([
             episodeLabel,
             createSeparator(),
             directorLabel,
@@ -149,10 +150,6 @@ class FilmDetailViewController: UIViewController {
             charactersCollectionView,
             createSeparator()
         ])
-        stackView.axis = .vertical
-        stackView.spacing = 15
-        stackView.alignment = .fill
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()

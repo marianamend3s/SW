@@ -7,25 +7,17 @@
 
 import UIKit
 
-class CategoryCell: UICollectionViewCell, ReusableCell {    
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        label.textColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
-        label.textAlignment = .center
-        label.numberOfLines = 0
-        return label
-    }()
+final class CategoryCell: UICollectionViewCell, ReusableCell {
+    private let titleLabel = LabelFactory.titleLabel()
     
     private let backgroundGradient: CAGradientLayer = {
         let gradient = CAGradientLayer()
         gradient.colors = [
-            UIColor(red: 20/255, green: 20/255, blue: 20/255, alpha: 1).cgColor,
-            UIColor(red: 50/255, green: 50/255, blue: 50/255, alpha: 1).cgColor
+            CellStyle.Constants.darkBackgroundStart,
+            CellStyle.Constants.darkBackgroundEnd
         ]
-        gradient.startPoint = CGPoint(x: 0, y: 0.5)
-        gradient.endPoint = CGPoint(x: 1, y: 0.5)
+        gradient.startPoint = CellStyle.Constants.gradientStartPoint
+        gradient.endPoint = CellStyle.Constants.gradientEndPoint
         return gradient
     }()
     
@@ -44,7 +36,9 @@ class CategoryCell: UICollectionViewCell, ReusableCell {
         
         CATransaction.begin()
         CATransaction.setDisableActions(true)
+        
         backgroundGradient.frame = contentView.bounds
+        
         CATransaction.commit()
     }
     
@@ -52,14 +46,20 @@ class CategoryCell: UICollectionViewCell, ReusableCell {
         super.prepareForReuse()
         
         titleLabel.text = nil
+        titleLabel.accessibilityLabel = nil
     }
     
     override var isHighlighted: Bool {
         didSet {
-            UIView.animate(withDuration: 0.1) {
-                self.contentView.alpha = self.isHighlighted ? 0.7 : 1
+            UIView.animate(withDuration: CellStyle.Constants.highlightDuration) {
+                self.contentView.alpha = self.isHighlighted
+                ? CellStyle.Constants.isHighlightedAlpha
+                : CellStyle.Constants.isNotHighlightedAlpha
+                
                 self.transform = self.isHighlighted
-                ? CGAffineTransform(scaleX: 0.98, y: 0.98)
+                ? CGAffineTransform(
+                    scaleX: CellStyle.Constants.highlightScale,
+                    y: CellStyle.Constants.highlightScale)
                 : .identity
             }
         }
@@ -67,17 +67,22 @@ class CategoryCell: UICollectionViewCell, ReusableCell {
     
     func configure(with title: String) {
         titleLabel.text = title
+        titleLabel.accessibilityLabel = titleLabel.text
     }
-    
+}
+
+// MARK: - Private
+
+extension CategoryCell {
     private func setupCell() {
         contentView.layer.insertSublayer(backgroundGradient, at: 0)
-        contentView.layer.cornerRadius = 10
+        contentView.layer.cornerRadius = CellStyle.Constants.cornerRadius
         contentView.layer.masksToBounds = true
         
-        layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.6).cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 2)
-        layer.shadowRadius = 4
-        layer.shadowOpacity = 0.4
+        layer.shadowColor = CellStyle.Constants.shadowColor
+        layer.shadowOffset = CellStyle.Constants.shadowOffset
+        layer.shadowRadius = CellStyle.Constants.cornerRadius
+        layer.shadowOpacity = CellStyle.Constants.shadowOpacity
         layer.masksToBounds = false
         
         contentView.addSubview(titleLabel)
@@ -85,8 +90,14 @@ class CategoryCell: UICollectionViewCell, ReusableCell {
         NSLayoutConstraint.activate([
             titleLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            titleLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            titleLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8)
+            titleLabel.leadingAnchor.constraint(
+                equalTo: contentView.leadingAnchor,
+                constant: CellStyle.Constants.padding
+            ),
+            titleLabel.trailingAnchor.constraint(
+                equalTo: contentView.trailingAnchor,
+                constant: -CellStyle.Constants.padding
+            )
         ])
     }
 }

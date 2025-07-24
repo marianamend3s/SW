@@ -22,7 +22,7 @@
 		BC189CE72E26EA2200DBC565 /* MockCharacterService.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC189CE62E26EA2200DBC565 /* MockCharacterService.swift */; };
 		BC189CE92E27909A00DBC565 /* PlaceholderCharacterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC189CE82E27909A00DBC565 /* PlaceholderCharacterCell.swift */; };
 		BC52389E2E322FE000087FB5 /* ReusableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC52389D2E322FE000087FB5 /* ReusableCell.swift */; };
-		BC5238A02E32352E00087FB5 /* CellStyleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC52389F2E32352E00087FB5 /* CellStyleHelper.swift */; };
+		BC5238A02E32352E00087FB5 /* CellStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC52389F2E32352E00087FB5 /* CellStyle.swift */; };
 		BC5238A22E32368200087FB5 /* LabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5238A12E32368200087FB5 /* LabelFactory.swift */; };
 		BC5238A42E32371900087FB5 /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5238A32E32371900087FB5 /* ViewFactory.swift */; };
 		BC5238A72E324CAD00087FB5 /* HighlightableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5238A62E324CAD00087FB5 /* HighlightableCell.swift */; };
@@ -88,7 +88,7 @@
 		BC189CE62E26EA2200DBC565 /* MockCharacterService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCharacterService.swift; sourceTree = "<group>"; };
 		BC189CE82E27909A00DBC565 /* PlaceholderCharacterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderCharacterCell.swift; sourceTree = "<group>"; };
 		BC52389D2E322FE000087FB5 /* ReusableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReusableCell.swift; sourceTree = "<group>"; };
-		BC52389F2E32352E00087FB5 /* CellStyleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellStyleHelper.swift; sourceTree = "<group>"; };
+		BC52389F2E32352E00087FB5 /* CellStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellStyle.swift; sourceTree = "<group>"; };
 		BC5238A12E32368200087FB5 /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
 		BC5238A32E32371900087FB5 /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
 		BC5238A62E324CAD00087FB5 /* HighlightableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightableCell.swift; sourceTree = "<group>"; };
@@ -199,7 +199,7 @@
 				BC5238A62E324CAD00087FB5 /* HighlightableCell.swift */,
 				BC5238A12E32368200087FB5 /* LabelFactory.swift */,
 				BC5238A32E32371900087FB5 /* ViewFactory.swift */,
-				BC52389F2E32352E00087FB5 /* CellStyleHelper.swift */,
+				BC52389F2E32352E00087FB5 /* CellStyle.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -472,7 +472,7 @@
 				BC7730FE2E2130D300F99A54 /* AppDelegate.swift in Sources */,
 				BC77311C2E217ADE00F99A54 /* FilmsViewController.swift in Sources */,
 				BC5238A42E32371900087FB5 /* ViewFactory.swift in Sources */,
-				BC5238A02E32352E00087FB5 /* CellStyleHelper.swift in Sources */,
+				BC5238A02E32352E00087FB5 /* CellStyle.swift in Sources */,
 				BC7731002E2130D300F99A54 /* SceneDelegate.swift in Sources */,
 				BC189CCA2E26BF7C00DBC565 /* NetworkFetchingService.swift in Sources */,
 				BC77314A2E22DC9700F99A54 /* FilmDetailViewModel.swift in Sources */,

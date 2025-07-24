@@ -7,6 +7,8 @@
 
 import UIKit
 
+// TODO: Inject dependencies
+
 final class CategoryCell: HighlightableCell, ReusableCell {
     private let titleLabel = LabelFactory.titleLabel()
     

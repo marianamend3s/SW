@@ -7,6 +7,8 @@
 
 import UIKit
 
+// TODO: Inject dependencies
+
 final class CharacterCell: HighlightableCell, ReusableCell {
     private let nameLabel = LabelFactory.titleLabel()
     private let backgroundGradient = CellStyle.Helpers.makeGoldenGradientLayer()

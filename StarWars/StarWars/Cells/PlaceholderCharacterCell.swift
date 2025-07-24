@@ -7,9 +7,10 @@
 
 import UIKit
 
+// TODO: Inject dependencies
+
 final class PlaceholderCharacterCell: UICollectionViewCell, ReusableCell {
     private var shimmerLayer: CAGradientLayer?
-    
     private let placeholderView = ViewFactory.placeholderCellView()
     
     override init(frame: CGRect) {

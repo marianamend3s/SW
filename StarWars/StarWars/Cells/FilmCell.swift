@@ -7,6 +7,8 @@
 
 import UIKit
 
+// TODO: Inject dependencies
+
 final class FilmCell: HighlightableCell, ReusableCell {    
     private let titleLabel = LabelFactory.titleLabel()
     private let episodeLabel = LabelFactory.subtitleLabel()

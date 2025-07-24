@@ -7,6 +7,8 @@
 
 import UIKit
 
+// TODO: Add ViewFactoryProvider protocol and implementation for testing and DI.
+
 struct ViewFactory {
     static func verticalStack() -> UIStackView {
         let stack = UIStackView()

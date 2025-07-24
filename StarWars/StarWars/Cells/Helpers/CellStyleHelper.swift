@@ -7,6 +7,8 @@
 
 import UIKit
 
+// TODO: Add CellStyleProvider protocol and implementation for testing and DI.
+
 struct CellStyle {
     
     // MARK: - Constants

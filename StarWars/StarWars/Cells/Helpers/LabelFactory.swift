@@ -7,6 +7,8 @@
 
 import UIKit
 
+// TODO: Add LabelProvider protocol and implementation for testing and DI.
+
 struct LabelFactory {
     static func titleLabel() -> UILabel {
         let label = UILabel()

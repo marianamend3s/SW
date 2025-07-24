@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class CategoryCell: UICollectionViewCell, ReusableCell {
+final class CategoryCell: HighlightableCell, ReusableCell {
     private let titleLabel = LabelFactory.titleLabel()
     
     private let backgroundGradient: CAGradientLayer = {
@@ -47,22 +47,6 @@ final class CategoryCell: UICollectionViewCell, ReusableCell {
         
         titleLabel.text = nil
         titleLabel.accessibilityLabel = nil
-    }
-    
-    override var isHighlighted: Bool {
-        didSet {
-            UIView.animate(withDuration: CellStyle.Constants.highlightDuration) {
-                self.contentView.alpha = self.isHighlighted
-                ? CellStyle.Constants.isHighlightedAlpha
-                : CellStyle.Constants.isNotHighlightedAlpha
-                
-                self.transform = self.isHighlighted
-                ? CGAffineTransform(
-                    scaleX: CellStyle.Constants.highlightScale,
-                    y: CellStyle.Constants.highlightScale)
-                : .identity
-            }
-        }
     }
     
     func configure(with title: String) {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class FilmCell: UICollectionViewCell, ReusableCell {    
+final class FilmCell: HighlightableCell, ReusableCell {    
     private let titleLabel = LabelFactory.titleLabel()
     private let episodeLabel = LabelFactory.subtitleLabel()
     private let backgroundGradient = CellStyle.Helpers.makeGoldenGradientLayer()
@@ -41,23 +41,7 @@ final class FilmCell: UICollectionViewCell, ReusableCell {
         episodeLabel.text = nil
         episodeLabel.accessibilityLabel = nil
     }
-    
-    override var isHighlighted: Bool {
-        didSet {
-            UIView.animate(withDuration: CellStyle.Constants.highlightDuration) {
-                self.contentView.alpha = self.isHighlighted
-                ? CellStyle.Constants.isHighlightedAlpha
-                : CellStyle.Constants.isNotHighlightedAlpha
-                
-                self.transform = self.isHighlighted
-                ? CGAffineTransform(
-                    scaleX: CellStyle.Constants.highlightScale,
-                    y: CellStyle.Constants.highlightScale)
-                : .identity
-            }
-        }
-    }
-    
+
     func configure(with film: Film) {
         titleLabel.text = film.title
         titleLabel.accessibilityLabel = titleLabel.text

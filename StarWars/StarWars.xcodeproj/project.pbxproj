@@ -25,6 +25,7 @@
 		BC5238A02E32352E00087FB5 /* CellStyleHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC52389F2E32352E00087FB5 /* CellStyleHelper.swift */; };
 		BC5238A22E32368200087FB5 /* LabelFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5238A12E32368200087FB5 /* LabelFactory.swift */; };
 		BC5238A42E32371900087FB5 /* ViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5238A32E32371900087FB5 /* ViewFactory.swift */; };
+		BC5238A72E324CAD00087FB5 /* HighlightableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC5238A62E324CAD00087FB5 /* HighlightableCell.swift */; };
 		BC7730FE2E2130D300F99A54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7730FD2E2130D300F99A54 /* AppDelegate.swift */; };
 		BC7731002E2130D300F99A54 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7730FF2E2130D300F99A54 /* SceneDelegate.swift */; };
 		BC7731022E2130D300F99A54 /* CategoriesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC7731012E2130D300F99A54 /* CategoriesViewController.swift */; };
@@ -90,6 +91,7 @@
 		BC52389F2E32352E00087FB5 /* CellStyleHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellStyleHelper.swift; sourceTree = "<group>"; };
 		BC5238A12E32368200087FB5 /* LabelFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelFactory.swift; sourceTree = "<group>"; };
 		BC5238A32E32371900087FB5 /* ViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewFactory.swift; sourceTree = "<group>"; };
+		BC5238A62E324CAD00087FB5 /* HighlightableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HighlightableCell.swift; sourceTree = "<group>"; };
 		BC7730FA2E2130D300F99A54 /* StarWars.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = StarWars.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC7730FD2E2130D300F99A54 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC7730FF2E2130D300F99A54 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -194,6 +196,7 @@
 			isa = PBXGroup;
 			children = (
 				BC52389D2E322FE000087FB5 /* ReusableCell.swift */,
+				BC5238A62E324CAD00087FB5 /* HighlightableCell.swift */,
 				BC5238A12E32368200087FB5 /* LabelFactory.swift */,
 				BC5238A32E32371900087FB5 /* ViewFactory.swift */,
 				BC52389F2E32352E00087FB5 /* CellStyleHelper.swift */,
@@ -460,6 +463,7 @@
 				BC5238A22E32368200087FB5 /* LabelFactory.swift in Sources */,
 				BC7731262E21809200F99A54 /* Coordinator.swift in Sources */,
 				BC7731502E23DD9300F99A54 /* Character.swift in Sources */,
+				BC5238A72E324CAD00087FB5 /* HighlightableCell.swift in Sources */,
 				BC77315C2E23E6F300F99A54 /* CategoriesCoordinator.swift in Sources */,
 				BCB1778A2E318270009E61A0 /* BaseViewModel.swift in Sources */,
 				BC77315E2E23EA3F00F99A54 /* MainCoordinator.swift in Sources */,

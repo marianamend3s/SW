@@ -7,6 +7,8 @@
 
 import Foundation
 
+// TODO: make properties Optional for robustness
+
 struct Category: Codable, Hashable {
     let films: URL
     let people: URL

@@ -8,7 +8,7 @@
 import UIKit
 
 class CharacterDetailViewController: UIViewController {
-    var viewModel: CharacterDetailViewModel?
+    var viewModel: CharacterDetailViewModel
     
     private let activityIndicator = UIActivityIndicatorView(style: .large)
     
@@ -121,6 +121,16 @@ class CharacterDetailViewController: UIViewController {
         return stackView
     }()
     
+    init(viewModel: CharacterDetailViewModel) {
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .black
@@ -138,7 +148,6 @@ class CharacterDetailViewController: UIViewController {
     // MARK: - UI Configuration
     
     private func setupNavigationBar() {
-        guard let viewModel else { return }
         title = viewModel.name
         navigationController?.navigationBar.prefersLargeTitles = false
     }
@@ -179,7 +188,6 @@ class CharacterDetailViewController: UIViewController {
     // MARK: - View Model Configuration
     
     private func configureWithViewModel() {
-        guard let viewModel else { return }
         heightLabel.text = "Height: \(viewModel.height) cm"
         massLabel.text =  "Mass: \(viewModel.mass) kg"
         hairLabel.text =  "Hair color: \(viewModel.hairColor)"

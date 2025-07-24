@@ -8,7 +8,7 @@
 import UIKit
 
 class FilmDetailViewController: UIViewController {
-    var viewModel: FilmDetailViewModel?
+    var viewModel: FilmDetailViewModel
     var onCharacterSelected: ((Character) -> Void)?
     
     private var characterItems: [CharacterDisplayItem] = []
@@ -130,10 +130,6 @@ class FilmDetailViewController: UIViewController {
         return UICollectionView()
     }()
     
-    private enum Section {
-        case main
-    }
-    
     private lazy var contentStackView: UIStackView = {
         let stackView = ViewFactory.secondaryVerticalStack()
         stackView.addArrangedSubviews([
@@ -153,6 +149,20 @@ class FilmDetailViewController: UIViewController {
         
         return stackView
     }()
+    
+    private enum Section {
+        case main
+    }
+    
+    init(viewModel: FilmDetailViewModel) {
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -179,7 +189,6 @@ class FilmDetailViewController: UIViewController {
     // MARK: - UI Configuration
     
     private func setupNavigationBar() {
-        guard let viewModel else { return }
         title = viewModel.title
         navigationController?.navigationBar.prefersLargeTitles = false
     }
@@ -238,9 +247,7 @@ class FilmDetailViewController: UIViewController {
     
     // MARK: - View Model Configuration
     
-    private func configureWithViewModel() {
-        guard let viewModel else { return }
-        
+    private func configureWithViewModel() {        
         viewModel.onCharactersLoading = { [weak self] in
             guard let self = self else { return }
             self.isLoadingCharacters = true

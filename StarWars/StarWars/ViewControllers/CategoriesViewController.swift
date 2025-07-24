@@ -8,7 +8,7 @@
 import UIKit
 
 class CategoriesViewController: UIViewController {
-    var viewModel: CategoriesViewModel?
+    var viewModel: CategoriesViewModel
     var onCategorySelected: ((String?) -> Void)?
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, String>!
@@ -33,6 +33,16 @@ class CategoriesViewController: UIViewController {
         case main
     }
     
+    init(viewModel: CategoriesViewModel) {
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,7 +52,7 @@ class CategoriesViewController: UIViewController {
         setupCollectionView()
         setupErrorLabel()
         configureWithViewModel()
-        viewModel?.fetchCategories()
+        viewModel.fetchCategories()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -159,7 +169,7 @@ class CategoriesViewController: UIViewController {
     // MARK: - View Model Configuration
     
     private func configureWithViewModel() {
-        viewModel?.onCategoriesUpdated = { [weak self] in
+        viewModel.onCategoriesUpdated = { [weak self] in
             Task { [weak self] in
                 await MainActor.run {
                     self?.applySnapshot()
@@ -169,7 +179,7 @@ class CategoriesViewController: UIViewController {
             }
         }
         
-        viewModel?.onLoadingStateChanged = { [weak self] isLoading in
+        viewModel.onLoadingStateChanged = { [weak self] isLoading in
             Task { [weak self] in
                 await MainActor.run {
                     if isLoading {
@@ -183,7 +193,7 @@ class CategoriesViewController: UIViewController {
             }
         }
         
-        viewModel?.onError = { [weak self] message in
+        viewModel.onError = { [weak self] message in
             Task { [weak self] in
                 await MainActor.run {
                     if let errorMessage = message, !errorMessage.isEmpty {
@@ -217,17 +227,13 @@ class CategoriesViewController: UIViewController {
     }
     
     private func applySnapshot() {
-        guard let categoryNames = viewModel?.categoryNames else { return }
-        
-        let processedCategoryNames = categoryNames.map { name -> String in
-            var modifiedName = name
-            if name == "people" {
-                modifiedName = "characters"
-            }
+        let capitalizedCategoryNames = viewModel.categoryNames.map { name -> String in
+            let modifiedName = (name == "people")
+            ? "characters"
+            : name
+            
             return modifiedName.capitalized
         }
-        
-        let capitalizedCategoryNames = processedCategoryNames.map { $0.capitalized }
         
         var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
         snapshot.appendSections([.main])
@@ -240,7 +246,7 @@ class CategoriesViewController: UIViewController {
 
 extension CategoriesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedCategory = viewModel?.categoryNames[indexPath.item]
+        let selectedCategory = viewModel.categoryNames[indexPath.item]
         onCategorySelected?(selectedCategory)
     }
 }

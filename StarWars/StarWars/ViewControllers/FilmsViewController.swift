@@ -8,7 +8,7 @@
 import UIKit
 
 class FilmsViewController: UIViewController {
-    var viewModel: FilmsViewModel?
+    var viewModel: FilmsViewModel
     var onFilmSelected: ((Film) -> Void)?
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Film>!
@@ -33,6 +33,16 @@ class FilmsViewController: UIViewController {
         case main
     }
     
+    init(viewModel: FilmsViewModel) {
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,7 +52,7 @@ class FilmsViewController: UIViewController {
         setupCollectionView()
         setupErrorLabel()
         configureWithViewModel()
-        viewModel?.fetchFilms()
+        viewModel.fetchFilms()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,7 +151,7 @@ class FilmsViewController: UIViewController {
     // MARK: - View Model Configuration
     
     private func configureWithViewModel() {
-        viewModel?.onFilmsUpdated = { [weak self] in
+        viewModel.onFilmsUpdated = { [weak self] in
             Task { [weak self] in
                 await MainActor.run {
                     self?.applySnapshot()
@@ -151,7 +161,7 @@ class FilmsViewController: UIViewController {
             }
         }
         
-        viewModel?.onLoadingStateChanged = { [weak self] isLoading in
+        viewModel.onLoadingStateChanged = { [weak self] isLoading in
             Task { [weak self] in
                 await MainActor.run {
                     if isLoading {
@@ -166,7 +176,7 @@ class FilmsViewController: UIViewController {
             }
         }
         
-        viewModel?.onError = { [weak self] message in
+        viewModel.onError = { [weak self] message in
             Task { [weak self] in
                 await MainActor.run {
                     if let errorMessage = message, !errorMessage.isEmpty {
@@ -199,12 +209,10 @@ class FilmsViewController: UIViewController {
         }
     }
     
-    private func applySnapshot() {
-        guard let films = viewModel?.films else { return }
-        
+    private func applySnapshot() {        
         var snapshot = NSDiffableDataSourceSnapshot<Section, Film>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(films, toSection: .main)
+        snapshot.appendItems(viewModel.films, toSection: .main)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 }

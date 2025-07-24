@@ -34,7 +34,7 @@ final class CharactersCoordinator: Coordinator {
     func navigateToCharacterDetail(character: Character) {
         let characterDetailViewModel = CharacterDetailViewModel(character: character)
         
-        let characterDetailViewController = CharacterDetailViewController()
+        let characterDetailViewController = CharacterDetailViewController(viewModel: characterDetailViewModel)
         characterDetailViewController.viewModel = characterDetailViewModel
         
         navigationController.pushViewController(characterDetailViewController, animated: true)

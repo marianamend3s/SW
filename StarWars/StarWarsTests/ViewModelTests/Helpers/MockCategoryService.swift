@@ -9,9 +9,9 @@ import XCTest
 @testable import StarWars
 
 class MockCategoryService: CategoryService {
-    var result: Result<[String], Error>!
+    var result: Result<Categories, Error>!
 
-    func fetchCategoryNames() async throws -> [String] {
+    func fetchCategories() async throws -> Categories {
         switch result {
         case .success(let categories):
             return categories

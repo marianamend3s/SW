@@ -30,8 +30,11 @@ class CategoriesViewModel: BaseViewModel {
         
         Task {
             do {
-                let fetchedCategories = try await categoryService.fetchCategoryNames()
-                self.categoryNames = fetchedCategories
+                let fetchedCategories = try await categoryService.fetchCategories()
+
+                let mirror = Mirror(reflecting: fetchedCategories)
+                self.categoryNames = mirror.children.compactMap { $0.label }
+                
                 self.isLoading = false
                 
             } catch {

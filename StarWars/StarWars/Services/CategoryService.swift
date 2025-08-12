@@ -8,7 +8,7 @@
 import Foundation
 
 protocol CategoryService {
-    func fetchCategoryNames() async throws -> [String]
+    func fetchCategories() async throws -> Categories
 }
 
 class CategoryServiceImpl: NetworkFetchingService, CategoryService {
@@ -26,8 +26,7 @@ class CategoryServiceImpl: NetworkFetchingService, CategoryService {
         self.decoder = decoder
     }
     
-    func fetchCategoryNames() async throws -> [String] {
-        let categoryEndpoints = try await fetchData(from: urlString, decodingType: [String: URL].self)
-        return categoryEndpoints.keys.sorted()
+    func fetchCategories() async throws -> Categories {
+        return try await fetchData(from: urlString, decodingType: Categories.self)
     }
 }

@@ -6,7 +6,6 @@
 
 import UIKit
 
-@MainActor
 class CategoriesViewModel: BaseViewModel {
     private let categoryService: CategoryService
     
@@ -33,13 +32,16 @@ class CategoriesViewModel: BaseViewModel {
                 let fetchedCategories = try await categoryService.fetchCategories()
 
                 let mirror = Mirror(reflecting: fetchedCategories)
-                self.categoryNames = mirror.children.compactMap { $0.label }
                 
-                self.isLoading = false
-                
+                await MainActor.run {
+                    self.categoryNames = mirror.children.compactMap { $0.label }
+                    self.isLoading = false
+                }
             } catch {
-                self.errorMessage = error.localizedDescription
-                self.isLoading = false
+                await MainActor.run {
+                    self.errorMessage = error.localizedDescription
+                    self.isLoading = false
+                }
             }
         }
     }

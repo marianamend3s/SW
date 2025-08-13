@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 class FilmDetailViewModel {
     private let film: Film
     private let characterService: CharacterService
@@ -34,17 +33,21 @@ class FilmDetailViewModel {
     
     func fetchCharactersFromURL() {
         guard !film.characters.isEmpty else {
-            self.onCharactersLoaded?([])
+            Task { @MainActor in
+                self.onCharactersLoaded?([])
+            }
             return
         }
         
-        Task {
-            onCharactersLoading?()
+        Task { @MainActor in
+            self.onCharactersLoading?()
         }
         
         Task {
             let characters = await fetchCharactersConcurrently(urls: film.characters)
-            self.onCharactersLoaded?(characters)
+            await MainActor.run {
+                self.onCharactersLoaded?(characters)
+            }
         }
     }
     

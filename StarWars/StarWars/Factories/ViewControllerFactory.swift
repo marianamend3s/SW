@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 protocol ViewControllerFactory {
     func makeCategoriesViewController() -> CategoriesViewController
     func makeFilmsViewController() -> FilmsViewController

@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 class FilmsViewModel: BaseViewModel {
     private let filmsService: FilmService
     
@@ -34,11 +33,15 @@ class FilmsViewModel: BaseViewModel {
                 let fetchedFilms = try await filmsService.fetchFilms()
                 let orderedFilms = fetchedFilms.sorted { $0.episodeId < $1.episodeId }
                 
-                self.films = orderedFilms
-                self.isLoading = false
+                await MainActor.run {
+                    self.films = orderedFilms
+                    self.isLoading = false
+                }
             } catch {
-                self.errorMessage = error.localizedDescription
-                self.isLoading = false
+                await MainActor.run {
+                    self.errorMessage = error.localizedDescription
+                    self.isLoading = false
+                }
             }
         }
     }

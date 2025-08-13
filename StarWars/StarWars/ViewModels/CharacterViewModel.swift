@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 class CharacterViewModel: BaseViewModel {
     private let characterService: CharacterService
     
@@ -32,17 +31,19 @@ class CharacterViewModel: BaseViewModel {
         Task {
             do {
                 let fetchedCharacters = try await characterService.fetchCharacters()
-                
-                self.allCharacters = fetchedCharacters
-                self.currentPage = 0
-                self.pageCharacters = []
-                self.isLoading = false
-                self.loadNextPage()
+                await MainActor.run {
+                    self.allCharacters = fetchedCharacters
+                    self.currentPage = 0
+                    self.pageCharacters = []
+                    self.isLoading = false
+                    self.loadNextPage()
+                }
                 
             } catch {
-                self.errorMessage = error.localizedDescription
-                self.isLoading = false
-                
+                await MainActor.run {
+                    self.errorMessage = error.localizedDescription
+                    self.isLoading = false
+                }
             }
         }
     }

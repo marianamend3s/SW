@@ -7,7 +7,6 @@
 
 import Foundation
 
-@MainActor
 class BaseViewModel {
     var isLoading: Bool = false {
         didSet {

@@ -6,6 +6,9 @@
 - Open the project with XCode
 - Run the project
 
+## Post-delivery improvements:
+After the delivery date I continued to improve some bits of the app. Those changes are on this [branch](https://github.com/marianamend3s/SW/tree/post-delivery-improvements), and available on this [PR](https://github.com/marianamend3s/SW/pull/1).
+
 ## API:
 That API link on the requirements wasn't available (https://swapi.co), so I used this API instead: https://swapi.info
 
@@ -14,9 +17,6 @@ Version 14.2 (14C18)
 
 ## Architecture:
 This is a simple app, and I started with a MVVM architecture, and then changed it to a MVVM-C architecture.
-
-## Post-delivery improvements:
-After the delivery date I continued to improve some bits of the app. Those changes are on this [branch](https://github.com/marianamend3s/SW/tree/post-delivery-improvements), and available on this [PR](https://github.com/marianamend3s/SW/pull/1).
 
 ## TODOs:
 I didn't complete the app with all API info and, also, app development relies on continuous improvement.

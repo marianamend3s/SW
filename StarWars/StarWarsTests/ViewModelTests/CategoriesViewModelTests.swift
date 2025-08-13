@@ -28,7 +28,15 @@ final class CategoriesViewModelTests: XCTestCase {
     
     func test_GivenServiceValidResult_WhenGetCategories_ThenCategoryNamesAreUpdated() {
         // GIVEN
-        let expectedCategories = ["films", "starships", "people"]
+        let expectedCategories = Categories(
+            films: URL(string: "https://swapi.info/api/films")!,
+            people: URL(string: "https://swapi.info/api/people")!,
+            planets: URL(string: "https://swapi.info/api/planets")!,
+            species: URL(string: "https://swapi.info/api/species")!,
+            vehicles: URL(string: "https://swapi.info/api/vehicles")!,
+            starships: URL(string: "https://swapi.info/api/starships")!
+        )
+                
         mockCategoryService.result = .success(expectedCategories)
         
         let expectation = XCTestExpectation(description: "onCategoriesUpdated expectation")
@@ -37,18 +45,28 @@ final class CategoriesViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
+        let expectedCategoryNames = ["films", "people", "planets", "species", "vehicles", "starships"]
+        
         // WHEN
-        categoriesViewModel.getCategories()
+        categoriesViewModel.fetchCategories()
         wait(for: [expectation], timeout: 1.0)
         
-        // THEN
-        XCTAssertEqual(self.categoriesViewModel.categoryNames, expectedCategories)
         
+        // THEN
+        XCTAssertEqual(self.categoriesViewModel.categoryNames, expectedCategoryNames)
     }
     
     func test_GivenServiceValidResult_WhenGetCategories_ThenLoadingIsTrueThenFalse() {
         // GIVEN
-        let expectedCategories = ["films", "starships", "people"]
+        let expectedCategories = Categories(
+            films: URL(string: "https://swapi.info/api/films")!,
+            people: URL(string: "https://swapi.info/api/people")!,
+            planets: URL(string: "https://swapi.info/api/planets")!,
+            species: URL(string: "https://swapi.info/api/species")!,
+            vehicles: URL(string: "https://swapi.info/api/vehicles")!,
+            starships: URL(string: "https://swapi.info/api/starships")!
+        )
+
         mockCategoryService.result = .success(expectedCategories)
         
         let expectation1 = XCTestExpectation(description: "Loading is true")
@@ -65,7 +83,7 @@ final class CategoriesViewModelTests: XCTestCase {
         }
         
         // WHEN
-        categoriesViewModel.getCategories()
+        categoriesViewModel.fetchCategories()
         
         wait(for: [expectation1, expectation2], timeout: 1.0)
         
@@ -89,7 +107,7 @@ final class CategoriesViewModelTests: XCTestCase {
         }
         
         // WHEN
-        categoriesViewModel.getCategories()
+        categoriesViewModel.fetchCategories()
         wait(for: [errorExpectation], timeout: 1.0)
         
         // THEN

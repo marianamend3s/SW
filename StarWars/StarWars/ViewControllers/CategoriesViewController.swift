@@ -8,7 +8,7 @@
 import UIKit
 
 class CategoriesViewController: UIViewController {
-    var viewModel: CategoriesViewModel?
+    var viewModel: CategoriesViewModel
     var onCategorySelected: ((String?) -> Void)?
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, String>!
@@ -19,7 +19,7 @@ class CategoriesViewController: UIViewController {
         let label = UILabel()
         label.textColor = .red
         label.textAlignment = .center
-        label.numberOfLines = .zero
+        label.numberOfLines = 0
         label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -33,6 +33,16 @@ class CategoriesViewController: UIViewController {
         case main
     }
     
+    init(viewModel: CategoriesViewModel) {
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,7 +52,7 @@ class CategoriesViewController: UIViewController {
         setupCollectionView()
         setupErrorLabel()
         configureWithViewModel()
-        viewModel?.getCategories()
+        viewModel.fetchCategories()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -159,35 +169,41 @@ class CategoriesViewController: UIViewController {
     // MARK: - View Model Configuration
     
     private func configureWithViewModel() {
-        viewModel?.onCategoriesUpdated = { [weak self] in
-            DispatchQueue.main.async {
-                self?.applySnapshot()
-                self?.collectionView.isHidden = false
-                self?.errorLabel.isHidden = true
-            }
-        }
-        
-        viewModel?.onLoadingStateChanged = { [weak self] isLoading in
-            DispatchQueue.main.async {
-                if isLoading {
-                    self?.activityIndicator.startAnimating()
-                    self?.collectionView.isHidden = true
+        viewModel.onCategoriesUpdated = { [weak self] in
+            Task { [weak self] in
+                await MainActor.run {
+                    self?.applySnapshot()
+                    self?.collectionView.isHidden = false
                     self?.errorLabel.isHidden = true
-                } else {
-                    self?.activityIndicator.stopAnimating()
                 }
             }
         }
         
-        viewModel?.onError = { [weak self] message in
-            DispatchQueue.main.async {
-                if let errorMessage = message, !errorMessage.isEmpty {
-                    self?.errorLabel.text = errorMessage
-                    self?.errorLabel.isHidden = false
-                    self?.collectionView.isHidden = true
-                } else {
-                    self?.errorLabel.text = nil
-                    self?.errorLabel.isHidden = true
+        viewModel.onLoadingStateChanged = { [weak self] isLoading in
+            Task { [weak self] in
+                await MainActor.run {
+                    if isLoading {
+                        self?.activityIndicator.startAnimating()
+                        self?.collectionView.isHidden = true
+                        self?.errorLabel.isHidden = true
+                    } else {
+                        self?.activityIndicator.stopAnimating()
+                    }
+                }
+            }
+        }
+        
+        viewModel.onError = { [weak self] message in
+            Task { [weak self] in
+                await MainActor.run {
+                    if let errorMessage = message, !errorMessage.isEmpty {
+                        self?.errorLabel.text = errorMessage
+                        self?.errorLabel.isHidden = false
+                        self?.collectionView.isHidden = true
+                    } else {
+                        self?.errorLabel.text = nil
+                        self?.errorLabel.isHidden = true
+                    }
                 }
             }
         }
@@ -211,17 +227,13 @@ class CategoriesViewController: UIViewController {
     }
     
     private func applySnapshot() {
-        guard let categoryNames = viewModel?.categoryNames else { return }
-        
-        let processedCategoryNames = categoryNames.map { name -> String in
-            var modifiedName = name
-            if name == "people" {
-                modifiedName = "characters"
-            }
+        let capitalizedCategoryNames = viewModel.categoryNames.map { name -> String in
+            let modifiedName = (name == "people")
+            ? "characters"
+            : name
+            
             return modifiedName.capitalized
         }
-        
-        let capitalizedCategoryNames = processedCategoryNames.map { $0.capitalized }
         
         var snapshot = NSDiffableDataSourceSnapshot<Section, String>()
         snapshot.appendSections([.main])
@@ -234,7 +246,7 @@ class CategoriesViewController: UIViewController {
 
 extension CategoriesViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let selectedCategory = viewModel?.categoryNames[indexPath.item]
+        let selectedCategory = viewModel.categoryNames[indexPath.item]
         onCategorySelected?(selectedCategory)
     }
 }

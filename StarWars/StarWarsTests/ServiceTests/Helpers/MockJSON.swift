@@ -15,7 +15,11 @@ enum MockJSON {
     
     {
         "films": "https://swapi.info/api/films",
-        "people": "https://swapi.info/api/people"
+        "people": "https://swapi.info/api/people",
+        "planets": "https://swapi.info/api/planets",
+        "species": "https://swapi.info/api/species",
+        "vehicles": "https://swapi.info/api/vehicles",
+        "starships": "https://swapi.info/api/starships"
     }
     """
     

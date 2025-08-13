@@ -7,19 +7,21 @@
 
 import UIKit
 
-class CharactersCoordinator: Coordinator {
+final class CharactersCoordinator: Coordinator {
     var navigationController: UINavigationController
     var children: [Coordinator] = []
+    let factory: ViewControllerFactory
     
-    init(navigationController: UINavigationController) {
+    init(
+        navigationController: UINavigationController,
+        factory: ViewControllerFactory
+    ) {
         self.navigationController = navigationController
+        self.factory = factory
     }
     
     func start() {
-        let charactersService = CharacterServiceImpl()
-        let charactersViewModel = CharacterViewModel(characterService: charactersService)
-        let charactersViewController = CharactersViewController()
-        charactersViewController.viewModel = charactersViewModel
+        let charactersViewController = factory.makeCharactersViewController()
         
         charactersViewController.onCharacterSelected = { [weak self] character in
             self?.navigateToCharacterDetail(character: character)
@@ -31,7 +33,7 @@ class CharactersCoordinator: Coordinator {
     func navigateToCharacterDetail(character: Character) {
         let characterDetailViewModel = CharacterDetailViewModel(character: character)
         
-        let characterDetailViewController = CharacterDetailViewController()
+        let characterDetailViewController = CharacterDetailViewController(viewModel: characterDetailViewModel)
         characterDetailViewController.viewModel = characterDetailViewModel
         
         navigationController.pushViewController(characterDetailViewController, animated: true)

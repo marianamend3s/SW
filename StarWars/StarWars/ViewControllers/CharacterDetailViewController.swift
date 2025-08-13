@@ -8,7 +8,7 @@
 import UIKit
 
 class CharacterDetailViewController: UIViewController {
-    var viewModel: CharacterDetailViewModel?
+    var viewModel: CharacterDetailViewModel
     
     private let activityIndicator = UIActivityIndicatorView(style: .large)
     
@@ -16,7 +16,7 @@ class CharacterDetailViewController: UIViewController {
         let label = UILabel()
         label.textColor = .red
         label.textAlignment = .center
-        label.numberOfLines = .zero
+        label.numberOfLines = 0
         label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -104,7 +104,8 @@ class CharacterDetailViewController: UIViewController {
     }()
     
     private lazy var contentStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
+        let stackView = ViewFactory.secondaryVerticalStack()
+        stackView.addArrangedSubviews([
             infoLabel,
             createSeparator(),
             heightLabel,
@@ -116,12 +117,19 @@ class CharacterDetailViewController: UIViewController {
             genderLabel,
             createSeparator()
         ])
-        stackView.axis = .vertical
-        stackView.spacing = 15
-        stackView.alignment = .fill
-        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
         return stackView
     }()
+    
+    init(viewModel: CharacterDetailViewModel) {
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -140,7 +148,6 @@ class CharacterDetailViewController: UIViewController {
     // MARK: - UI Configuration
     
     private func setupNavigationBar() {
-        guard let viewModel else { return }
         title = viewModel.name
         navigationController?.navigationBar.prefersLargeTitles = false
     }
@@ -181,7 +188,6 @@ class CharacterDetailViewController: UIViewController {
     // MARK: - View Model Configuration
     
     private func configureWithViewModel() {
-        guard let viewModel else { return }
         heightLabel.text = "Height: \(viewModel.height) cm"
         massLabel.text =  "Mass: \(viewModel.mass) kg"
         hairLabel.text =  "Hair color: \(viewModel.hairColor)"

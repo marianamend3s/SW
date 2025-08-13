@@ -7,6 +7,8 @@
 
 import Foundation
 
+// TODO: make properties Optional for robustness
+
 struct Character: Codable, Hashable {
     let name: String
     let height: String

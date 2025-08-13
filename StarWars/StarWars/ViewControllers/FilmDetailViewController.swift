@@ -8,7 +8,7 @@
 import UIKit
 
 class FilmDetailViewController: UIViewController {
-    var viewModel: FilmDetailViewModel?
+    var viewModel: FilmDetailViewModel
     var onCharacterSelected: ((Character) -> Void)?
     
     private var characterItems: [CharacterDisplayItem] = []
@@ -34,7 +34,7 @@ class FilmDetailViewController: UIViewController {
         let label = UILabel()
         label.textColor = .red
         label.textAlignment = .center
-        label.numberOfLines = .zero
+        label.numberOfLines = 0
         label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -93,7 +93,7 @@ class FilmDetailViewController: UIViewController {
         let textView = UITextView()
         
         textView.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        textView.textColor = UIColor(red: 240/255, green: 240/255, blue: 200/255, alpha: 1)
+        textView.textColor = CellStyle.Constants.textViewTextColor
         textView.textAlignment = .center
         textView.isEditable = false
         textView.isScrollEnabled = true
@@ -101,16 +101,16 @@ class FilmDetailViewController: UIViewController {
         textView.translatesAutoresizingMaskIntoConstraints = false
         
         textView.backgroundColor = UIColor(red: 25/255, green: 25/255, blue: 25/255, alpha: 1)
-        textView.layer.cornerRadius = 12
+        textView.layer.cornerRadius = CellStyle.Constants.cornerRadius
         textView.layer.borderColor = UIColor.darkGray.cgColor
         textView.layer.borderWidth = 1
         
         textView.textContainerInset = UIEdgeInsets(top: 20, left: 20, bottom: 40, right: 20)
         
-        textView.layer.shadowColor = UIColor.yellow.cgColor
+        textView.layer.shadowColor = CellStyle.Constants.textShadowColor
         textView.layer.shadowOffset = CGSize(width: 0, height: 0)
-        textView.layer.shadowRadius = 6
-        textView.layer.shadowOpacity = 0.2
+        textView.layer.shadowRadius = CellStyle.Constants.cornerRadius
+        textView.layer.shadowOpacity = CellStyle.Constants.shimmerShadowOpacity
         
         return textView
     }()
@@ -130,12 +130,9 @@ class FilmDetailViewController: UIViewController {
         return UICollectionView()
     }()
     
-    private enum Section {
-        case main
-    }
-    
     private lazy var contentStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [
+        let stackView = ViewFactory.secondaryVerticalStack()
+        stackView.addArrangedSubviews([
             episodeLabel,
             createSeparator(),
             directorLabel,
@@ -149,13 +146,23 @@ class FilmDetailViewController: UIViewController {
             charactersCollectionView,
             createSeparator()
         ])
-        stackView.axis = .vertical
-        stackView.spacing = 15
-        stackView.alignment = .fill
-        stackView.translatesAutoresizingMaskIntoConstraints = false
         
         return stackView
     }()
+    
+    private enum Section {
+        case main
+    }
+    
+    init(viewModel: FilmDetailViewModel) {
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -182,7 +189,6 @@ class FilmDetailViewController: UIViewController {
     // MARK: - UI Configuration
     
     private func setupNavigationBar() {
-        guard let viewModel else { return }
         title = viewModel.title
         navigationController?.navigationBar.prefersLargeTitles = false
     }
@@ -241,9 +247,7 @@ class FilmDetailViewController: UIViewController {
     
     // MARK: - View Model Configuration
     
-    private func configureWithViewModel() {
-        guard let viewModel else { return }
-        
+    private func configureWithViewModel() {        
         viewModel.onCharactersLoading = { [weak self] in
             guard let self = self else { return }
             self.isLoadingCharacters = true
@@ -259,12 +263,15 @@ class FilmDetailViewController: UIViewController {
             guard let self = self else { return }
             self.isLoadingCharacters = false
             let displayItems = characters.map { CharacterDisplayItem(character: $0, isPlaceholder: false) }
-            DispatchQueue.main.async {
-                self.applyCharacterSnapshot(with: displayItems)
+            
+            Task { [weak self] in
+                await MainActor.run {
+                    self?.applyCharacterSnapshot(with: displayItems)
+                }
             }
         }
         
-        viewModel.getCharactersFromURL()
+        viewModel.fetchCharactersFromURL()
         
         episodeLabel.text = "Episode: \(viewModel.episodeId)"
         directorLabel.text = "Director: \(viewModel.director)"

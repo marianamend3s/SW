@@ -6,50 +6,39 @@
 
 import UIKit
 
-class CategoriesViewModel {
+class CategoriesViewModel: BaseViewModel {
     private let categoryService: CategoryService
-
+    
     var categoryNames: [String] = [] {
         didSet {
             onCategoriesUpdated?()
         }
     }
     
-    var isLoading: Bool = false {
-        didSet {
-            onLoadingStateChanged?(isLoading)
-        }
-    }
-    var errorMessage: String? {
-        didSet {
-            onError?(errorMessage)
-        }
-    }
-    
     var onCategoriesUpdated: (() -> Void)?
-    var onLoadingStateChanged: ((Bool) -> Void)?
-    var onError: ((String?) -> Void)?
-
+    
     init(categoryService: CategoryService) {
         self.categoryService = categoryService
     }
-
-    func getCategories() {
+    
+    func fetchCategories() {
         guard !isLoading else { return }
         
         isLoading = true
         errorMessage = nil
-
+        
         Task {
             do {
-                let fetchedCategories = try await categoryService.fetchCategoryNames()
+                let fetchedCategories = try await categoryService.fetchCategories()
 
-                DispatchQueue.main.async {
-                    self.categoryNames = fetchedCategories
+                let mirror = Mirror(reflecting: fetchedCategories)
+                
+                await MainActor.run {
+                    self.categoryNames = mirror.children.compactMap { $0.label }
                     self.isLoading = false
                 }
             } catch {
-                DispatchQueue.main.async {
+                await MainActor.run {
                     self.errorMessage = error.localizedDescription
                     self.isLoading = false
                 }

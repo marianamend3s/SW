@@ -8,7 +8,7 @@
 import UIKit
 
 class FilmsViewController: UIViewController {
-    var viewModel: FilmsViewModel?
+    var viewModel: FilmsViewModel
     var onFilmSelected: ((Film) -> Void)?
     
     private var dataSource: UICollectionViewDiffableDataSource<Section, Film>!
@@ -19,7 +19,7 @@ class FilmsViewController: UIViewController {
         let label = UILabel()
         label.textColor = .red
         label.textAlignment = .center
-        label.numberOfLines = .zero
+        label.numberOfLines = 0
         label.isHidden = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -33,6 +33,16 @@ class FilmsViewController: UIViewController {
         case main
     }
     
+    init(viewModel: FilmsViewModel) {
+        self.viewModel = viewModel
+        
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -42,7 +52,7 @@ class FilmsViewController: UIViewController {
         setupCollectionView()
         setupErrorLabel()
         configureWithViewModel()
-        viewModel?.getFilms()
+        viewModel.fetchFilms()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -141,35 +151,42 @@ class FilmsViewController: UIViewController {
     // MARK: - View Model Configuration
     
     private func configureWithViewModel() {
-        viewModel?.onFilmsUpdated = { [weak self] in
-            DispatchQueue.main.async {
-                self?.applySnapshot()
-                self?.collectionView.isHidden = false
-                self?.errorLabel.isHidden = true
-            }
-        }
-        
-        viewModel?.onLoadingStateChanged = { [weak self] isLoading in
-            DispatchQueue.main.async {
-                if isLoading {
-                    self?.activityIndicator.startAnimating()
-                    self?.collectionView.isHidden = true
+        viewModel.onFilmsUpdated = { [weak self] in
+            Task { [weak self] in
+                await MainActor.run {
+                    self?.applySnapshot()
+                    self?.collectionView.isHidden = false
                     self?.errorLabel.isHidden = true
-                } else {
-                    self?.activityIndicator.stopAnimating()
                 }
             }
         }
         
-        viewModel?.onError = { [weak self] message in
-            DispatchQueue.main.async {
-                if let errorMessage = message, !errorMessage.isEmpty {
-                    self?.errorLabel.text = errorMessage
-                    self?.errorLabel.isHidden = false
-                    self?.collectionView.isHidden = true
-                } else {
-                    self?.errorLabel.text = nil
-                    self?.errorLabel.isHidden = true
+        viewModel.onLoadingStateChanged = { [weak self] isLoading in
+            Task { [weak self] in
+                await MainActor.run {
+                    if isLoading {
+                        self?.activityIndicator.startAnimating()
+                        self?.collectionView.isHidden = true
+                        self?.errorLabel.isHidden = true
+                    } else {
+                        self?.activityIndicator.stopAnimating()
+                    }
+                }
+                
+            }
+        }
+        
+        viewModel.onError = { [weak self] message in
+            Task { [weak self] in
+                await MainActor.run {
+                    if let errorMessage = message, !errorMessage.isEmpty {
+                        self?.errorLabel.text = errorMessage
+                        self?.errorLabel.isHidden = false
+                        self?.collectionView.isHidden = true
+                    } else {
+                        self?.errorLabel.text = nil
+                        self?.errorLabel.isHidden = true
+                    }
                 }
             }
         }
@@ -192,12 +209,10 @@ class FilmsViewController: UIViewController {
         }
     }
     
-    private func applySnapshot() {
-        guard let films = viewModel?.films else { return }
-        
+    private func applySnapshot() {        
         var snapshot = NSDiffableDataSourceSnapshot<Section, Film>()
         snapshot.appendSections([.main])
-        snapshot.appendItems(films, toSection: .main)
+        snapshot.appendItems(viewModel.films, toSection: .main)
         dataSource.apply(snapshot, animatingDifferences: true)
     }
 }

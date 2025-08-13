@@ -7,6 +7,8 @@
 
 import Foundation
 
+// TODO: make properties Optional for robustness
+
 struct Film: Codable, Hashable {
     let title: String
     let episodeId: Int

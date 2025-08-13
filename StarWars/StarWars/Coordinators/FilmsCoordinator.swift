@@ -7,49 +7,39 @@
 
 import UIKit
 
-class FilmsCoordinator: Coordinator {
+final class FilmsCoordinator: Coordinator {
     var navigationController: UINavigationController
     var children: [Coordinator] = []
-    var characterService: CharacterService
-
-    init(navigationController: UINavigationController, characterService: CharacterService = CharacterServiceImpl()) {
+    let viewControllerFactory: ViewControllerFactory
+    
+    init(
+        navigationController: UINavigationController,
+        viewControllerFactory: ViewControllerFactory
+    ) {
         self.navigationController = navigationController
-        self.characterService = characterService
-    }
-
-    func start() {
-        let filmsService = FilmServiceImpl()
-        let filmsViewModel = FilmsViewModel(filmsService: filmsService)
-        let filmsViewController = FilmsViewController()
-        filmsViewController.viewModel = filmsViewModel
-        
-        filmsViewController.onFilmSelected = { [weak self] film in
-            self?.navigateToFilmDetails(film: film)
-        }
-        navigationController.pushViewController(filmsViewController, animated: true)
+        self.viewControllerFactory = viewControllerFactory
     }
     
-    func navigateToFilmDetails(film: Film) {
-        let filmDetailViewModel = FilmDetailViewModel(film: film, characterService: characterService)
+    func start() {
+        let filmsViewController = viewControllerFactory.makeFilmsViewController()
         
-        let filmDetailViewController = FilmDetailViewController()
-        filmDetailViewController.viewModel = filmDetailViewModel
+        filmsViewController.onFilmSelected = { [weak self] film in
+            guard let self else { return }
+            let filmDetailViewController = self.viewControllerFactory.makeFilmDetailViewController(for: film)
+            
+            filmDetailViewController.onCharacterSelected = { [weak self] character in
+                guard let self else { return }
+                let characterDetailViewController = self.viewControllerFactory.makeCharacterDetailViewController(for: character)
+                self.navigationController.pushViewController(characterDetailViewController, animated: true)
+            }
+            
+            self.navigationController.pushViewController(filmDetailViewController, animated: true)
+        }
         
-        onFilmCharacterSelected(filmDetailViewController: filmDetailViewController)
-        
-        navigationController.pushViewController(filmDetailViewController, animated: true)
+        navigationController.pushViewController(filmsViewController, animated: true)
     }
     
     func coordinatorDidFinish(_ coordinator: Coordinator) {
         children.removeAll { $0 === coordinator }
-    }
-    
-    private func onFilmCharacterSelected(filmDetailViewController: FilmDetailViewController) {
-        filmDetailViewController.onCharacterSelected = { [weak self] character in
-            let characterDetailViewModel = CharacterDetailViewModel(character: character)
-            let characterDetailViewController = CharacterDetailViewController()
-            characterDetailViewController.viewModel = characterDetailViewModel
-            self?.navigationController.pushViewController(characterDetailViewController, animated: true)
-        }
     }
 }

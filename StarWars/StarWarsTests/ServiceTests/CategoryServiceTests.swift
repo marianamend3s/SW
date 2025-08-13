@@ -31,13 +31,27 @@ class CategoryServiceTests: XCTestCase {
         // GIVEN
         let mockJSON = MockJSON.mockCategories
         mockSession.mockData = mockJSON.data(using: .utf8)
-        mockSession.mockResponse = HTTPURLResponse(url: URL(string: baseURL)!, statusCode: 200, httpVersion: nil, headerFields: nil)
+        mockSession.mockResponse = HTTPURLResponse(
+            url: URL(string: baseURL)!,
+            statusCode: 200,
+            httpVersion: nil,
+            headerFields: nil
+        )
 
+        let expectedCategories = Categories(
+            films: URL(string: "https://swapi.info/api/films")!,
+            people: URL(string: "https://swapi.info/api/people")!,
+            planets: URL(string: "https://swapi.info/api/planets")!,
+            species: URL(string: "https://swapi.info/api/species")!,
+            vehicles: URL(string: "https://swapi.info/api/vehicles")!,
+            starships: URL(string: "https://swapi.info/api/starships")!
+        )
+        
         // WHEN
-        let categories = try await categoryService.fetchCategoryNames()
+        let categories = try await categoryService.fetchCategories()
         
         // THEN
-        XCTAssertEqual(categories, ["films", "people"].sorted())
+        XCTAssertEqual(categories, expectedCategories)
     }
 
     func test_GivenInvalidURL_WhenFetchCategoryNames_ThenInvalidURLErrorIsThrown() async {
@@ -46,7 +60,7 @@ class CategoryServiceTests: XCTestCase {
         
         do {
             // WHEN
-            _ = try await categoryService.fetchCategoryNames()
+            _ = try await categoryService.fetchCategories()
             
             // THEN
             XCTFail("Expected invalidURL error")
@@ -69,7 +83,7 @@ class CategoryServiceTests: XCTestCase {
         
         do {
             // WHEN
-            _ = try await categoryService.fetchCategoryNames()
+            _ = try await categoryService.fetchCategories()
             
             // THEN
             XCTFail("Expected invalidResponse error")
@@ -92,7 +106,7 @@ class CategoryServiceTests: XCTestCase {
         
         do {
             // WHEN
-            _ = try await categoryService.fetchCategoryNames()
+            _ = try await categoryService.fetchCategories()
             
             // THEN
             XCTFail("Expected decodingError")
